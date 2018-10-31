@@ -4,4 +4,7 @@ git
 node
 npm install
 php artisan make:auth
-php artisan migrate
+php artisan migrate[:fresh]
+php artisan serve
+
+- CREATE SCHEMA
