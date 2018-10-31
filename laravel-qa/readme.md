@@ -19,3 +19,6 @@ php artisan make:controller QuestionsController --resource --model="Question"
 
 - CHANGE PAGINATION
 php artisan vendor:publish --tag=laravel-pagination
+
+- barryvdh/laravel-debugbar
+composer require barryvdh/laravel-debugbar --dev
