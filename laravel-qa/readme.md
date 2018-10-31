@@ -8,3 +8,8 @@ php artisan migrate[:fresh]
 php artisan serve
 
 - CREATE SCHEMA
+php artisane make:model Question -m
+
+- CREATE FACTORIES
+php artisan make:factory QuestionFactory
+php artisan migrate:fresh --seed
