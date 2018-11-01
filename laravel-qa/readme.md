@@ -23,5 +23,7 @@ php artisan vendor:publish --tag=laravel-pagination
 - barryvdh/laravel-debugbar
 composer require barryvdh/laravel-debugbar --dev
 
--- ROUTE LIST
+- ROUTE LIST
 php artisan route:list --name=questions
+
+- REQUEST
