@@ -28,3 +28,6 @@ php artisan route:list --name=questions
 
 - CREATE REQUEST
 php artisan make:request AskQuestionRequest
+
+- CREATE POLICY
+php artisan make:policy QuestionPolicy --model=Question
