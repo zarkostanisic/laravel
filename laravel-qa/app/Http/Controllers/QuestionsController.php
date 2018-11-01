@@ -59,7 +59,11 @@ class QuestionsController extends Controller
      */
     public function show(Question $question)
     {
-        dd($question);
+        $question->increment('views');
+        // $question->views +=1;
+        // $question->save();
+        
+        return view('questions.show', compact('question'));
     }
 
     /**
@@ -97,6 +101,8 @@ class QuestionsController extends Controller
      */
     public function destroy(Question $question)
     {
-        //
+        $question->delete();
+
+        return redirect(route('questions.index'))->with('success', 'Your question has been deleted!');
     }
 }

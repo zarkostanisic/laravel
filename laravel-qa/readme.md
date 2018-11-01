@@ -26,4 +26,5 @@ composer require barryvdh/laravel-debugbar --dev
 - ROUTE LIST
 php artisan route:list --name=questions
 
-- REQUEST
+- CREATE REQUEST
+php artisan make:request AskQuestionRequest
