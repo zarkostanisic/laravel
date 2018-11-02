@@ -6,8 +6,8 @@
                     <h2>{{ $answersCount }} {{ str_plural('answer', $answersCount) }}</h2>
                 </div>
                 <hr>
-                @include('layouts._messages');
-                
+                @include('layouts._messages')
+
                 @foreach ($answers as $answer)
                     <div class="media">
                         <div class="d-flex flex-column vote-controls">
@@ -24,6 +24,24 @@
                         </div>
                         <div class="media-body">
                             {!! $answer->body_html !!}
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="ml-auto">
+                                        @if (Auth::check())
+                                            @if (Auth::user()->can('update', $answer))
+                                            <a href="{{ route('questions.answers.edit', [$question->id, $answer->id]) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+                                            @endif
+                                            @can('delete', $answer)
+                                            <form class="form-delete" action="{{ route('questions.answers.destroy', [$question->id, $answer->id]) }}" method="post">
+                                               {{ method_field('DELETE') }}
+                                               @csrf
+                                               <button type="submit" class="btn btn-sm btn-outline-danger" onClick="return confirm('Are you sure?')">Delete</button>
+                                            </form>
+                                            @endcan
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
                             <div class="float-right">
                                 <span class="text-muted">Answered  {{ $answer->created_date }}</span>
                                 <div class="media mt-2">
