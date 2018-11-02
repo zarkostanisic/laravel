@@ -10,6 +10,10 @@ php artisan serve
 - CREATE SCHEMA
 php artisane make:model Question -m
 
+* rename column
+composer require doctrine/dbal
+php artisan make:migration rename_answers_column_in_questions_table --table="questions"
+
 - CREATE FACTORIES
 php artisan make:factory QuestionFactory
 php artisan migrate:fresh --seed
