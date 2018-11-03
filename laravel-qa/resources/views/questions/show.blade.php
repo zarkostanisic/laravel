@@ -58,6 +58,8 @@
         'answers' => $question->answers,
         'answersCount' => $question->answers_count
     ])
-    @include ('answers._create')
+    @if(Auth::check())
+        @include ('answers._create')
+    @endif
 </div>
 @endsection

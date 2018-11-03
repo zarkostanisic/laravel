@@ -69,4 +69,8 @@ class AnswersController extends Controller
 
         return redirect(route('questions.show', $question->slug))->with('success', 'Answer has been deleted.');
     }
+
+    public function accept(Answer $answer){
+        dd($answer);
+    }
 }
