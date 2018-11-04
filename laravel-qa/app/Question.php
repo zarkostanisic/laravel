@@ -4,8 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Question extends Model
+class Question extends Model 
 {
+    use VotableTrait;
+    
 	protected $fillable = [
 		'title',
 		'body'
@@ -26,11 +28,6 @@ class Question extends Model
     //many to many
     public function favourites(){
         return $this->belongsToMany(User::class, 'favourites')->withTimestamps();
-    }
-
-    // many to many polymorphic
-    public function votes(){
-        return $this->morphToMany(User::class, 'votable');
     }
 
     // END RELATIONS
@@ -84,13 +81,5 @@ class Question extends Model
         return $this->favourites()->count();
     }
     // END GETTERS
-
-    public function upVotes(){
-        return $this->votes()->wherePivot('vote', 1);
-    }
-
-    public function downVotes(){
-        return $this->votes()->wherePivot('vote', -1);
-    }
 
 }

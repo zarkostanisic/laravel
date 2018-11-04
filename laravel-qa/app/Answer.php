@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
 {
+    use VotableTrait;
+
     protected $fillable = [
         'body',
         'user_id'
@@ -21,11 +23,6 @@ class Answer extends Model
     // one to one
     public function question(){
     	return $this->belongsTo(Question::class);
-    }
-
-    // many to many polymorphic
-    public function votes(){
-        return $this->morphToMany(User::class, 'votable');
     }
 
     // END RELATIONS
@@ -52,14 +49,6 @@ class Answer extends Model
     }
 
     // END GETTERS
-
-    public function upVotes(){
-        return $this->votes()->wherePivot('vote', 1);
-    }
-
-    public function downVotes(){
-        return $this->votes()->wherePivot('vote', -1);
-    }
 
     public static function boot(){
     	parent::boot();
