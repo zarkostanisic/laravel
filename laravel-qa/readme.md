@@ -39,3 +39,6 @@ php artisan make:request AskQuestionRequest
 
 - CREATE POLICY
 php artisan make:policy QuestionPolicy --model=Question
+
+- XSS ATTACK
+composer require mews/purifier
