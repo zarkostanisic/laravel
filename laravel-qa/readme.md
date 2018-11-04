@@ -18,6 +18,10 @@ php artisan make:migration rename_answers_column_in_questions_table --table="que
 php artisan make:factory QuestionFactory
 php artisan migrate:fresh --seed
 
+- CREATE SEED
+php artisan make:seeder VotablesTableSeeder
+php artisan db:seed --class=VotablesTableSeeder
+
 - CREATE CONTROLLER
 php artisan make:controller QuestionsController --resource --model="Question"
 

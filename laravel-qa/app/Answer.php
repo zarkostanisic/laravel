@@ -11,14 +11,26 @@ class Answer extends Model
         'user_id'
     ];
 
+    // RELATIONS
+
+    // one to one
     public function user(){
     	return $this->belongsTo(User::class);
     }
 
+    // one to one
     public function question(){
     	return $this->belongsTo(Question::class);
     }
 
+    // many to many polymorphic
+    public function votes(){
+        return $this->morphToMany(User::class, 'votable');
+    }
+
+    // END RELATIONS
+
+    // GETTERS
     public function getCreatedDateAttribute(){
     	return $this->created_at->diffForHumans();
     }
@@ -37,6 +49,16 @@ class Answer extends Model
 
     public function isBest(){
         return $this->id == $this->question->best_answer_id;
+    }
+
+    // END GETTERS
+
+    public function upVotes(){
+        return $this->votes()->wherePivot('vote', 1);
+    }
+
+    public function downVotes(){
+        return $this->votes()->wherePivot('vote', -1);
     }
 
     public static function boot(){

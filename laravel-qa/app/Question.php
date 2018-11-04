@@ -11,23 +11,38 @@ class Question extends Model
 		'body'
 	];
 
+    // RELATIONS
+
+    // one to one
     public function user(){
     	return $this->belongsTo(User::class);
     }
 
+    // one to many
     public function answers(){
         return $this->hasMany(Answer::class);
     }
 
-     public function favourites(){
+    //many to many
+    public function favourites(){
         return $this->belongsToMany(User::class, 'favourites')->withTimestamps();
     }
 
+    // many to many polymorphic
+    public function votes(){
+        return $this->morphToMany(User::class, 'votable');
+    }
+
+    // END RELATIONS
+
+    // SETTERS
     public function setTitleAttribute($value){
         $this->attributes['title'] = $value;
         $this->attributes['slug'] = str_slug($value);
     }
+    // END SETTERS
 
+    // GETTERS
     public function getUrlAttribute(){
     	return route('questions.show', $this->slug);
     }
@@ -68,4 +83,14 @@ class Question extends Model
     public function getFavouritesCountAttribute(){
         return $this->favourites()->count();
     }
+    // END GETTERS
+
+    public function upVotes(){
+        return $this->votes()->wherePivot('vote', 1);
+    }
+
+    public function downVotes(){
+        return $this->votes()->wherePivot('vote', -1);
+    }
+
 }
