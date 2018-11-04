@@ -22,7 +22,7 @@ class Question extends Model
 
     // one to many
     public function answers(){
-        return $this->hasMany(Answer::class);
+        return $this->hasMany(Answer::class)->orderBy('votes_count', 'DESC');
     }
 
     //many to many
