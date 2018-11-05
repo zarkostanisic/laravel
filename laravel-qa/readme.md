@@ -1,6 +1,5 @@
 - SETUP PROJECT
 laravel new laravel-qa
-composer create-project laravel/laravel laravel-qa
 git
 node
 npm install
