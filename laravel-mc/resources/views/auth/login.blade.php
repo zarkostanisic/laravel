@@ -62,6 +62,13 @@
                                 </a>
                             </div>
                         </div>
+
+                        <div class="form-group row mb-0 mt-3">
+                            <div class="col-md-6 offset-md-4 text-right pl-0 pr-3">
+
+                                <a class="btn btn-primary" href="{{ route('login.facebook') }}">Login with FB</a>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
