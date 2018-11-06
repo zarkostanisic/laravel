@@ -22,7 +22,9 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->nullable();
             $table->string('facebook_profile')->nullable();
             $table->string('gender')->nullable();
+            $table->integer('role_id')->default(4)->index();
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
