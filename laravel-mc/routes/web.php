@@ -24,3 +24,27 @@ Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallba
 
 
 Auth::routes();
+
+Route::resource('categories', 'CategoriesController');
+
+Route::resource('categries', 'CategryController');
+
+Route::resource('categories', 'CategoryController');
+
+Route::resource('nominates', 'NominateController');
+
+Route::resource('users', 'UserController');
+
+Route::resource('nominationUsers', 'NominationUserController');
+
+Route::resource('nominations', 'NominationController');
+
+Route::resource('nominationUsers', 'NominationUserController');
+
+Route::resource('roles', 'RoleController');
+
+Route::resource('settings', 'SettingController');
+
+Route::resource('votings', 'VotingsController');
+
+Route::resource('votings', 'VotingController');
