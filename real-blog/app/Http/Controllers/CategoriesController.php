@@ -3,13 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Post;
+use App\Category;
 
-class PostsController extends Controller
+class CategoriesController extends Controller
 {
-    public function __construct(){
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -17,9 +14,9 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $categories = Category::all();
 
-        return view('admin.posts.index', compact('posts'));
+        return view('admin.categories.index', compact('categories'));  
     }
 
     /**
@@ -29,7 +26,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        return view('admin.categories.create');
     }
 
     /**
@@ -41,20 +38,14 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|max:255',
-            // 'featured' => 'required|image',
-            'body' => 'required'
+            'name' => 'required'
         ]);
 
-        $post = new Post();
-        $post->title = $request->title;
-        $post->body = $request->body;
-        $post->category_id = 0;
-        $post->featured = '';
+        $category = new Category;
+        $category->name = $request->name;
+        $category->save();
 
-        $post->save();
-
-        return  redirect()->route('posts.index')->with('success', 'Post has been created!');
+        return redirect()->route('categories.index')->with('success', 'Category has been created!');
     }
 
     /**
@@ -76,9 +67,9 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::find($id);
+        $category = Category::find($id);
 
-        return view('admin.posts.edit', compact('post'));
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -91,20 +82,14 @@ class PostsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'title' => 'required|max:255',
-            // 'featured' => 'required|image',
-            'body' => 'required'
+            'name' => 'required'
         ]);
 
-        $post = Post::find($id);
-        $post->title = $request->title;
-        $post->body = $request->body;
-        $post->category_id = 0;
-        $post->featured = '';
+        $category = Category::find($id);
+        $category->name = $request->name;
+        $category->save();
 
-        $post->save();
-
-        return  redirect()->route('posts.index')->with('success', 'Post has been updated!');
+        return redirect()->route('categories.index')->with('success', 'Category has been updated!');
     }
 
     /**
@@ -115,9 +100,9 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::find($id);
-        $post->delete();
+        $category = Category::find($id);
+        $category->delete();
 
-        return redirect()->back()->with('success', 'Post has been deleted!');
+        return redirect()->back()->with('success', 'Category has been deleted!');
     }
 }

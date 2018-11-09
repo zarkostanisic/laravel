@@ -10,6 +10,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
@@ -18,6 +20,8 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 </head>
@@ -83,12 +87,16 @@
                             <a href="{{ route('home') }}">Home</a>
                         </li>
                         <li class="list-group-item">
-                            <a href="{{ route('posts.create') }}">Create new post</a>
+                            <a href="{{ route('categories.index') }}">Categories</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ route('posts.index') }}">Posts</a>
                         </li>
                     </ul>
                 </div>
                 @endif
                 <div class="col-md-{{ Auth::check() ? '8' : 12}}">
+                    @include ('layouts.messages')
                     @yield('content')
                 </div>
             </div>
