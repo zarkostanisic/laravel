@@ -19,4 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('posts', 'PostsController');
+Route::group(['prefix' => 'admin', /*'middleware' => 'auth'*/], function(){
+	Route::get('/posts/create', 'PostsController@create')->name('posts.create');
+	Route::post('/posts/store', 'PostsController@store')->name('posts.store');
+});

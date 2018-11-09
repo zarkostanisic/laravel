@@ -76,6 +76,7 @@
 
         <main class="container">
             <div class="row pt-5">
+                @if (Auth::check())
                 <div class="col-md-4">
                     <ul class="list-group">
                         <li class="list-group-item">
@@ -86,7 +87,8 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-8">
+                @endif
+                <div class="col-md-{{ Auth::check() ? '8' : 12}}">
                     @yield('content')
                 </div>
             </div>
