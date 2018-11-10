@@ -12,7 +12,7 @@
 				{{ csrf_field() }}
 				<div class="form-group">
 					<label for="title">@lang('labels.title')</label>
-					<input type="text" name="title" id="title" class="form-control">
+					<input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}">
 				</div>
 
 				<div class="form-group">
@@ -35,7 +35,7 @@
 
 				<div class="form-group">
 					<label for="body">Body</label>
-					<textarea name="body" id="body" class="form-control"></textarea>
+					<textarea name="body" id="body" class="form-control">{{ old('body') }}</textarea>
 				</div>
 
 				<div class="form-group">

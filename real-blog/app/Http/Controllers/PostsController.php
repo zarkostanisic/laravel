@@ -115,7 +115,7 @@ class PostsController extends Controller
         $post->body = $request->body;
         $post->category_id = $request->category_id;
 
-        if(!empty($request->featured)){
+        if($request->hasFile('featured')){
             $featured = $request->featured;
             $featured_new_name = time() . $featured->getClientOriginalName();
 
@@ -159,4 +159,15 @@ class PostsController extends Controller
 
         return redirect()->back()->with('success', 'Post has been removed.');
     }
+
+    public function restore($id)
+    {
+        $post = Post::withTrashed()->where('id', $id)->first();
+
+        $post->restore();
+
+        return redirect()->back()->with('success', 'Post has been restored.');
+    }
+
+
 }

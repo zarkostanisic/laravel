@@ -31,12 +31,16 @@
 							<td>
 								<form action="{{ route('posts.remove', $post->id) }}" method="post">
 									{{ csrf_field() }}
+									{{ method_field('DELETE') }}
 									<button type="submit" class="btn btn-danger">REMOVE</button>
 								</form>
 							</td>
 
 							<td>
-								<a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">EDIT</a>
+								<form action="{{ route('posts.restore', $post->id) }}" method="post">
+									{{ csrf_field() }}
+									<button type="submit" class="btn btn-success">RESTORE</button>
+								</form>
 							</td>
 
 						</tr>
