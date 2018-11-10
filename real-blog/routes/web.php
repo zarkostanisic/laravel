@@ -21,8 +21,11 @@ Route::group(['prefix' => 'admin', /*'middleware' => 'auth'*/], function(){
 	Route::get('/home', 'HomeController@index')->name('home');
 	// Route::get('/posts/create', 'PostsController@create')->name('posts.create');
 	// Route::post('/posts/store', 'PostsController@store')->name('posts.store');
+
+	Route::post('/posts/remove/{id}', 'PostsController@remove')->name('posts.remove');
+	Route::get('/posts/trashed', 'PostsController@trashed')->name('posts.trashed');
+
 	Route::resource('posts', 'PostsController');
 
 	Route::resource('categories', 'CategoriesController');
-
 });

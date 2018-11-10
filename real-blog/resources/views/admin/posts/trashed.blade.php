@@ -7,16 +7,8 @@
 		<div class="card-body">
 
 			<h2 class="card-title">
-				Posts
+				Trashed posts
 			</h2>
-			
-			<a href="{{ route('posts.create') }}">
-				Create new post
-			</a>
-
-			<a href="{{ route('posts.trashed') }}">
-				Trashed
-			</a>
 
 			<div class="table-responsive">
 				<table class="table">
@@ -37,10 +29,9 @@
 							<td>{{ $post->category->name }}</td>
 							<td>{{ $post->body }}</td>
 							<td>
-								<form action="{{ route('posts.destroy', $post->id) }}" method="post">
+								<form action="{{ route('posts.remove', $post->id) }}" method="post">
 									{{ csrf_field() }}
-									{{ method_field('DELETE') }}
-									<button type="submit" class="btn btn-danger">DELETE</button>
+									<button type="submit" class="btn btn-danger">REMOVE</button>
 								</form>
 							</td>
 

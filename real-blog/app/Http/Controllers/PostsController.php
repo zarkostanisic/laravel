@@ -143,4 +143,20 @@ class PostsController extends Controller
 
         return redirect()->back()->with('success', 'Post has been deleted!');
     }
+
+    public function trashed()
+    {
+        $posts = Post::onlyTrashed()->get();
+
+        return view('admin.posts.trashed', compact('posts'));
+    }
+
+    public function remove($id)
+    {
+        $post = Post::withTrashed()->where('id', $id)->first();
+
+        $post->forceDelete();
+
+        return redirect()->back()->with('success', 'Post has been removed.');
+    }
 }
