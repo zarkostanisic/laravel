@@ -32,6 +32,10 @@ class PostsController extends Controller
     {
         $categories = Category::all();
 
+        if($categories->count() == 0){
+            return redirect()->back()->with('info', 'You must have some categories before you add post!');
+        }
+
         return view('admin.posts.create', compact('categories'));
     }
 
