@@ -27,6 +27,6 @@ class Post extends Model
     }
 
     public function getFeaturedAttribute($value){
-    	return '/uploads/posts/' . $value;
+    	return asset('/uploads/posts/' . $value);
     }
 }
