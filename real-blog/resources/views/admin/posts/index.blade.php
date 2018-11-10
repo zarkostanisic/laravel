@@ -18,7 +18,9 @@
 				<table class="table">
 					<tr>
 						<th>Id</th>
+						<th>Image</th>
 						<th>Title</th>
+						<th>Category</th>
 						<th>Body</th>
 						<th></th>
 						<th></th>
@@ -26,7 +28,9 @@
 					@foreach ($posts as $post)
 						<tr>
 							<td>{{ $post->id }}</td>
+							<td><img src="{{ $post->featured }}" width="40" height="40"></td>
 							<td>{{ $post->title }}</td>
+							<td>{{ $post->category->name }}</td>
 							<td>{{ $post->body }}</td>
 							<td>
 								<form action="{{ route('posts.destroy', $post->id) }}" method="post">

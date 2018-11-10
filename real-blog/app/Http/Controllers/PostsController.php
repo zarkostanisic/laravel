@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Category;
 
 class PostsController extends Controller
 {
@@ -29,7 +30,9 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        $categories = Category::all();
+
+        return view('admin.posts.create', compact('categories'));
     }
 
     /**
@@ -42,17 +45,22 @@ class PostsController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|max:255',
-            // 'featured' => 'required|image',
-            'body' => 'required'
+            'featured' => 'required|image',
+            'body' => 'required',
+            'category_id' => 'required'
         ]);
 
-        $post = new Post();
-        $post->title = $request->title;
-        $post->body = $request->body;
-        $post->category_id = 0;
-        $post->featured = '';
+        $featured = $request->featured;
+        $featured_new_name = time() . $featured->getClientOriginalName();
 
-        $post->save();
+        $featured->move('uploads/posts', $featured_new_name);
+
+        $post = Post::create([
+            'title' => $request->title,
+            'body' => $request->body,
+            'category_id' => $request->category_id,
+            'featured' => $featured_new_name
+        ]);
 
         return  redirect()->route('posts.index')->with('success', 'Post has been created!');
     }
@@ -77,8 +85,9 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
+        $categories = Category::all();
 
-        return view('admin.posts.edit', compact('post'));
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -93,14 +102,24 @@ class PostsController extends Controller
         $this->validate($request, [
             'title' => 'required|max:255',
             // 'featured' => 'required|image',
-            'body' => 'required'
+            'body' => 'required',
+            'category_id' => 'required'
         ]);
 
         $post = Post::find($id);
         $post->title = $request->title;
         $post->body = $request->body;
-        $post->category_id = 0;
-        $post->featured = '';
+        $post->category_id = $request->category_id;
+
+        if(!empty($request->featured)){
+            $featured = $request->featured;
+            $featured_new_name = time() . $featured->getClientOriginalName();
+
+            if($featured->move('uploads/posts', $featured_new_name)){
+                $post->featured = $featured_new_name;
+            }
+
+        }
 
         $post->save();
 
