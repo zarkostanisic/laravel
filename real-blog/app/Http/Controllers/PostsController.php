@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Category;
+use App\Tag;
 
 class PostsController extends Controller
 {
@@ -31,12 +32,13 @@ class PostsController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
         if($categories->count() == 0){
             return redirect()->back()->with('info', 'You must have some categories before you add post!');
         }
 
-        return view('admin.posts.create', compact('categories'));
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -47,11 +49,13 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request, [
             'title' => 'required|max:255',
             'featured' => 'required|image',
             'body' => 'required',
-            'category_id' => 'required'
+            'category_id' => 'required',
+            'tags' => 'required'
         ]);
 
         $featured = $request->featured;
@@ -65,6 +69,8 @@ class PostsController extends Controller
             'category_id' => $request->category_id,
             'featured' => $featured_new_name
         ]);
+
+        $post->tags()->attach($request->tags);
 
         return  redirect()->route('posts.index')->with('success', 'Post has been created!');
     }
@@ -88,10 +94,12 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::find($id);
+        $post = Post::find($id); 
+        $post_tags = $post->tags->pluck('id')->all();       
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('admin.posts.edit', compact('post', 'categories'));
+        return view('admin.posts.edit', compact('post', 'categories', 'tags', 'post_tags'));
     }
 
     /**
@@ -107,7 +115,8 @@ class PostsController extends Controller
             'title' => 'required|max:255',
             // 'featured' => 'required|image',
             'body' => 'required',
-            'category_id' => 'required'
+            'category_id' => 'required',
+            'tags' => 'required'
         ]);
 
         $post = Post::find($id);
@@ -126,6 +135,8 @@ class PostsController extends Controller
         }
 
         $post->save();
+
+        $post->tags()->sync($request->tags);
 
         return  redirect()->route('posts.index')->with('success', 'Post has been updated!');
     }
