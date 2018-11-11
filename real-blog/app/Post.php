@@ -17,8 +17,14 @@ class Post extends Model
 		'deleted_at'
 	];
 
+    // ONE TO MANY
     public function category(){
     	return $this->belongsTo('App\Category');
+    }
+
+    // MANY TO MANY
+    public function tags(){
+        return $this->belongsToMany('App\Tag');
     }
 
     public function setTitleAttribute($value){

@@ -7,32 +7,32 @@
 		<div class="card-body">
 
 			<h2 class="card-title">
-				Categories
+				Tags
 			</h2>
 
 			<ul class="list-inline pb-1">
 				<li class="list-inline-item">
-					<a href="{{ route('categories.create') }}">
-						Create new category
+					<a href="{{ route('tags.create') }}">
+						Create new tag
 					</a>
 				</li>
 			</ul>
 
 			<div class="table-responsive">
-				@if (count($categories) > 0)
+				@if (count($tags) > 0)
 					<table class="table">
 						<tr>
 							<th>Id</th>
-							<th>Name</th>
+							<th>Tag</th>
 							<th></th>
 							<th></th>
 						</tr>
-						@foreach ($categories as $category)
+						@foreach ($tags as $tag)
 							<tr>
-								<td>{{ $category->id }}</td>
-								<td>{{ $category->name }}</td>
+								<td>{{ $tag->id }}</td>
+								<td>{{ $tag->tag }}</td>
 								<td>
-									<form action="{{ route('categories.destroy', $category->id) }}" method="post">
+									<form action="{{ route('tags.destroy', $tag->id) }}" method="post">
 										{{ csrf_field() }}
 										{{ method_field('DELETE') }}
 										<button type="submit" class="btn btn-danger">DELETE</button>
@@ -40,14 +40,14 @@
 								</td>
 
 								<td>
-									<a href="{{ route('categories.edit', $category->id) }}" class="btn btn-primary">EDIT</a>
+									<a href="{{ route('tags.edit', $tag->id) }}" class="btn btn-primary">EDIT</a>
 								</td>
 
 							</tr>
 						@endforeach
 					</table>
 				@else
-					<span class="card">No added categories.</span>
+					<span class="card">No added tags.</span>
 				@endif
 			</div>
 		</div>

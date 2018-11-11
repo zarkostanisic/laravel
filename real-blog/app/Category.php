@@ -17,6 +17,7 @@ class Category extends Model
 		'deleted_at'
 	];
 
+	// ONE TO MANY
     public function posts(){
     	return $this->hasMany('App\Post');
     }
