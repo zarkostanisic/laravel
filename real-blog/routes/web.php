@@ -38,4 +38,7 @@ Route::group(['prefix' => 'admin', /*'middleware' => 'auth'*/], function(){
 
 	Route::post('/users/admin/{id}', 'UsersController@admin')->name('users.admin');
 	Route::resource('users', 'UsersController');
+
+	Route::get('/settings', 'SettingsController@edit')->name('settings.edit')->middleware('admin');
+	Route::patch('/settings', 'SettingsController@update')->name('settings.update')->middleware('admin');
 });

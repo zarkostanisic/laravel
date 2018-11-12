@@ -57,3 +57,12 @@
 		</div>
 	</div>
 @endsection
+
+@section ('scripts')
+<script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+<script type="text/javascript">
+	tinymce.init({
+	    selector: '#body'
+	});
+</script>
+@endsection

@@ -14,13 +14,12 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
@@ -100,6 +99,10 @@
                             <li class="list-group-item">
                                 <a href="{{ route('users.index') }}">Users</a>
                             </li>
+
+                            <li class="list-group-item">
+                                <a href="{{ route('settings.edit') }}">Settings</a>
+                            </li>
                         @endif
                     </ul>
                 </div>
@@ -111,5 +114,6 @@
             </div>
         </main>
     </div>
+    @yield ('scripts')
 </body>
 </html>
