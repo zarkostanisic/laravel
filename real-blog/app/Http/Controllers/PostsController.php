@@ -38,6 +38,10 @@ class PostsController extends Controller
             return redirect()->back()->with('info', 'You must have some categories before you add post!');
         }
 
+        if($tags->count() == 0){
+            return redirect()->back()->with('info', 'You must have some tags before you add post!');
+        }
+
         return view('admin.posts.create', compact('categories', 'tags'));
     }
 

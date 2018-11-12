@@ -96,9 +96,11 @@
                             <a href="{{ route('tags.index') }}">Tags</a>
                         </li>
 
-                        <li class="list-group-item">
-                            <a href="{{ route('users.index') }}">Users</a>
-                        </li>
+                        @if (Auth::user()->admin)
+                            <li class="list-group-item">
+                                <a href="{{ route('users.index') }}">Users</a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
                 @endif

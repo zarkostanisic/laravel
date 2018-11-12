@@ -6,53 +6,46 @@
 
 		<div class="card-body">
 
-			<h2 class="card-title">Edit post {{ $post->title }}</h2>
+			<h2 class="card-title">Edit user {{ $user->id }}</h2>
 
-			<form action="{{ route('posts.update', $post->id) }}" method="post" enctype="multipart/form-data">
+			<form action="{{ route('users.update', $user->id) }}" method="post" enctype="multipart/form-data">
 				{{ csrf_field() }}
 				{{ method_field('PATCH') }}
 				<div class="form-group">
-					<label for="title">Title</label>
-					<input type="text" name="title" id="title" class="form-control" value="{{ old('title', $post->title) }}">
+					<label for="name">Name</label>
+					<input type="text" name="name" id="name" class="form-control" value="{{ old('name', $user->name) }}">
 				</div>
 
 				<div class="form-group">
-					<label for="category_id">Category</label>
-					<select name="category_id" id="category_id" class="form-control">
-						<option value="">Choose</option>
-						@foreach ($categories as $category)
-							<option value="{{ $category->id }}"
-								{{ old('category_id', $post->category_id) == $category-> id ? 'selected' : ''  }}
-								>{{ $category->name }}
-							</option>
-						@endforeach
-					</select>
+					<label for="password">Password</label>
+					<input type="password" name="password" id="password" class="form-control">
 				</div>
 
 				<div class="form-group">
-					<label for="featured">Featured</label>
-					<input type="file" name="featured" id="featured" class="form-control">
+					<label for="password_confirmation">Password confirmation</label>
+					<input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
+				</div>
+
+ 				<div class="form-group">
+					<label for="about">About</label>
+					<textarea name="about" id="about" class="form-control">
+						{{ old('about', $user->profile->about) }}
+					</textarea>
 				</div>
 
 				<div class="form-group">
-					<label for="body">Body</label>
-					<textarea name="body" id="body" class="form-control">{{ old('body', $post->body) }}</textarea>
+					<label for="facebook">Facebook</label>
+					<input type="text" name="facebook" id="facebook" class="form-control" value="{{ old('facebook', $user->profile->facebook) }}">
 				</div>
 
 				<div class="form-group">
-				 <label for="tags">Tags</label>
-				 @foreach ($tags as $tag)
-				  <div class="form-check">
-					  <input class="form-check-input" type="checkbox" 
-					  	value="{{ $tag->id }}" 
-					  	id="tags-{{ $tag->id }}" name="tags[]" 
-					  	{{ in_array($tag->id, $post_tags) ? 'checked' : '' }}
-					  >
-					  <label class="form-check-label" for="tags-{{ $tag->id }}">
-					    {{ $tag->tag }}
-					  </label>
-				  </div>
-				  @endforeach
+					<label for="youtube">Youtube</label>
+					<input type="text" name="youtube" id="youtube" class="form-control" value="{{ old('youtube', $user->profile->youtube) }}">
+				</div>
+
+				<div class="form-group">
+					<label for="avatar">Avatar</label>
+					<input type="file" name="avatar" id="avatar" class="form-control">
 				</div>
 
 				<div class="form-group">

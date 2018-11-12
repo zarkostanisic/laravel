@@ -8,6 +8,9 @@ use App\Profile;
 
 class UsersController extends Controller
 {
+    public function __construct(){
+        $this->middleware('admin');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -42,16 +45,7 @@ class UsersController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required|confirmed',
-            'avatar' => 'required',
-            'about' => 'required',
-            'facebook' => 'required',
-            'youtube' => 'required'
         ]);
-
-        
-        $avatar = $request->avatar;
-        $avatar_new_name = time() . $avatar->getClientOriginalName();
-        $avatar->move('uploads/avatars', $avatar_new_name);
 
         $user = User::create([
             'name' => $request->name,
@@ -61,10 +55,6 @@ class UsersController extends Controller
 
         $profile = Profile::create([
             'user_id' =>  $user->id,
-            'avatar' => $avatar_new_name,
-            'about' => $request->about,
-            'facebook' => $request->facebook,
-            'youtube' => $request->youtube
         ]);
 
         return redirect()->route('users.index')->with('success', 'User has been created.');
@@ -89,7 +79,9 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
@@ -101,7 +93,40 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'password' => 'confirmed',
+            'about' => 'required',
+            'facebook' => 'required|url',
+            'youtube' => 'required|url',
+            'avatar' => 'image',
+        ]);
+
+        $user = User::find($id);
+
+        $user->name = $request->name;
+
+        if($request->has('password')){
+            $user->password = bcrypt($request->password);
+        }
+
+        if($request->hasFile('avatar')){
+            $avatar = $request->avatar;
+            $avatar_new_name = time() . $avatar->getClientOriginalName();
+            $avatar->move('uploads/avatars', $avatar_new_name);
+
+            $user->profile->avatar = $avatar_new_name;
+        }
+
+        $user->profile->about = $request->about;
+        $user->profile->facebook = $request->facebook;
+        $user->profile->youtube = $request->youtube;
+
+        $user->profile->save();
+        $user->save();
+
+
+        return redirect()->route('users.index')->with('success', 'User has been updated');
     }
 
     /**
@@ -112,7 +137,11 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->profile->delete();
+        $user->delete();
+
+        return redirect()->route('users.index')->with('User has been deleted.');
     }
 
     public function admin($id){

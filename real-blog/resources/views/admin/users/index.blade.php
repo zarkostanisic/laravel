@@ -28,6 +28,7 @@
 							<th>Permisions</th>
 							<th></th>
 							<th></th>
+							<th></th>
 						</tr>
 						@foreach ($users as $user)
 							<tr>
@@ -35,25 +36,34 @@
 								<td><img src="{{ $user->profile->avatar }}" width="40" height="40" title="{{ $user->name }}"></td>
 								<td>{{ $user->email}}</td>
 								<td>
-									 <form action="{{ route('users.admin', $user->id) }}" method="post">
-									 	{{ csrf_field() }}
-									 	<div class="form-group">
-									 		<button type="submit" class="btn {{ $user->admin ? 'btn-danger' : 'btn-success' }}">
-									 			{{ $user->admin ? 'Remove permissions' : 'Make as admin' }}
-									 		</button>
-									 	</div>
-									 </form>
+									@if (Auth::user()->can('update', $user))
+										 <form action="{{ route('users.admin', $user->id) }}" method="post">
+										 	{{ csrf_field() }}
+										 	<div class="form-group">
+										 		<button type="submit" class="btn {{ $user->admin ? 'btn-danger' : 'btn-success' }}">
+										 			{{ $user->admin ? 'Remove permissions' : 'Make as admin' }}
+										 		</button>
+										 	</div>
+										 </form>
+									 @endif
+								</td>
+
 								<td>
+									@if (Auth::user()->can('update', $user))
+										<a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">EDIT</a>
+									@endif
+								</td>
+
+								<td>
+									@if (Auth::user()->can('delete', $user))
 									<form action="{{ route('users.destroy', $user->id) }}" method="post">
 										{{ csrf_field() }}
 										{{ method_field('DELETE') }}
 										<button type="submit" class="btn btn-danger">DELETE</button>
 									</form>
+									@endif
 								</td>
 
-								<td>
-									<a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">EDIT</a>
-								</td>
 
 							</tr>
 						@endforeach

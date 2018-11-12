@@ -9,3 +9,9 @@ php artisan make:model Post -m
 
 - CREATE CONTROLLER
 php artisan make:controller PostsController --resource
+
+- CREATE MIDDLEWARE
+php artisan make:middleware Admin
+
+- CREATE POLICY
+php artisan make:policy UserPolicy --model=Post
