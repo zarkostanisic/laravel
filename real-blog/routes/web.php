@@ -11,13 +11,11 @@
 |
 */
 
-Route::get('/test', function(){
-	return App\Post::find(10)->tags;
-});
+// Route::get('/test', function(){
+// 	return App\Post::find(10)->tags;
+// });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'FrontEndController@index');
 
 Auth::routes();
 

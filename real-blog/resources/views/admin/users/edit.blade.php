@@ -1,7 +1,7 @@
-@extends ('layouts.app')
+@extends ('admin.layouts.app')
 
 @section ('content')
-	@include ('layouts.errors')
+	@include ('admin.layouts.errors')
 	<div class="card">
 
 		<div class="card-body">

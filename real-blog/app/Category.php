@@ -26,4 +26,8 @@ class Category extends Model
     	$this->attributes['name'] = $value;
     	$this->attributes['slug'] = str_slug($value);
     }
+
+    public function home_posts(){
+    	return $this->posts()->limit(3);
+    }
 }
