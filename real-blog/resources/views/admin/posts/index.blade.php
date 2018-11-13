@@ -32,6 +32,7 @@
 							<th>Image</th>
 							<th>Title</th>
 							<th>Category</th>
+							<th>User</th>
 							<th>Body</th>
 							<th></th>
 							<th></th>
@@ -42,6 +43,7 @@
 								<td><img src="{{ $post->featured }}" width="40" height="40" title="{{ $post->title }}"></td>
 								<td>{{ $post->title }}</td>
 								<td>{{ $post->category->name }}</td>
+								<td>{{ $post->user->name }}</td>
 								<td>{{ $post->body }}</td>
 								<td>
 									<form action="{{ route('posts.destroy', $post->id) }}" method="post">

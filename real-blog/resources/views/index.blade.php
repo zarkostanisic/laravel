@@ -16,7 +16,7 @@
                         <a href="{{ $post->featured }}" class="link-image js-zoom-image">
                             <i class="seoicon-zoom"></i>
                         </a>
-                        <a href="#" class="link-post">
+                        <a href="{{ route('single', $post->slug) }}" class="link-post">
                             <i class="seoicon-link-bold"></i>
                         </a>
                     </div>
@@ -26,7 +26,7 @@
                         <div class="post__content-info">
 
                                 <h2 class="post__title entry-title ">
-                                    <a href="15_blog_details.html">{{ $post->title }}</a>
+                                    <a href="{{ route('single', $post->slug) }}">{{ $post->title }}</a>
                                 </h2>
 
                                 <div class="post-additional-info">
@@ -44,7 +44,7 @@
 
                                     <span class="category">
                                         <i class="seoicon-tags"></i>
-                                        <a href="#">{{ $post->category->name }}</a>
+                                        <a href="{{ route('category', $post->category->slug) }}">{{ $post->category->name }}</a>
                                     </span>
 
                                     <span class="post__comments">
@@ -89,7 +89,7 @@
                                     <img src="{{ $post->featured }}" alt="our case">
                                 </div>
                                 <h6 class="case-item__title">
-                                    <a href="#">{{ $post->title }}</a>
+                                    <a href="{{ route('single', $post->slug) }}">{{ $post->title }}</a>
                                 </h6>
                             </div>
                         </div>

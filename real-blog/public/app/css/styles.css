@@ -2511,10 +2511,10 @@ body.author .blog-details-author {
 
 /*------------- #PAGINATION --------------*/
 .pagination, .swiper-pagination {
-  position: absolute;
+  position: relative;
   transition: all .3s ease;
   align-items: center; }
-  .pagination .pagination-item, .pagination .swiper-pagination-bullet, .swiper-pagination .pagination-item, .swiper-pagination .swiper-pagination-bullet {
+  .pagination .page-item, .pagination .swiper-pagination-bullet, .swiper-pagination .page-item, .swiper-pagination .swiper-pagination-bullet {
     display: inline-block;
     width: 15px;
     height: 15px;
@@ -2524,40 +2524,40 @@ body.author .blog-details-author {
     cursor: pointer;
     transition: all .3s ease; }
     @media (max-width: 640px) {
-      .pagination .pagination-item, .pagination .swiper-pagination-bullet, .swiper-pagination .pagination-item, .swiper-pagination .swiper-pagination-bullet {
+      .pagination .page-item, .pagination .swiper-pagination-bullet, .swiper-pagination .page-item, .swiper-pagination .swiper-pagination-bullet {
         width: 10px;
         height: 10px; } }
-    .pagination .pagination-item.active, .pagination .pagination-item.swiper-pagination-bullet-active, .pagination .swiper-pagination-bullet.active, .pagination .swiper-pagination-bullet.swiper-pagination-bullet-active, .swiper-pagination .pagination-item.active, .swiper-pagination .pagination-item.swiper-pagination-bullet-active, .swiper-pagination .swiper-pagination-bullet.active, .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    .pagination .page-item.active, .pagination .page-item.swiper-pagination-bullet-active, .pagination .swiper-pagination-bullet.active, .pagination .swiper-pagination-bullet.swiper-pagination-bullet-active, .swiper-pagination .page-item.active, .swiper-pagination .page-item.swiper-pagination-bullet-active, .swiper-pagination .swiper-pagination-bullet.active, .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
       width: 15px;
       height: 15px;
       background-color: transparent;
       border: 2px solid #4cc2c0;
       transition: all .3s ease; }
       @media (max-width: 640px) {
-        .pagination .pagination-item.active, .pagination .pagination-item.swiper-pagination-bullet-active, .pagination .swiper-pagination-bullet.active, .pagination .swiper-pagination-bullet.swiper-pagination-bullet-active, .swiper-pagination .pagination-item.active, .swiper-pagination .pagination-item.swiper-pagination-bullet-active, .swiper-pagination .swiper-pagination-bullet.active, .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
+        .pagination .page-item.active, .pagination .page-item.swiper-pagination-bullet-active, .pagination .swiper-pagination-bullet.active, .pagination .swiper-pagination-bullet.swiper-pagination-bullet-active, .swiper-pagination .page-item.active, .swiper-pagination .page-item.swiper-pagination-bullet-active, .swiper-pagination .swiper-pagination-bullet.active, .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
           width: 10px;
           height: 10px;
           border-width: 1px; } }
-  .pagination.light .pagination-item, .pagination.light .swiper-pagination-bullet, .swiper-pagination.light .pagination-item, .swiper-pagination.light .swiper-pagination-bullet {
+  .pagination.light .page-item, .pagination.light .swiper-pagination-bullet, .swiper-pagination.light .page-item, .swiper-pagination.light .swiper-pagination-bullet {
     background-color: #f0f2f2; }
-    .pagination.light .pagination-item.active, .pagination.light .swiper-pagination-bullet.active, .swiper-pagination.light .pagination-item.active, .swiper-pagination.light .swiper-pagination-bullet.active {
+    .pagination.light .page-item.active, .pagination.light .swiper-pagination-bullet.active, .swiper-pagination.light .page-item.active, .swiper-pagination.light .swiper-pagination-bullet.active {
       background-color: transparent;
       border: 2px solid #4cc2c0; }
-  .pagination.dark .pagination-item, .pagination.dark .swiper-pagination-bullet, .swiper-pagination.dark .pagination-item, .swiper-pagination.dark .swiper-pagination-bullet {
+  .pagination.dark .page-item, .pagination.dark .swiper-pagination-bullet, .swiper-pagination.dark .page-item, .swiper-pagination.dark .swiper-pagination-bullet {
     background-color: #2f2c2c; }
-    .pagination.dark .pagination-item.active, .pagination.dark .swiper-pagination-bullet.active, .swiper-pagination.dark .pagination-item.active, .swiper-pagination.dark .swiper-pagination-bullet.active {
+    .pagination.dark .page-item.active, .pagination.dark .swiper-pagination-bullet.active, .swiper-pagination.dark .page-item.active, .swiper-pagination.dark .swiper-pagination-bullet.active {
       background-color: transparent;
       border: 2px solid #fff; }
-  .pagination.grey .pagination-item, .pagination.grey .owl-dot, .swiper-pagination.grey .pagination-item, .swiper-pagination.grey .owl-dot {
+  .pagination.grey .page-item, .pagination.grey .owl-dot, .swiper-pagination.grey .page-item, .swiper-pagination.grey .owl-dot {
     background-color: #d7d7d7; }
-    .pagination.grey .pagination-item.active, .pagination.grey .owl-dot.active, .swiper-pagination.grey .pagination-item.active, .swiper-pagination.grey .owl-dot.active {
+    .pagination.grey .page-item.active, .pagination.grey .owl-dot.active, .swiper-pagination.grey .page-item.active, .swiper-pagination.grey .owl-dot.active {
       background-color: transparent;
       border: 2px solid #4cc2c0; }
-  .pagination.pagination-vertical .pagination-item, .pagination.pagination-vertical .owl-dot, .swiper-pagination.pagination-vertical .pagination-item, .swiper-pagination.pagination-vertical .owl-dot {
+  .pagination.pagination-vertical .page-item, .pagination.pagination-vertical .owl-dot, .swiper-pagination.pagination-vertical .page-item, .swiper-pagination.pagination-vertical .owl-dot {
     display: block;
     margin: 9px auto;
     background-color: #acd373; }
-    .pagination.pagination-vertical .pagination-item.active, .pagination.pagination-vertical .owl-dot.active, .swiper-pagination.pagination-vertical .pagination-item.active, .swiper-pagination.pagination-vertical .owl-dot.active {
+    .pagination.pagination-vertical .page-item.active, .pagination.pagination-vertical .owl-dot.active, .swiper-pagination.pagination-vertical .page-item.active, .swiper-pagination.pagination-vertical .owl-dot.active {
       border-color: #fff;
       background-color: transparent; }
 
@@ -4055,9 +4055,9 @@ textarea {
     @media (max-width: 640px) {
       .testimonial-slider .testimonial-item .pagination, .testimonial-slider .testimonial-item .swiper-pagination {
         right: 0; } }
-    .testimonial-slider .testimonial-item .pagination .pagination-item, .testimonial-slider .testimonial-item .pagination .swiper-pagination-bullet, .testimonial-slider .testimonial-item .swiper-pagination .pagination-item, .testimonial-slider .testimonial-item .swiper-pagination .swiper-pagination-bullet {
+    .testimonial-slider .testimonial-item .pagination .page-item, .testimonial-slider .testimonial-item .pagination .swiper-pagination-bullet, .testimonial-slider .testimonial-item .swiper-pagination .page-item, .testimonial-slider .testimonial-item .swiper-pagination .swiper-pagination-bullet {
       background-color: #2f2c2c; }
-      .testimonial-slider .testimonial-item .pagination .pagination-item.active, .testimonial-slider .testimonial-item .pagination .pagination-item.swiper-pagination-bullet-active, .testimonial-slider .testimonial-item .pagination .swiper-pagination-bullet.active, .testimonial-slider .testimonial-item .pagination .swiper-pagination-bullet.swiper-pagination-bullet-active, .testimonial-slider .testimonial-item .swiper-pagination .pagination-item.active, .testimonial-slider .testimonial-item .swiper-pagination .pagination-item.swiper-pagination-bullet-active, .testimonial-slider .testimonial-item .swiper-pagination .swiper-pagination-bullet.active, .testimonial-slider .testimonial-item .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
+      .testimonial-slider .testimonial-item .pagination .page-item.active, .testimonial-slider .testimonial-item .pagination .page-item.swiper-pagination-bullet-active, .testimonial-slider .testimonial-item .pagination .swiper-pagination-bullet.active, .testimonial-slider .testimonial-item .pagination .swiper-pagination-bullet.swiper-pagination-bullet-active, .testimonial-slider .testimonial-item .swiper-pagination .page-item.active, .testimonial-slider .testimonial-item .swiper-pagination .page-item.swiper-pagination-bullet-active, .testimonial-slider .testimonial-item .swiper-pagination .swiper-pagination-bullet.active, .testimonial-slider .testimonial-item .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
         background-color: transparent;
         border: 2px solid #fff; }
     @media (max-width: 768px) {

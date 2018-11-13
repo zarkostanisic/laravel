@@ -10,7 +10,7 @@ class Post extends Model
 	use SoftDeletes;
 
 	protected $fillable = [
-		'title', 'slug', 'body', 'category_id', 'featured'
+		'title', 'slug', 'body', 'category_id', 'user_id', 'featured'
 	];
 
 	protected $dates = [
@@ -20,6 +20,10 @@ class Post extends Model
     // ONE TO MANY
     public function category(){
     	return $this->belongsTo('App\Category');
+    }
+
+    public function user(){
+        return $this->belongsTo('App\User');
     }
 
     // MANY TO MANY

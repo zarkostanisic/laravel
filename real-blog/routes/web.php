@@ -15,7 +15,11 @@
 // 	return App\Post::find(10)->tags;
 // });
 
-Route::get('/', 'FrontEndController@index');
+Route::get('/', 'FrontEndController@index')->name('index');
+Route::get('/post/{slug}', 'FrontEndController@single')->name('single');
+Route::get('/category/{slug}', 'FrontEndController@category')->name('category');
+Route::get('/tag/{id}', 'FrontEndController@tag')->name('tag');
+Route::get('/search', 'FrontEndController@search')->name('search');
 
 Auth::routes();
 

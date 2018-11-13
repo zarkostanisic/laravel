@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Category;
 use App\Tag;
+use Auth;
 
 class PostsController extends Controller
 {
@@ -71,6 +72,7 @@ class PostsController extends Controller
             'title' => $request->title,
             'body' => $request->body,
             'category_id' => $request->category_id,
+            'user_id' => Auth::user()->id,
             'featured' => $featured_new_name
         ]);
 

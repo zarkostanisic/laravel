@@ -3,13 +3,13 @@
 <head lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Seosight - Index Page</title>
+    <title>{{ $title }}</title>
 
     <link rel="stylesheet" type="text/css" href="{{ asset('app/css/fonts.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app/css/crumina-fonts.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app/css/normalize.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app/css/grid.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app/css/styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app/css/styles.css?v=2') }}">
 
 
     <!--Plugins styles-->
