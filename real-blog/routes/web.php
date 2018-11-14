@@ -20,6 +20,7 @@ Route::get('/post/{slug}', 'FrontEndController@single')->name('single');
 Route::get('/category/{slug}', 'FrontEndController@category')->name('category');
 Route::get('/tag/{id}', 'FrontEndController@tag')->name('tag');
 Route::get('/search', 'FrontEndController@search')->name('search');
+Route::post('/subscribe', 'FrontEndController@subscribe')->name('subscribe');
 
 Auth::routes();
 

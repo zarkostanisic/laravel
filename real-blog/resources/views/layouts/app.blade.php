@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('app/css/swiper.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app/css/primary-menu.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('app/css/magnific-popup.css') }}">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 
     <!--Styles for RTL-->
 
@@ -35,11 +36,14 @@
         }
     </style>
 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
 </head>
 
 
 <body class=" ">
-
+@include ('includes.messages')
 <div class="content-wrapper">
     
     @include ('includes.header')
@@ -49,6 +53,7 @@
 </div>
 
 
+@include ('includes.subscribe')
 
 @include ('includes.footer')
 
@@ -66,7 +71,6 @@
 <script src="{{ asset('app/js/velocity.min.js') }}"></script>
 <script src="{{ asset('app/js/ScrollMagic.min.js') }}"></script>
 <script src="{{ asset('app/js/animation.velocity.min.js') }}"></script>
-
 
 <!-- ...end JS Script -->
 

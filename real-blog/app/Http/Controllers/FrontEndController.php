@@ -7,6 +7,7 @@ use App\Category;
 use App\Setting;
 use App\Post;
 use App\Tag;
+use Newsletter;
 
 class FrontEndController extends Controller
 {
@@ -72,5 +73,21 @@ class FrontEndController extends Controller
 
 
     	return view('search', compact('settings', 'categories', 'query', 'title', 'posts', 'tags'));
+    }
+
+    public function subscribe(Request $request){
+        $request->validate([
+            'email' => 'required|email'
+        ]);
+
+        $message = 'You are successfully subscribed.';
+        
+        if(Newsletter::hasMember($request->email)){
+            $message = 'You are already subscribed.';
+        }
+
+        Newsletter::subscribe($request->email);
+
+        return redirect()->back()->with('success', $message);
     }
 }
