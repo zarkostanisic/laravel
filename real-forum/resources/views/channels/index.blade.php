@@ -23,7 +23,7 @@
                         <tbody>
                             @foreach ($channels as $channel)
                             <tr>
-                                <td>{{ $channel->title }}</td>
+                                <td><a href="{{ route('channel', $channel->id) }}">{{ $channel->title }}</a></td>
                                 <td><a href="{{ route('channels.edit', $channel->id) }}" class="btn btn-primary">EDIT</a></td>
                                 <td>
                                     <form action="{{ route('channels.destroy', $channel->id) }}" method="post">

@@ -24,7 +24,7 @@
                         <tbody>
                             @foreach ($discusions as $discusion)
                             <tr>
-                                <td><a href="{{ route('discusions.show', $discusion->slug)}}">{{ $discusion->title }}</a></td>
+                                <td><a href="{{ route('discusion', $discusion->slug)}}">{{ $discusion->title }}</a></td>
                                 <td>{{ $discusion->channel->title }}</td>
                                 <td><a href="{{ route('discusions.edit', $discusion->id) }}" class="btn btn-primary">EDIT</a></td>
                                 <td>

@@ -23,7 +23,10 @@ Route::get('/{provider}/auth', 'SocialsController@auth')->name('social.auth');
 Route::get('/{provider}/redirect', 'SocialsController@redirect')->name('social.redirect');
 
 Route::group(['middleware' => 'auth'], function(){
-	Route::resource('channels', 'ChannelsController');
+	Route::resource('channels', 'ChannelsController')->except('show');
 
-	Route::resource('discusions', 'DiscusionsController');
+	Route::resource('discusions', 'DiscusionsController')->except('show');
 });
+
+Route::get('/channel/{id}', 'ForumController@channel')->name('channel');
+Route::get('/discusion/{id}', 'ForumController@discusion')->name('discusion');

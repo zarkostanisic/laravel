@@ -19,6 +19,6 @@ class Discusion extends Model
     }
 
     public function replies(){
-    	return $this->hasMany('App\Discusion');
+    	return $this->hasMany('App\Reply');
     }
 }
