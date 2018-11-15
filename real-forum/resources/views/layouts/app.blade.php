@@ -75,7 +75,9 @@
         <div class="container py-4">
             <div class="row">
                 <div class="col-md-4">
-                    <a href="{{ route('channels.create') }}" class="form-control btn btn-success mb-1">Create a new channel</a>
+                    @if (Auth::user()->admin)
+                        <a href="{{ route('channels.create') }}" class="form-control btn btn-success mb-1">Create a new channel</a>
+                    @endif
                     <a href="{{ route('discusions.create') }}" class="form-control btn btn-primary mb-1">Create a new discusion</a>
                     <div class="row">
                         <div class="col-md-12">

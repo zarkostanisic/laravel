@@ -10,6 +10,9 @@ use App\Channel;
 
 class DiscusionsController extends Controller
 {
+    public function __construct(){
+        $this->middleware('admin')->except(['create', 'store']);
+    }
     /**
      * Display a listing of the resource.
      *

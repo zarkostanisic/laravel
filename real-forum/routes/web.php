@@ -22,7 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/{provider}/auth', 'SocialsController@auth')->name('social.auth');
 Route::get('/{provider}/redirect', 'SocialsController@redirect')->name('social.redirect');
 
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function(){
 	Route::resource('channels', 'ChannelsController')->except('show');
 
 	Route::resource('discusions', 'DiscusionsController')->except('show');
