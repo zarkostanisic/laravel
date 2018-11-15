@@ -30,3 +30,4 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function(){
 
 Route::get('/channel/{id}', 'ForumController@channel')->name('channel');
 Route::get('/discusion/{id}', 'ForumController@discusion')->name('discusion');
+Route::post('/discusion/reply/{id}', 'ForumController@reply')->name('discusion.reply');

@@ -14,7 +14,7 @@
                         @foreach ($discusions as $discusion)
                             <li class="list-group-item">
                                 <img src="{{ $discusion->user->avatar }}" width="40" height="40" style="border-radius: 50%;">
-                                <span>{{ $discusion->user->name }}</span>
+                                <span>{{ $discusion->user->name }} {{ $discusion->created_at->diffForHumans() }}</span>
                                 <hr>
                                 <a href="{{ route('discusion', $discusion->slug)}}">{{ $discusion->title }}</a>
                                 <p>{!! str_limit($discusion->body, 200) !!}</p>

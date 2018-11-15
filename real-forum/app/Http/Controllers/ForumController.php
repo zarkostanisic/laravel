@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Channel;
 use App\Discusion;
+use App\Reply;
+use Auth;
 
 class ForumController extends Controller
 {
@@ -16,8 +18,23 @@ class ForumController extends Controller
     }
 
     public function discusion($slug){
-    	$discusion = Discusion::where('slug', $slug)->first();
+    	$discusion = Discusion::with(['replies', 'user', 'replies.user'])->where('slug', $slug)->first();
 
         return view('discusion', compact('discusion'));
+    }
+
+    public function reply(Request $request, $id){
+
+    	$request->validate([
+    		'body' => 'required'
+    	]);
+
+    	Reply::create([
+    		'user_id' => Auth::user()->id,
+    		'discusion_id' => $id,
+    		'body' => $request->body
+    	]);
+
+    	return redirect()->back();
     }
 }
