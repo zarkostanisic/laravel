@@ -6,8 +6,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    Channels
-                    <a href="{{ route('channels.create' )}}">Create new channel</a>
+                    Discusions
+                    <a href="{{ route('discusions.create' )}}">Create new discusion</a>
                 </div>
 
                 <div class="card-body">
@@ -15,18 +15,20 @@
                         <thead>
                             <tr>
                                 <th>Title</th>
+                                <th>Channel</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @foreach ($channels as $channel)
+                            @foreach ($discusions as $discusion)
                             <tr>
-                                <td>{{ $channel->title }}</td>
-                                <td><a href="{{ route('channels.edit', $channel->id) }}" class="btn btn-primary">EDIT</a></td>
+                                <td><a href="{{ route('discusions.show', $discusion->slug)}}">{{ $discusion->title }}</a></td>
+                                <td>{{ $discusion->channel->title }}</td>
+                                <td><a href="{{ route('discusions.edit', $discusion->id) }}" class="btn btn-primary">EDIT</a></td>
                                 <td>
-                                    <form action="{{ route('channels.destroy', $channel->id) }}" method="post">
+                                    <form action="{{ route('discusions.destroy', $discusion->id) }}" method="post">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
                                         <button type="submit" class="btn btn-danger">DELETE</button>
@@ -37,7 +39,7 @@
                         </tbody>
                     </table>
 
-                    {{ $channels->links() }}
+                    {{ $discusions->links() }}
                 </div>
             </div>
         </div>

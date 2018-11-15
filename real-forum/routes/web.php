@@ -24,4 +24,6 @@ Route::get('/{provider}/redirect', 'SocialsController@redirect')->name('social.r
 
 Route::group(['middleware' => 'auth'], function(){
 	Route::resource('channels', 'ChannelsController');
+
+	Route::resource('discusions', 'DiscusionsController');
 });

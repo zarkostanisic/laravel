@@ -14,7 +14,7 @@ class ChannelsController extends Controller
      */
     public function index()
     {
-        $channels = Channel::all();
+        $channels = Channel::paginate(3);
 
         return view('channels.index', compact('channels'));
     }
@@ -53,7 +53,10 @@ class ChannelsController extends Controller
      */
     public function show($id)
     {
-        //
+        $channel = Channel::with('discusions')->where('id', $id)->first();
+        $discusions = $channel->discusions()->paginate(2);
+
+        return view('channels.show', compact('channel', 'discusions'));
     }
 
     /**
