@@ -10,8 +10,8 @@ use Auth;
 
 class ForumController extends Controller
 {
-    public function channel($id){
-    	$channel = Channel::with(['discusions', 'discusions.user'])->where('id', $id)->first();
+    public function channel($slug){
+    	$channel = Channel::with(['discusions', 'discusions.user'])->where('slug', $slug)->first();
         $discusions = $channel->discusions()->latest()->paginate(2);
 
         return view('channel', compact('channel', 'discusions'));
@@ -36,5 +36,20 @@ class ForumController extends Controller
     	]);
 
     	return redirect()->back();
+    }
+
+    public function like($id){
+        $reply = Reply::find($id);
+        $reply->likes()->attach(Auth::user()->id);
+
+        // Auth::user()->likes()->attach($id);
+        return redirect()->back();
+    }
+
+    public function unlike($id){
+        $reply = Reply::find($id);
+        $reply->likes()->detach();
+
+        return redirect()->back();
     }
 }

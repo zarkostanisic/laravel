@@ -52,7 +52,7 @@
                             @if(Auth::user()->admin)
                                 <li class="nav-item dropdown">
                                     <a href="{{ route('dashboard') }}" class="nav-link">
-                                        <strong>Dashboard</strong>
+                                        <strong>Admin</strong>
                                     </a>
                                 </li>                                    
                             @endif
@@ -82,23 +82,18 @@
         <div class="container py-4">
             <div class="row">
                 <div class="col-md-4">
-                    @if (Auth::check())
-                        @if (Auth::user()->admin)
-                            <a href="{{ route('channels.create') }}" class="form-control btn btn-success mb-1">Create a new channel</a>
-                        @endif
-                        <a href="{{ route('discusions.create') }}" class="form-control btn btn-primary mb-1">Create a new discusion</a>
-                    @endif
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
-                                <div class="card-header">Channels</div>
                                 <div class="card-body">
                                     <ul class="list-group">
-                                        @foreach ($channels as $channel)
                                         <li class="list-group-item">
-                                            <a href="{{ route('channel', $channel->slug) }}">{{ $channel->title }}</a>
+                                            <a href="{{ route('channels.index') }}">Channels</a>
                                         </li>
-                                        @endforeach
+
+                                        <li class="list-group-item">
+                                            <a href="{{ route('discusions.index') }}">Discusions</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

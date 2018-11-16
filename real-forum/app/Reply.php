@@ -20,7 +20,7 @@ class Reply extends Model
     }
 
     public function likes(){
-        return $this->belongsToMany('App\Reply', 'likes');
+        return $this->belongsToMany('App\Reply', 'likes', 'reply_id', 'user_id');
     }
 
     public function is_liked_by_auth_user(){

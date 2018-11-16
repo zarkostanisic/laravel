@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends (Auth::user()->admin ? 'layouts.admin' : 'layouts.app')
 
 @section('content')
 <div class="container">
@@ -7,7 +7,9 @@
             <div class="card">
                 <div class="card-header">
                     Create new discusion
-                    <a href="{{ route('discusions.index' )}}">Back</a>
+                    @if (Auth::user()->admin)
+                        <a href="{{ route('discusions.index' )}}">Back</a>
+                    @endif
                 </div>
 
                 <div class="card-body">

@@ -32,11 +32,22 @@
                                 <p>{!! str_limit($reply->body, 200) !!}</p>
                                 <hr>
                                 <p>
-                                    {{ $reply->likes->count() }} {{ str_plural('like', $reply->likes->count()) }}
-                                    @if ($reply->is_liked_by_auth_user())
-                                        <button class="btn btn-danger">UNLIKE</button>
-                                    @else
-                                        <button class="btn btn-success">LIKE</button>
+                                    <span class="badge">
+                                        {{ $reply->likes->count() }} {{ str_plural('like', $reply->likes->count()) }}
+                                    </span>
+
+                                    @if (Auth::check())
+                                        @if ($reply->is_liked_by_auth_user())
+                                            <form action="{{ route('reply.unlike', $reply->id) }}" method="post">
+                                                {{ csrf_field() }}
+                                                <button type="submit" class="btn btn-danger">UNLIKE</button>
+                                            </form>
+                                        @else
+                                            <form action="{{ route('reply.like', $reply->id) }}" method="post">
+                                                {{ csrf_field() }}
+                                                <button type="submit" class="btn btn-success">LIKE</button>
+                                            </form>
+                                        @endif
                                     @endif
                                 </p>
                             </li>

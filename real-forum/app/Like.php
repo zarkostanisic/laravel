@@ -10,11 +10,11 @@ class Like extends Model
     	'reply_id', 'user_id'
     ];
 
-    public function reply(){
-    	return $this->belongsTo('App\Reply', 'likes');
+    public function replies(){
+    	return $this->belongsToMany('App\Reply', 'likes');
     }
 
-    public function user(){
-    	return $this->belongsTo('App\User', 'likes');
+    public function users(){
+    	return $this->belongsToMany('App\User', 'likes');
     }
 }
