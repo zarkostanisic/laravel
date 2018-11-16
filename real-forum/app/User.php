@@ -37,6 +37,6 @@ class User extends Authenticatable
     }
 
     public function likes(){
-        return $this->belongsToMany('App\Reply', 'likes', 'user_id', 'reply_id');
+        return $this->belongsToMany('App\Reply', 'likes');
     }
 }

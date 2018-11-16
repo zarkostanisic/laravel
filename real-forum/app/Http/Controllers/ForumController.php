@@ -48,7 +48,9 @@ class ForumController extends Controller
 
     public function unlike($id){
         $reply = Reply::find($id);
-        $reply->likes()->detach();
+        $reply->likes()->detach(Auth::user()->id);
+
+        // Auth::user()->likes()->detach($id);
 
         return redirect()->back();
     }

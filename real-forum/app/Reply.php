@@ -20,11 +20,11 @@ class Reply extends Model
     }
 
     public function likes(){
-        return $this->belongsToMany('App\Reply', 'likes', 'reply_id', 'user_id');
+        return $this->belongsToMany('App\User', 'likes');
     }
 
     public function is_liked_by_auth_user(){
-    	$likers = $this->likes->pluck('user_id')->all();
+    	$likers = $this->likes->pluck('id')->all();
 
     	return in_array(Auth::user()->id, $likers);
     }
