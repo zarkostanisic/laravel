@@ -39,3 +39,5 @@ Route::post('/discusion/unwatch/{id}', 'ForumController@unwatch')->name('discusi
 
 Route::post('/reply/like/{id}', 'ForumController@like')->name('reply.like');
 Route::post('/reply/unlike/{id}', 'ForumController@unlike')->name('reply.unlike');
+Route::post('/reply/best_answer/{id}', 'ForumController@best_answer')->name('reply.best_answer');
+Route::post('/reply/best_answer_revise/{id}', 'ForumController@best_answer_revise')->name('reply.best_answer_revise');

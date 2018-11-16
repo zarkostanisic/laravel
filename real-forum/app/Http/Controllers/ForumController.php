@@ -20,8 +20,9 @@ class ForumController extends Controller
 
     public function discusion($slug){
     	$discusion = Discusion::with(['replies', 'user', 'replies.user'])->where('slug', $slug)->first();
+        $best_answer = $discusion->replies()->where('best_answer', 1)->first();
 
-        return view('discusion', compact('discusion'));
+        return view('discusion', compact('discusion', 'best_answer'));
     }
 
     public function reply(Request $request, $id){
@@ -30,11 +31,14 @@ class ForumController extends Controller
     		'body' => 'required'
     	]);
 
-    	Reply::create([
+    	$reply = Reply::create([
     		'user_id' => Auth::user()->id,
     		'discusion_id' => $id,
     		'body' => $request->body
     	]);
+
+        $reply->user->points += 500;
+        $reply->user->save();
 
         $discusion = Discusion::find($id);
         $watchers = $discusion->watchers;
@@ -73,6 +77,32 @@ class ForumController extends Controller
         $discusion = Discusion::find($id);
 
         $discusion->watchers()->detach(Auth::user()->id);
+
+        return redirect()->back();
+    }
+
+    public function best_answer($id){
+        $reply = Reply::find($id);
+
+        $reply->best_answer = 1;
+
+        $reply->save();
+
+        $reply->user->points += 100;
+        $reply->user->save();
+
+        return redirect()->back();
+    }
+
+    public function best_answer_revise($id){
+        $reply = Reply::find($id);
+
+        $reply->best_answer = 0;
+
+        $reply->save();
+
+        $reply->user->points -= 100;
+        $reply->user->save();
 
         return redirect()->back();
     }

@@ -25,10 +25,38 @@
 
                 <div class="card-body">
                     <img src="{{ $discusion->user->avatar }}" width="40" height="40" style="border-radius: 50%;">
-                        <span>{{ $discusion->user->name }} {{ $discusion->created_at->diffForHumans() }}</span>
+                        <span>
+                            {{ $discusion->user->name }}
+                            <strong>({{ $best_answer->user->points }} points)</strong>
+                            {{ $discusion->created_at->diffForHumans() }}
+                        </span>
                         <hr>
                     <p>{!! $discusion->body !!}</p>
                 </div>
+
+                @if ($best_answer)
+                    <div class="card">
+                        <div class="card-header text-center">
+                            Best answer
+                            @if ($discusion->user_id == Auth::user()->id)
+                                <form action="{{ route('reply.best_answer_revise', $best_answer->id) }}" method="post" class="float-right">
+                                    {{ csrf_field() }}
+                                    <button type="submit" class="btn btn-primary">Revise the best answer</button>
+                                </form>
+                            @endif
+                        </div>
+
+                        <div class="card-body text-center">
+                            <img src="{{ $discusion->user->avatar }}" width="40" height="40" style="border-radius: 50%;">
+                                <span>
+                                    {{ $best_answer->user->name }} 
+                                    <strong>({{ $best_answer->user->points }} points)</strong>
+                                    {{ $best_answer->created_at->diffForHumans() }}</span>
+                                <hr>
+                            <p>{!! $best_answer->body !!}</p>
+                        </div>
+                    </div>
+                @endif
             </div>
 
             <div class="card mt-5">
@@ -42,8 +70,14 @@
                             <li class="list-group-item">
                                 <img src="{{ $reply->user->avatar }}" width="40" height="40" style="border-radius: 50%;">
                                 <span>{{ $reply->user->name }} {{ $reply->created_at->diffForHumans() }}</span>
+                                @if (!$best_answer && $discusion->user_id == Auth::user()->id)
+                                    <form action="{{ route('reply.best_answer', $reply->id) }}" method="post" class="float-right">
+                                        {{ csrf_field() }}
+                                        <button type="submit" class="btn btn-primary">Mark as the best answer</button>
+                                    </form>
+                                @endif
                                 <hr>
-                                <p>{!! str_limit($reply->body, 200) !!}</p>
+                                <p>{!! $reply->body !!}</p>
                                 <hr>
                                 <p>
                                     <span class="badge">

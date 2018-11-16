@@ -19,5 +19,7 @@ class UsersTableSeeder extends Seeder
         	'password' => bcrypt('8panama8'),
         	'admin' => 1
         ]);
+
+        factory('App\User', 10)->create();
     }
 }
