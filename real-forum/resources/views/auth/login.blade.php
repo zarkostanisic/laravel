@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
 
@@ -60,6 +60,8 @@
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
                                     {{ __('Forgot Your Password?') }}
                                 </a>
+
+                                 <a href="{{ route('social.auth', 'facebook')}}" class="btn btn-primary mt-3 col-md-9">Facebook login</a>
                             </div>
                         </div>
                     </form>
