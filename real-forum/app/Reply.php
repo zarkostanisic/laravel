@@ -24,8 +24,7 @@ class Reply extends Model
     }
 
     public function is_liked_by_auth_user(){
-    	$likers = $this->likes->pluck('id')->all();
 
-    	return in_array(Auth::user()->id, $likers);
+    	return $this->likes()->where('user_id', auth()->id())->count() > 0;
     }
 }

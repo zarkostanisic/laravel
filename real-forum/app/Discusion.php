@@ -21,4 +21,12 @@ class Discusion extends Model
     public function replies(){
     	return $this->hasMany('App\Reply');
     }
+
+    public function watchers(){
+        return $this->belongsToMany('App\User', 'watchers');
+    }
+
+    public function is_watched_by_auth_user(){
+        return $this->watchers()->where('user_id', auth()->id())->count() > 0;
+    }
 }

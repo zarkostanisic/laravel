@@ -31,7 +31,11 @@ Route::group(['middleware' => 'auth'], function(){
 });
 
 Route::get('/channel/{slug}', 'ForumController@channel')->name('channel');
+
 Route::get('/discusion/{slug}', 'ForumController@discusion')->name('discusion');
 Route::post('/discusion/reply/{id}', 'ForumController@reply')->name('discusion.reply');
+Route::post('/discusion/watch/{id}', 'ForumController@watch')->name('discusion.watch');
+Route::post('/discusion/unwatch/{id}', 'ForumController@unwatch')->name('discusion.unwatch');
+
 Route::post('/reply/like/{id}', 'ForumController@like')->name('reply.like');
 Route::post('/reply/unlike/{id}', 'ForumController@unlike')->name('reply.unlike');

@@ -7,6 +7,7 @@ use App\Channel;
 use App\Discusion;
 use App\Reply;
 use Auth;
+use Notification;
 
 class ForumController extends Controller
 {
@@ -35,6 +36,11 @@ class ForumController extends Controller
     		'body' => $request->body
     	]);
 
+        $discusion = Discusion::find($id);
+        $watchers = $discusion->watchers;
+        
+        Notification::send($watchers, new \App\Notifications\NewReplyAdded($discusion));
+
     	return redirect()->back();
     }
 
@@ -51,6 +57,22 @@ class ForumController extends Controller
         $reply->likes()->detach(Auth::user()->id);
 
         // Auth::user()->likes()->detach($id);
+
+        return redirect()->back();
+    }
+
+    public function watch($id){
+        $discusion = Discusion::find($id);
+
+        $discusion->watchers()->attach(Auth::user()->id);
+
+        return redirect()->back();
+    }
+
+    public function unwatch($id){
+        $discusion = Discusion::find($id);
+
+        $discusion->watchers()->detach(Auth::user()->id);
 
         return redirect()->back();
     }

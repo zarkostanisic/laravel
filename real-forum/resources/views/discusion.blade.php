@@ -7,6 +7,20 @@
             <div class="card">
                 <div class="card-header">
                     {{ $discusion->title }}
+
+                    @if (Auth::check())
+                        @if ($discusion->is_watched_by_auth_user())
+                            <form action="{{ route('discusion.unwatch', $discusion->id) }}" method="post" class="float-right">
+                                {{ csrf_field() }}
+                                <button type="submit" class="btn btn-danger">UNWATCH</button>
+                            </form>
+                        @else
+                            <form action="{{ route('discusion.watch', $discusion->id) }}" method="post" class="float-right">
+                                {{ csrf_field() }}
+                                <button type="submit" class="btn btn-success">WATCH</button>
+                            </form>
+                        @endif
+                    @endif
                 </div>
 
                 <div class="card-body">
