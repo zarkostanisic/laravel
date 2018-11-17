@@ -27,11 +27,11 @@
                     <img src="{{ $discusion->user->avatar }}" width="40" height="40" style="border-radius: 50%;">
                         <span>
                             {{ $discusion->user->name }}
-                            <strong>({{ $best_answer->user->points }} points)</strong>
+                            <strong>({{ $discusion->user->points }} points)</strong>
                             {{ $discusion->created_at->diffForHumans() }}
                         </span>
                         <hr>
-                    <p>{!! $discusion->body !!}</p>
+                    <p>@markdown ($discusion->body)</p>
                 </div>
 
                 @if ($best_answer)
@@ -104,6 +104,7 @@
                 </div>
             </div>
 
+            @if (!$discusion->hasBestAnswer())
             <div class="card mt-5">
                 <div class="card-header">
                     Create new reply
@@ -123,6 +124,7 @@
                     </form>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </div>

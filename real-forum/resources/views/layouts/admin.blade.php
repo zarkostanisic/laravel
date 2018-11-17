@@ -100,7 +100,8 @@
                         </div>
                     </div>
                 </div> 
-                <div class="col-md-8"> 
+                <div class="col-md-8">
+                @include ('layouts.errors')
                 @yield('content')
                 </div>
             </div>

@@ -29,4 +29,8 @@ class Discusion extends Model
     public function is_watched_by_auth_user(){
         return $this->watchers()->where('user_id', auth()->id())->count() > 0;
     }
+
+    public function hasBestAnswer(){
+       return $this->replies->where('best_answer', 1)->count() > 0; 
+    }
 }

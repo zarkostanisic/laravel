@@ -174,6 +174,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         AdamWathan\EloquentOAuthL5\EloquentOAuthServiceProvider::class,
+        GrahamCampbell\Markdown\MarkdownServiceProvider::class,
 
     ],
 
@@ -225,6 +226,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'SocialAuth' => AdamWathan\EloquentOAuth\Facades\OAuth::class,
+        'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
 
     ],
 

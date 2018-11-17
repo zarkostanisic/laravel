@@ -13,7 +13,32 @@
 //dd(App::make('channels')->pluck('title'));
 use App\Discusion;
 Route::get('/', function () {
-	$discusions = Discusion::latest()->paginate(3);
+	$discusions = Discusion::latest();
+	
+	if(request('filter')){
+		$filter = request('filter');
+
+		switch($filter){
+			case 'me': 
+				$discusions = $discusions->where('user_id', auth()->user()->id);
+				break;
+			case 'solved': 
+				// $discusions = $discusions->join('replies', 'discusions.id', '=', 'replies.discusion_id')->select('discusions.*')->where('replies.best_answer', 1);
+				$discusions = $discusions->with('replies')->whereHas('replies', function($query){
+					$query->where('best_answer', 1);
+				});
+				break;
+			case 'usolved': 
+				// $discusions = $discusions->join('replies', 'discusions.id', '=', 'replies.discusion_id')->select('discusions.*')->where('replies.best_answer', 1);
+				$discusions = $discusions->with('replies')->whereHas('replies', function($query){
+					$query->where('best_answer', 0);
+				});
+				break;
+		}
+	}
+
+	$discusions = $discusions->paginate(1);
+
     return view('index', compact('discusions'));
 })->name('index');
 
