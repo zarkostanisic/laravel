@@ -15,7 +15,7 @@ class CategoriesProductsTableSeeder extends Seeder
     	DB::table('products')->truncate();
 
         factory('App\Category', 3)->create()->each(function($category){
-        	$category->products()->saveMany(factory('App\Product', 3)->make());
+        	$category->products()->saveMany(factory('App\Product', 100)->make());
         });
     }
 }

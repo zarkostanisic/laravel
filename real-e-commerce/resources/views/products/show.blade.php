@@ -11,6 +11,8 @@
                    <img src="{{ asset($product->image) }}" class="img-fluid mx-auto d-block rounded">
                    <hr>
                    <span>Price: {{ $product->price }}</span>
+                   <hr>
+                   {{ $product->description }}
                 </div>
             </div>
         </div>

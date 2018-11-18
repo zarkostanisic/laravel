@@ -47,7 +47,8 @@ class ProductsController extends Controller
             'name' => 'required',
             'price' => 'required',
             'category_id' => 'required',
-            'image' => 'required|image'
+            'image' => 'required|image',
+            'description' => 'required'
         ]);
 
         $product = new Product();
@@ -61,6 +62,7 @@ class ProductsController extends Controller
         $image->move('uploads/products', $image_new_name);
 
         $product->image = $image_new_name;
+        $product->description = $request->description;
 
         $product->save();
 
@@ -108,7 +110,8 @@ class ProductsController extends Controller
             'name' => 'required',
             'price' => 'required',
             'category_id' => 'required',
-            'image' => 'image'
+            'image' => 'image',
+            'description' => 'required'
         ]);
 
 
@@ -126,6 +129,8 @@ class ProductsController extends Controller
 
             $product->image = $image_new_name;
         }
+
+        $product->description = $request->description;
 
         $product->save();
 

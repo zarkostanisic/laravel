@@ -45,6 +45,11 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea name="description" id="description" class="form-control">{{ old('description', $product->description) }}</textarea>
+                            </div>
+
+                            <div class="form-group">
                                 <button class="btn btn-primary">EDIT</button>
                             </div>
                         </form>
