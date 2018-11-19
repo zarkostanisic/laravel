@@ -29,7 +29,14 @@
                                             {{ $item->name }}
                                         </td>
                                         <td>{{ $item->price }}</td>
-                                        <td>{{ $item->quantity }}</td>
+                                        <td>
+                                            <form id="quantity-{{ $item->id }}" action="{{ route('cart.update', $item->id) }}" method="post">
+                                                {{ csrf_field() }}
+                                                {{ method_field('PATCH') }}
+                                                <input onChange="document.getElementById('quantity-{{ $item->id }}').submit();" type="number" name="quantity" value="{{ $item->quantity }}">
+                                                <input type="hidden" name="quantity_old" value="{{ $item->quantity }}">
+                                            </form>
+                                        </td>
                                         <td>{{ ($item->price * $item->quantity) }}
                                         <td>
                                             <form action="{{ route('cart.remove', $item->getUniqueId()) }}" method="post">

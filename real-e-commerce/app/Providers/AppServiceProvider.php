@@ -16,13 +16,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        View::share('categories', Category::all());
 
         view()->composer('*', function ($view) 
         {
             $cart = Cart::restore(auth()->id());
-            $categories = Category::all();
 
-            $view->with('cart', $cart )->with('categories', $categories);    
+            $view->with('cart', $cart );    
         }); 
     }
 
