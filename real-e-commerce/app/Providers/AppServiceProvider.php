@@ -19,10 +19,10 @@ class AppServiceProvider extends ServiceProvider
     {
         View::share('categories', Category::all()); 
 
-        view()->composer('*', function ($view) 
+        view()->composer(['layouts.app', 'cart.show'], function ($view) 
         {
             $token = auth()->id() !== null ? auth()->id() : Session::get('cart_unique_token');
-            
+
             $view->with('cart', Cart::restore($token) );    
         });
     }

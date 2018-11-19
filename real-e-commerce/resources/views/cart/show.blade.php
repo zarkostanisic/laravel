@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <?php //dd($cart); ?>
-                        @if (Cart::count() > 0)
+                        @if ($cart && $cart->count() > 0)
                         <table class="table">
                             <thead>
                                 <tr>
