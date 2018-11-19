@@ -14,6 +14,7 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Price</th>
+                                    <th></th>
                                 </tr>
                             </thead>
 
@@ -23,7 +24,22 @@
                                         <td>
                                             <a href="{{ route('products.show', $product->id) }}">{{ $product->name }}</a>
                                         </td>
-                                        <td>{{ $product->price }}</td>
+                                        <td>@money($product->price, 'USD')</td>
+                                        <td>
+                                            <form action="{{ route('cart.add', $product->id) }}" method="post">
+                                             {{ csrf_field() }}
+                                             <div class="row mt-3">
+                                             <div class="col-md-6"></div>
+                                             <div class="form-group col-md-3">
+                                               <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1">
+                                             </div>
+
+                                             <div class="form-group col-md-3">
+                                               <button type="submit" class="btn btn-primary">Add to cart</button>
+                                             </div>
+                                             </div>
+                                           </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

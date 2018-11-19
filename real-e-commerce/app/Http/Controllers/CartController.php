@@ -9,6 +9,26 @@ use Session;
 
 class CartController extends Controller
 {	
+	private $token;
+
+	public function __construct(){
+		$this->middleware(function ($request, $next){
+			$token = Session::get('cart_unique_token');
+
+	        if(auth()->id() !== null){
+				$this->token = auth()->id();
+
+			}else if($token === null){
+				$this->token = time() . rand(1, 1000);
+
+				Session::put(['cart_unique_token' => $this->token]);
+			}else {
+				$this->token = $token;
+			}
+
+	        return $next($request);
+	    });
+	}
 
 	public function show(){
 
@@ -19,31 +39,31 @@ class CartController extends Controller
     	$quantity = (int)$request->quantity;
     	$product = Product::find($id);
 
-    	Cart::restore(auth()->id());
+    	Cart::restore($this->token);
     	Cart::add($product->id, $product->name, $product->price, $quantity);
-    	Cart::store(auth()->id());
+    	Cart::store($this->token);
 
     	return redirect()->back()->with('success', 'Product added to cart.');
     }
 
     public function remove($uniqueId){
-		Cart::restore(auth()->id());
+		Cart::restore($this->token);
 		Cart::remove($uniqueId);
-		Cart::store(auth()->id());
+		Cart::store($this->token);
 
 		return redirect()->back()->with('success', 'Product removed from cart.');
 	}
 
 	public function clear(){
-		Cart::destroy(auth()->id());
+		Cart::destroy($this->token);
 
 		return redirect()->route('cart.show')->with('success', 'Cart empty.');
 	}
 
 	public function checkout(){
-		$cart = $this->getCart();
+		$cart = Cart::restore($this->token);;
 
-		Cart::destroy(auth()->id());
+		Cart::destroy($this->token);
 
 		return redirect()->back()->with('success', 'Checkout success.');
 	}
@@ -57,11 +77,11 @@ class CartController extends Controller
 
     	$product = Product::find($id);
 
-    	$cart = $this->getCart();
+    	$cart = Cart::restore($this->token);
 
     	$cart->add($product->id, $product->name, $product->price, $quantity);
-    	$cart->store(auth()->id());
+    	$cart->store($this->token);
 
-    	return redirect()->back()->with('success', 'Product quantity succesfully updated..');
+    	return redirect()->back()->with('success', 'Product quantity succesfully updated.');
 	}
 }

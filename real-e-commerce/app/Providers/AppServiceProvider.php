@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use View;
 use App\Category;
 use Cart;
+use Session;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,14 +17,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::share('categories', Category::all());
+        View::share('categories', Category::all()); 
 
         view()->composer('*', function ($view) 
         {
-            $cart = Cart::restore(auth()->id());
-
-            $view->with('cart', $cart );    
-        }); 
+            $token = auth()->id() !== null ? auth()->id() : Session::get('cart_unique_token');
+            
+            $view->with('cart', Cart::restore($token) );    
+        });
     }
 
     /**

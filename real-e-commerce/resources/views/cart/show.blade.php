@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <?php //dd($cart); ?>
-                        @if ($cart && $cart->count() > 0)
+                        @if (Cart::count() > 0)
                         <table class="table">
                             <thead>
                                 <tr>
@@ -23,12 +23,12 @@
                             </thead>
 
                             <tbody>
-                                @foreach ($cart->content() as $item)
+                                @foreach (Cart::content() as $item)
                                     <tr>
                                         <td>
                                             {{ $item->name }}
                                         </td>
-                                        <td>{{ $item->price }}</td>
+                                        <td>@money($item->price, 'USD')</td>
                                         <td>
                                             <form id="quantity-{{ $item->id }}" action="{{ route('cart.update', $item->id) }}" method="post">
                                                 {{ csrf_field() }}
@@ -37,7 +37,7 @@
                                                 <input type="hidden" name="quantity_old" value="{{ $item->quantity }}">
                                             </form>
                                         </td>
-                                        <td>{{ ($item->price * $item->quantity) }}
+                                        <td>@money($item->price * $item->quantity, 'USD')
                                         <td>
                                             <form action="{{ route('cart.remove', $item->getUniqueId()) }}" method="post">
                                                 {{ csrf_field() }}
@@ -48,7 +48,7 @@
                                     </tr>
                                 @endforeach
                                     <tr>
-                                        <td colspan="5">Total: {{ $cart->getTotal() }}</td>
+                                        <td colspan="5">Total: @money(Cart::getTotal(), 'USD')</td>
                                     </tr>
                                     <tr>
                                         <td colspan="3"></td>

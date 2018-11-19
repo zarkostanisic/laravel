@@ -23,7 +23,7 @@
                      </div>
                    </form>
                    <hr>
-                   <span>Price: {{ $product->price }}</span>
+                   <span>Price: @money($product->price, 'USD')</span>
                    <hr>
                    {{ $product->description }}
                 </div>

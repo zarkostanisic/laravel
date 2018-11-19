@@ -45,7 +45,8 @@
                         <!-- Authentication Links -->
                         <li>
                             <a class="nav-link" href="{{ route('cart.show') }}">
-                                Cart ({{ $cart && $cart->count() > 0 ? $cart->count() : '0'}})
+                                Cart ({{ $cart && $cart->count() > 0 ? $cart->count() : '0'}}) 
+                                @money($cart->getTotal(), 'USD')
                             </a>
                         </li>
                         @guest
