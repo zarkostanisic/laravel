@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use View;
 use App\Category;
+use Cart;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,9 +16,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $categories = Category::all();
-        
-        View::share('categories', $categories);
+
+        view()->composer('*', function ($view) 
+        {
+            $cart = Cart::restore(auth()->id());
+            $categories = Category::all();
+
+            $view->with('cart', $cart )->with('categories', $categories);    
+        }); 
     }
 
     /**

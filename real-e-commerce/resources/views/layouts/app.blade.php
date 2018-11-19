@@ -43,6 +43,11 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+                        <li>
+                            <a class="nav-link" href="{{ route('cart.show') }}">
+                                Cart ({{ $cart && $cart->count() > 0 ? $cart->count() : '0'}})
+                            </a>
+                        </li>
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>

@@ -22,3 +22,8 @@ Route::resource('categories', 'CategoriesController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/cart', 'CartController@show')->name('cart.show');
+Route::post('/cart/add/{id}', 'CartController@add')->name('cart.add');
+Route::delete('/cart/remove/{uniqueId}', 'CartController@remove')->name('cart.remove');
+Route::delete('/cart/clear', 'CartController@clear')->name('cart.clear');
+Route::post('/cart/checkout', 'CartController@checkout')->name('cart.checkout');
