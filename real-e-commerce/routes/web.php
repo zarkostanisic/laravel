@@ -26,5 +26,6 @@ Route::get('/cart', 'CartController@show')->name('cart.show');
 Route::post('/cart/add/{id}', 'CartController@add')->name('cart.add');
 Route::delete('/cart/remove/{uniqueId}', 'CartController@remove')->name('cart.remove');
 Route::delete('/cart/clear', 'CartController@clear')->name('cart.clear');
-Route::post('/cart/checkout', 'CartController@checkout')->name('cart.checkout');
 Route::patch('/cart/update/{id}', 'CartController@update')->name('cart.update');
+Route::get('/cart/confirm', 'CartController@confirm')->name('cart.confirm');
+Route::post('/cart/checkout', 'CartController@checkout')->name('cart.checkout');

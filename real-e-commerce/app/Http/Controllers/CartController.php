@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use Cart;
 use Session;
+use Mail;
 
 class CartController extends Controller
 {	
@@ -54,20 +55,6 @@ class CartController extends Controller
 		return redirect()->back()->with('success', 'Product removed from cart.');
 	}
 
-	public function clear(){
-		Cart::destroy($this->token);
-
-		return redirect()->route('cart.show')->with('success', 'Cart empty.');
-	}
-
-	public function checkout(){
-		$cart = Cart::restore($this->token);;
-
-		Cart::destroy($this->token);
-
-		return redirect()->back()->with('success', 'Checkout success.');
-	}
-
 	public function update(Request $request, $id){
 		$quantity = (int)$request->quantity;
 		$quantity_old = (int)$request->quantity_old;
@@ -83,5 +70,25 @@ class CartController extends Controller
     	$cart->store($this->token);
 
     	return redirect()->back()->with('success', 'Product quantity succesfully updated.');
+	}
+
+	public function clear(){
+		Cart::destroy($this->token);
+
+		return redirect()->route('cart.show')->with('success', 'Cart empty.');
+	}
+
+	public function confirm(){
+		return view('cart.confirm');
+	}
+
+	public function checkout(){
+		$cart = Cart::restore($this->token);;
+
+		Cart::destroy($this->token);
+
+		Mail::to(auth()->user()->email)->send(new \App\Mail\PurchaseSuccessfull($cart));
+
+		return redirect()->route('cart.show')->with('success', 'Checkout success.');
 	}
 }

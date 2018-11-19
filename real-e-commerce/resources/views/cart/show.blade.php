@@ -9,7 +9,6 @@
 
                 <div class="card-body">
                     <div class="table-responsive">
-                        <?php //dd($cart); ?>
                         @if ($cart && $cart->count() > 0)
                         <table class="table">
                             <thead>
@@ -60,10 +59,7 @@
                                             </form>
                                         </td>
                                         <td colspan="1">
-                                            <form action="{{ route('cart.checkout') }}" method="post">
-                                                {{ csrf_field() }}
-                                                <button type="submit" class="btn btn-primary">CHECKOUT</button>
-                                            </form>
+                                            <a href="{{ route('cart.confirm') }}" class="btn btn-default">Checkout</a>
                                         </td>
                                     </tr>
                             </tbody>
