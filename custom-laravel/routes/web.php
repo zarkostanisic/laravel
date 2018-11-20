@@ -15,11 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/custom', function () {
+Route::middleware('test')->get('/custom', function () {
     // dd(config('app.developers'));
     // dd(config('blog.administrators'));
     // dd(env('APP_CREATOR'));
-    dd(config('blog.creator'));
+    // dd(config('blog.creator'));
+    // dd(resolve('medium-php-sdk'));
+    dd(session()->get('test'));
 
 });
 

@@ -4,3 +4,5 @@ php artisan route:list
 php artisan event:generate
 - CREATE MAIL
 php artisan make:mail WelcomeToOurSass --markdown="emails.welcome"
+- CREATE PROVIDER
+php artisan make:provider MediumServiceProvider
