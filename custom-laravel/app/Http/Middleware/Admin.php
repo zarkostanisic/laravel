@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class Test
+class Admin
 {
     /**
      * Handle an incoming request.
@@ -15,8 +15,12 @@ class Test
      */
     public function handle($request, Closure $next)
     {
-        // dd('test');
+        if(auth()->check()){
+            if(in_array(auth()->user()->email, config('blog.administrators'))){
+                return $next($request);
+            }
+        }
 
-        return $next($request);
+        return redirect('/');
     }
 }

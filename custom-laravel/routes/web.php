@@ -21,8 +21,13 @@ Route::middleware('test')->get('/custom', function () {
     // dd(env('APP_CREATOR'));
     // dd(config('blog.creator'));
     // dd(resolve('medium-php-sdk'));
-    dd(session()->get('test'));
+    // dd(session()->get('test'));
+    throw new \App\Exceptions\HackerAlertException;
 
+});
+
+Route::get('/user/{id}', function($id){
+	return App\User::findOrFail($id);
 });
 
 Auth::routes(['verify' => true]);
