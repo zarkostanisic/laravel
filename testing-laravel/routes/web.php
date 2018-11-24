@@ -32,3 +32,6 @@ Route::post('/posts/store', 'PostController@store');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/posts/create', function(){
+	return view('post-create');
+})->middleware('auth');

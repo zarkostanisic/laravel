@@ -20,5 +20,7 @@ class PostController extends Controller
 		]);
 
 		Post::create($request->all());
+
+        return redirect('/posts');
     }
 }

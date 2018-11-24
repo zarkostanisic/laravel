@@ -27,4 +27,20 @@ class LoginTest extends DuskTestCase
                 ->assertPathIs('/home');
         });
     }
+
+    /**
+    * @group view-post
+    */
+    public function testAUserCanViewPost(){
+        $post = factory('App\Post')->create();
+
+        $this->browse(function(Browser $browser) use ($post){
+            $browser->visit('/posts')
+               ->clickLink('View Post Details')
+               ->assertPathIs("/post/{$post->id}")
+               ->assertSee($post->title)
+               ->assertSee($post->body)
+               ->assertSee($post->createdAt());
+        });
+    }
 }
