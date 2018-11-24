@@ -21,8 +21,4 @@ Route::get('/about', function () {
     return view('about');
 });
 
-Route::get('/post/{id}', function ($id) {
-    $post = Post::find($id);
-
-    return $post;
-});
+Route::get('/post/{id}', 'PostController@index');

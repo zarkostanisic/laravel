@@ -27,6 +27,12 @@ class ViewBlogPostTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee($post->title);
         $response->assertSee($post->body);
-        $response->assertSee($post->created_at);
+        $response->assertSee($post->createdAt());
+    }
+
+    public function testPostNotFound(){
+        $response = $this->get('/post/INVALID_ID');
+        $response->assertStatus(404);
+        $response->assertSee('Sorry, the page you are looking for could not be found.');
     }
 }
