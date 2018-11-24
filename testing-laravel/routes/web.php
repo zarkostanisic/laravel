@@ -27,3 +27,5 @@ Route::get('/posts', function(){
 
 	return view('posts', compact('posts'));
 });
+
+Route::post('/posts/store', 'PostController@store');

@@ -12,4 +12,13 @@ class PostController extends Controller
 
     	return view('post', compact('post'));
     }
+
+    public function store(Request $request){
+    	$request->validate([
+			'title' => 'required',
+			'body' => 'required'
+		]);
+
+		Post::create($request->all());
+    }
 }
