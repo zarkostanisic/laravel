@@ -22,3 +22,8 @@ Route::get('/about', function () {
 });
 
 Route::get('/post/{id}', 'PostController@index');
+Route::get('/posts', function(){
+	$posts = Post::all();
+
+	return view('posts', compact('posts'));
+});

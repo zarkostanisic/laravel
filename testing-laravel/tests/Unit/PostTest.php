@@ -9,6 +9,7 @@ use App\Post;
 
 class PostTest extends TestCase
 {
+	use RefreshDatabase;
     /**
     * @group formatted-date
      * A basic test example.
@@ -17,10 +18,7 @@ class PostTest extends TestCase
      */
     public function testCanGetCreatedAtFormattedDate()
     {
-        $post = Post::create([
-        	'title' => 'A simple title',
-        	'body' => 'A simple body'
-        ]);
+        $post = factory('App\Post')->create();
 
         $formattedDate = $post->createdAt();
         $this->assertEquals($post->created_at->toFormattedDateString(), $formattedDate);
