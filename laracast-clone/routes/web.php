@@ -23,6 +23,10 @@ Route::get('/register/confirm', 'Auth\RegisterController@confirm')->name('regist
 
 Route::post('/logout', 'Auth\LoginController@logout');
 
-Route::get('/mail', function(){
-	return new App\Mail\ConfirmYourEmail();
+// Route::get('/mail', function(){
+// 	return new App\Mail\ConfirmYourEmail();
+// });
+
+Route::prefix('admin')->group(function(){
+	Route::resource('series', 'SeriesController');
 });

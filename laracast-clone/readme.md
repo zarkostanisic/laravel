@@ -9,3 +9,6 @@ vendor/bin/phpunit --filter testUserPassingWrongCredentials
 
 - CREATE MAIL
 php artisan make:mail ConfirmYourEmail --markdown="emails.confirm"
+
+- CREATE REQUEST
+ php artisan make:request SeriesRequest
