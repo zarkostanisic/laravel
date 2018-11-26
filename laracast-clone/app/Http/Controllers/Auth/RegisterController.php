@@ -40,7 +40,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest')->except('confirm');
     }
 
     /**
@@ -66,10 +66,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'confirm_token' => str_random(25)
         ]);
     }
 
@@ -82,7 +84,19 @@ class RegisterController extends Controller
      */
     protected function registered(Request $request, $user)
     {
-         Mail::to($user)->send(new ConfirmYourEmail);
+         Mail::to($user)->send(new ConfirmYourEmail($user));
         return redirect($this->redirectPath());
+    }
+
+    public function confirm(Request $request){
+        $user = User::where('confirm_token', $request->token)->first();
+        if($user){
+            $user->confirm();
+            session()->flash('success', 'success confirm');
+        }else{
+            session()->flash('error', 'error confirm');
+        }
+
+        return redirect('/');
     }
 }

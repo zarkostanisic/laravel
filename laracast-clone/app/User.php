@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'confirm_token'
     ];
 
     /**
@@ -27,4 +27,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function isConfirmed(){
+        return $this->confirm_token == null;
+    }
+
+    public function confirm(){
+        $this->confirm_token = null;
+        $this->save();
+    }
 }

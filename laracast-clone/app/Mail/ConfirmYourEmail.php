@@ -11,14 +11,16 @@ class ConfirmYourEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    private $user;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -28,6 +30,6 @@ class ConfirmYourEmail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.confirm');
+        return $this->markdown('emails.confirm', ['user' => $this->user]);
     }
 }

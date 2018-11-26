@@ -16,6 +16,13 @@ Route::get('/', function () {
 });
 
 Route::post('/login', 'Auth\LoginController@login');
+
 Route::get('/register', 'Auth\RegisterController@showRegistrationForm');
 Route::post('/register', 'Auth\RegisterController@register');
+Route::get('/register/confirm', 'Auth\RegisterController@confirm')->name('register.confirm');
+
 Route::post('/logout', 'Auth\LoginController@logout');
+
+Route::get('/mail', function(){
+	return new App\Mail\ConfirmYourEmail();
+});
