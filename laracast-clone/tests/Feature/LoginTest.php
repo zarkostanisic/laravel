@@ -14,7 +14,7 @@ class LoginTest extends TestCase
      *
      * @return void
      */
-    public function testUserPassingWrongCredentials()
+    public function testUserLoginWrong()
     {
 
         $user = factory('App\User')->create();
@@ -22,7 +22,7 @@ class LoginTest extends TestCase
         $this->postJson('/login', [
         	'email' => $user->email,
         	'password' => 'wrong-password'
-        ])->assertStatus(422)
+        ])->assertRedirect()
         ->assertJson([
         	'message' => 'These credentials do not match our records'
         ]);
@@ -34,7 +34,7 @@ class LoginTest extends TestCase
      *
      * @return void
      */
-    public function testUserPassingCorrectCredentials()
+    public function testUserLoginCorrect()
     {
 
         $user = factory('App\User')->create();

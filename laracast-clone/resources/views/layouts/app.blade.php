@@ -35,18 +35,20 @@
 
         <div class="topbar-right">
           <ul class="topbar-nav nav">
+            <li class="nav-item"><a href="/" class="nav-link">HOME</a></li>
             @auth
                 <li class="nav-item"><a href="" class="nav-link">{{ Auth::user()->name }}</a></li>
-                <li class="nav-item"><a href="" class="nav-link">
-                    <form action="/logout" method="post">
+                <li class="nav-item">
+                    <a onClick="event.preventDefault();document.getElementById('logout').submit();" class="nav-link">Logout</a>
+                    <form action="/logout" method="post" id="logout">
                         {{ csrf_field() }}
-                        <button type="submit" class="btn btn-link">Logout</button>
                     </form>
                 </li>
             @endauth
 
             @guest
               <li class="nav-item"><a class="nav-link" href="javascript:;" data-toggle="modal" data-target="#loginModal">Login</a></li>
+              <li class="nav-item"><a href="/register" class="nav-link">Register</a></li>
             @endguest
           </ul>
         </div>
