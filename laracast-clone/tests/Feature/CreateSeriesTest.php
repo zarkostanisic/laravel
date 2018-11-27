@@ -86,8 +86,23 @@ class CreateSeriesTest extends TestCase
        $this->post('/admin/series', [
        		'title' => $title,
        		'description' => 'test description',
-       		'image' => 'STRING_INVALID_IMAGE'
+       		'image' => 'STRING_2INVALID_IMAGE'
        		
        ])->assertSessionHasErrors('image');
+    }
+
+    /**
+     * @group create-series-only-admin
+     *
+     * @return void
+     */
+    public function testCreateSeriesOnlyAdmin()
+    {
+
+       $user = factory('App\User')->create();
+       $this->actingAs($user);
+
+       $title = 'test';
+       $this->post('/admin/series')->assertSessionHas('error', 'not authorized');
     }
 }

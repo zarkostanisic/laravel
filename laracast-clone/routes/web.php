@@ -27,6 +27,6 @@ Route::post('/logout', 'Auth\LoginController@logout');
 // 	return new App\Mail\ConfirmYourEmail();
 // });
 
-Route::prefix('admin')->group(function(){
+Route::prefix('admin')->middleware('administrator')->group(function(){
 	Route::resource('series', 'SeriesController');
 });
