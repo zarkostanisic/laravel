@@ -37,7 +37,7 @@ class RegisterTest extends TestCase
      */
     public function testUserAfterRegisterEmailSent()
     {
-    	$this->withoutExceptionHandling();
+    	// $this->withoutExceptionHandling();
 
     	Mail::fake();
 
@@ -60,7 +60,7 @@ class RegisterTest extends TestCase
      */
     public function testUserAfterRegisterToken()
     {
-    	$this->withoutExceptionHandling();
+    	// $this->withoutExceptionHandling();
 
     	Mail::fake();
 

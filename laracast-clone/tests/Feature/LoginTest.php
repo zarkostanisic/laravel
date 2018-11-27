@@ -22,7 +22,7 @@ class LoginTest extends TestCase
         $this->postJson('/login', [
         	'email' => $user->email,
         	'password' => 'wrong-password'
-        ])->assertRedirect()
+        ])->assertStatus(422)
         ->assertJson([
         	'message' => 'These credentials do not match our records'
         ]);

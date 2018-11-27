@@ -19,6 +19,8 @@ class CreateSeriesTest extends TestCase
      */
     public function testCreateSeries()
     {
+       $this->loginAdmin();
+
        // $this->withoutExceptionHandling();
        Storage::fake(config('filesystem.default'));
 
@@ -49,6 +51,8 @@ class CreateSeriesTest extends TestCase
     public function testCreateSeriesWithoutTitle()
     {
 
+       $this->loginAdmin();
+
        $title = 'title';
 
        $this->post('/admin/series', [
@@ -65,6 +69,8 @@ class CreateSeriesTest extends TestCase
     public function testCreateSeriesWithoutDescription()
     {
 
+       $this->loginAdmin();
+
        $title = 'title';
 
        $this->post('/admin/series', [
@@ -80,6 +86,8 @@ class CreateSeriesTest extends TestCase
      */
     public function testCreateSeriesWithoutImage()
     {
+
+       $this->loginAdmin();
 
        $title = 'title';
 
