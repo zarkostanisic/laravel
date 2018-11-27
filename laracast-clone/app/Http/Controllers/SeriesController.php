@@ -38,11 +38,7 @@ class SeriesController extends Controller
     {
         $request->uploadSeriesImage();
 
-        $request->storeSeries();
-
-        session()->flash('success', 'series created');
-
-        return redirect()->route('series.create');
+        return $request->storeSeries();
     }
 
     /**
@@ -51,9 +47,10 @@ class SeriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Series $series)
     {
-        //
+        dd($series);
+        return view('admin.series.show', compact('series'));
     }
 
     /**
