@@ -53,8 +53,13 @@
 					axios.delete('/admin/' + this.series_id +'/lessons/' + id + '')
 						.then(response => {
 							this.lessons.splice(key, 1);
+
+							window.noty({
+								message: 'Lesson successfully deleted.',
+								type: 'success'
+							});
 						}).catch(error => {
-							console.log(error);
+							window.handleError(error);
 						});
 				}
 			},

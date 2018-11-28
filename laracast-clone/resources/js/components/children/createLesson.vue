@@ -83,9 +83,14 @@
 				}).then(response => {
 					this.$parent.$emit('lesson_created', response.data);
 
+					window.noty({
+						message: 'Lesson successfully created.',
+						type: 'success'
+					});
+
 					$('#lessonModal').modal('hide');
 				}).catch(error => {
-					console.log(error);
+					window.handleError(error);
 				});
 			},
 			updateLesson(){
@@ -97,9 +102,14 @@
 				}).then(response => {
 					this.$parent.$emit('lesson_updated', response.data);
 
+					window.noty({
+						message: 'Lesson successfully updated.',
+						type: 'success'
+					});
+
 					$('#lessonModal').modal('hide');
 				}).catch(error => {
-					console.log(error);
+					window.handleError(error);
 				});
 			}
 		}
