@@ -32,8 +32,16 @@
 			};
 		},
 		mounted(){
-			this.$on('create_lesson', (lesson) => {
+			this.$on('lesson_created', (lesson) => {
 				this.lessons.push(lesson);
+			});
+
+			this.$on('lesson_updated', (lesson) => {
+				let lessonIndex = this.lessons.findIndex(l => {
+					return lesson.id == l.id;
+				});
+
+				this.lessons.splice(lessonIndex, 1, lesson);
 			});
 		},
 		methods: {
@@ -51,7 +59,9 @@
 				}
 			},
 			editLesson(lesson){
-				this.$emit('edit_lesson', lesson);
+				let series_id = this.series_id;
+
+				this.$emit('edit_lesson', { lesson, series_id });
 			}
 		}
 	}
