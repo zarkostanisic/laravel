@@ -9,6 +9,7 @@
       <div class="col-12 col-lg-8 offset-lg-2">
 
         <h1>{{ $series->title }}</h1>
+        <span>Customize lessons</span>
 
       </div>
     </div>
@@ -24,10 +25,8 @@
 
   <div class="row gap-y">
     <div class="col-12 col-md-12">
-      {{ $series->lessons->first()->title }}
+      <vue-lessons default_lessons="{{ $series->lessons }}"></vue-lessons>
     </div>
-
-
 </div>
 </div>
 @stop

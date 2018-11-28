@@ -49,7 +49,6 @@ class SeriesController extends Controller
      */
     public function show(Series $series)
     {
-        dd($series);
         return view('admin.series.show', compact('series'));
     }
 
