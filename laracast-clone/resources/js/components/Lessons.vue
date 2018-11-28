@@ -15,7 +15,7 @@
 	import CreateLesson from './children/CreateLesson.vue';
 
 	export default{
-		props: ['default_lessons'],
+		props: ['default_lessons', 'series_id'],
 		components: {
 			'create-lesson': CreateLesson
 		},
@@ -31,7 +31,7 @@
 		},
 		methods: {
 			createNewLesson(){
-				this.$emit('create_new_lesson');
+				this.$emit('create_new_lesson', this.series_id);
 			}
 		}
 	}

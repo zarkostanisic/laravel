@@ -29,4 +29,5 @@ Route::post('/logout', 'Auth\LoginController@logout');
 
 Route::prefix('admin')->middleware('administrator')->group(function(){
 	Route::resource('series', 'SeriesController');
+	Route::resource('{series_by_id}/lessons', 'LessonsController');
 });

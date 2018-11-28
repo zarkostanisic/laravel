@@ -1657,7 +1657,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: ['default_lessons'],
+	props: ['default_lessons', 'series_id'],
 	components: {
 		'create-lesson': __WEBPACK_IMPORTED_MODULE_0__children_CreateLesson_vue___default.a
 	},
@@ -1674,7 +1674,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 	methods: {
 		createNewLesson: function createNewLesson() {
-			this.$emit('create_new_lesson');
+			this.$emit('create_new_lesson', this.series_id);
 		}
 	}
 });
@@ -1786,6 +1786,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__("./node_modules/axios/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1812,17 +1822,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
 		return {
 			title: '',
-			description: ''
+			episode_number: '',
+			video_id: '',
+			description: '',
+			series_id: ''
 		};
 	},
 	mounted: function mounted() {
-		this.$parent.$on('create_new_lesson', function () {
+		var _this = this;
+
+		this.$parent.$on('create_new_lesson', function (series_id) {
+			_this.series_id = series_id;
+
 			$('#createNewLessonModal').modal();
 		});
+	},
+
+	methods: {
+		createLesson: function createLesson() {
+			__WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/admin/' + this.series_id + '/lessons', {
+				title: this.title,
+				episode_number: this.episode_number,
+				video_id: this.video_id,
+				description: this.description,
+				series_id: this.series_id
+			}).then(function (response) {
+				console.log(response);
+			}).catch(function (error) {
+				console.log(error);
+			});
+		}
 	}
 });
 
@@ -36479,7 +36514,7 @@ var render = function() {
         _c(
           "div",
           {
-            staticClass: "card card-shadowed p-50 w-400 mb-0",
+            staticClass: "card card-shadowed p-50 w-600 mb-0",
             staticStyle: { "max-width": "100%" }
           },
           [
@@ -36516,6 +36551,54 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.episode_number,
+                      expression: "episode_number"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "number", placeholder: "Episode number" },
+                  domProps: { value: _vm.episode_number },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.episode_number = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.video_id,
+                      expression: "video_id"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text", placeholder: "Vumeo video id" },
+                  domProps: { value: _vm.video_id },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.video_id = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
                 _c("textarea", {
                   directives: [
                     {
@@ -36539,7 +36622,17 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _vm._m(0)
+              _c("div", { staticClass: "form-group" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-bold btn-block btn-primary",
+                    attrs: { type: "button" },
+                    on: { click: _vm.createLesson }
+                  },
+                  [_vm._v("CREATE")]
+                )
+              ])
             ])
           ]
         )
@@ -36547,23 +36640,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-bold btn-block btn-primary",
-          attrs: { type: "button" }
-        },
-        [_vm._v("CREATE")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
