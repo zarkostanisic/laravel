@@ -1640,6 +1640,8 @@ module.exports = {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__children_CreateLesson_vue__ = __webpack_require__("./resources/js/components/children/CreateLesson.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__children_CreateLesson_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__children_CreateLesson_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__("./node_modules/axios/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
 //
 //
 //
@@ -1653,6 +1655,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -1663,18 +1672,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 	data: function data() {
 		return {
-			lessons: this.default_lessons
+			lessons: JSON.parse(this.default_lessons)
 		};
 	},
+	mounted: function mounted() {
+		var _this = this;
 
-	computed: {
-		formattedLessons: function formattedLessons() {
-			return JSON.parse(this.lessons);
-		}
+		this.$on('create_lesson', function (lesson) {
+			_this.lessons.push(lesson);
+		});
 	},
+
 	methods: {
 		createNewLesson: function createNewLesson() {
 			this.$emit('create_new_lesson', this.series_id);
+		},
+		deleteLesson: function deleteLesson(id, key) {
+			var _this2 = this;
+
+			if (confirm('Are you sure?')) {
+				__WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('/admin/' + this.series_id + '/lessons/' + id + '').then(function (response) {
+					_this2.lessons.splice(key, 1);
+				}).catch(function (error) {
+					console.log(error);
+				});
+			}
+		},
+		editLesson: function editLesson(lesson) {
+			this.$emit('edit_lesson', lesson);
 		}
 	}
 });
@@ -1782,84 +1807,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ }),
 
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/children/CreateLesson.vue":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__("./node_modules/axios/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-	data: function data() {
-		return {
-			title: '',
-			episode_number: '',
-			video_id: '',
-			description: '',
-			series_id: ''
-		};
-	},
-	mounted: function mounted() {
-		var _this = this;
-
-		this.$parent.$on('create_new_lesson', function (series_id) {
-			_this.series_id = series_id;
-
-			$('#createNewLessonModal').modal();
-		});
-	},
-
-	methods: {
-		createLesson: function createLesson() {
-			__WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/admin/' + this.series_id + '/lessons', {
-				title: this.title,
-				episode_number: this.episode_number,
-				video_id: this.video_id,
-				description: this.description,
-				series_id: this.series_id
-			}).then(function (response) {
-				console.log(response);
-			}).catch(function (error) {
-				console.log(error);
-			});
-		}
-	}
-});
+throw new Error("Module build failed: SyntaxError: Unexpected token (91:58)\n\n\u001b[0m \u001b[90m 89 | \u001b[39m\t\t}\u001b[33m,\u001b[39m\n \u001b[90m 90 | \u001b[39m\t\tupdateLesson(){\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 91 | \u001b[39m\t\t\taxios\u001b[33m.\u001b[39mpatch(\u001b[32m'/admin/'\u001b[39m \u001b[33m+\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mseries_id \u001b[33m+\u001b[39m \u001b[32m'/lessons/'\u001b[39m \u001b[33m+\u001b[39m \u001b[33m,\u001b[39m {\n \u001b[90m    | \u001b[39m\t\t\t                                                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 92 | \u001b[39m\t\t\t\ttitle\u001b[33m:\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mtitle\u001b[33m,\u001b[39m\n \u001b[90m 93 | \u001b[39m\t\t\t\tepisode_number\u001b[33m:\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mepisode_number\u001b[33m,\u001b[39m\n \u001b[90m 94 | \u001b[39m\t\t\t\tvideo_id\u001b[33m:\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mvideo_id\u001b[33m,\u001b[39m\u001b[0m\n");
 
 /***/ }),
 
@@ -36466,10 +36416,42 @@ var render = function() {
       _c(
         "ul",
         { staticClass: "list-group" },
-        _vm._l(_vm.formattedLessons, function(lesson) {
-          return _c("li", { staticClass: "list-group-item" }, [
-            _vm._v(_vm._s(lesson.title))
-          ])
+        _vm._l(_vm.lessons, function(lesson, key) {
+          return _c(
+            "li",
+            { staticClass: "list-group-item d-flex justify-content-between" },
+            [
+              _c("p", [_vm._v(_vm._s(lesson.title))]),
+              _vm._v(" "),
+              _c("p", [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: {
+                      click: function($event) {
+                        _vm.editLesson(lesson)
+                      }
+                    }
+                  },
+                  [_vm._v("EDIT")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    on: {
+                      click: function($event) {
+                        _vm.deleteLesson(lesson.id, key)
+                      }
+                    }
+                  },
+                  [_vm._v("DELETE")]
+                )
+              ])
+            ]
+          )
         })
       ),
       _vm._v(" "),
@@ -36502,7 +36484,7 @@ var render = function() {
     {
       staticClass: "modal fade",
       attrs: {
-        id: "createNewLessonModal",
+        id: "lessonModal",
         tabindex: "-1",
         role: "dialog",
         "aria-labelledby": "exampleModalLabel",
@@ -36519,7 +36501,11 @@ var render = function() {
           },
           [
             _c("h5", { staticClass: "text-uppercase text-center" }, [
-              _vm._v("Create new lesson")
+              _vm._v(
+                _vm._s(
+                  _vm.editing ? "Edit lesson " + _vm.title : "Create new lesson"
+                )
+              )
             ]),
             _vm._v(" "),
             _c("br"),
@@ -36623,15 +36609,25 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-bold btn-block btn-primary",
-                    attrs: { type: "button" },
-                    on: { click: _vm.createLesson }
-                  },
-                  [_vm._v("CREATE")]
-                )
+                _vm.editing
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-bold btn-block btn-primary",
+                        attrs: { type: "button" },
+                        on: { click: _vm.updateLesson }
+                      },
+                      [_vm._v("UPDATE")]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-bold btn-block btn-primary",
+                        attrs: { type: "button" },
+                        on: { click: _vm.createLesson }
+                      },
+                      [_vm._v("CREATE")]
+                    )
               ])
             ])
           ]

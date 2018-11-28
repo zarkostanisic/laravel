@@ -1,8 +1,8 @@
 <template>
-	<div class="modal fade" id="createNewLessonModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="lessonModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="card card-shadowed p-50 w-600 mb-0" style="max-width: 100%;">
-          <h5 class="text-uppercase text-center">Create new lesson</h5>
+          <h5 class="text-uppercase text-center">{{ editing ? 'Edit lesson ' + title : 'Create new lesson'}}</h5>
           <br><br>
           <form>
             
@@ -23,7 +23,8 @@
 	        </div>
 
             <div class="form-group">
-              <button class="btn btn-bold btn-block btn-primary" type="button" @click="createLesson">CREATE</button>
+            	<button class="btn btn-bold btn-block btn-primary" type="button" @click="updateLesson" v-if="editing">UPDATE</button>
+              <button class="btn btn-bold btn-block btn-primary" type="button" @click="createLesson" v-else>CREATE</button>
             </div>
           </form>
         </div>
@@ -41,14 +42,33 @@
 				episode_number: '',
 				video_id: '',
 				description: '',
-				series_id: ''
+				series_id: '',
+				editing: false
 			}
 		},
 		mounted(){
 			this.$parent.$on('create_new_lesson', (series_id) => {
+				this.editing = false;
+
+				this.title = '';
+				this.episode_number = '';
+				this.video_id = '';
+				this.description = '';
 				this.series_id = series_id;
 
-				$('#createNewLessonModal').modal();
+				$('#lessonModal').modal();
+			});
+
+			this.$parent.$on('edit_lesson', (lesson) => {
+				this.editing = true;
+
+				this.title = lesson.title;
+				this.episode_number = lesson.episode_number;
+				this.video_id = lesson.video_id;
+				this.description = lesson.description;
+				this.series_id = lesson.series_id;
+
+				$('#lessonModal').modal();
 			});
 		},
 		methods: {
@@ -60,9 +80,19 @@
 					description: this.description,
 					series_id: this.series_id
 				}).then(response => {
-					console.log(response);
+					this.$parent.$emit('create_lesson', response.data);
+
+					$('#lessonModal').modal('hide');
 				}).catch(error => {
 					console.log(error);
+				});
+			},
+			updateLesson(){
+				axios.patch('/admin/' + this.series_id + '/lessons/' + , {
+					title: this.title,
+					episode_number: this.episode_number,
+					video_id: this.video_id,
+					description: this.description,
 				});
 			}
 		}

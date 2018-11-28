@@ -5,7 +5,13 @@
 			<button class="btn btn-primary" @click="createNewLesson">CREATE NEW LESSON</button>
 		</h4>
 		<ul class="list-group">
-			<li v-for="lesson in formattedLessons" class="list-group-item">{{ lesson.title }}</li>
+			<li v-for="lesson, key in lessons" class="list-group-item d-flex justify-content-between">
+				<p>{{ lesson.title }}</p>
+				<p>
+					<button class="btn btn-primary" @click="editLesson(lesson)">EDIT</button>
+					<button class="btn btn-danger" @click="deleteLesson(lesson.id, key)">DELETE</button>
+				</p>
+				</li>
 		</ul>
 		<create-lesson></create-lesson>
 	</div>
@@ -13,6 +19,7 @@
 
 <script>
 	import CreateLesson from './children/CreateLesson.vue';
+	import axios from 'axios'
 
 	export default{
 		props: ['default_lessons', 'series_id'],
@@ -21,17 +28,30 @@
 		},
 		data(){
 			return {
-				lessons: this.default_lessons
+				lessons: JSON.parse(this.default_lessons)
 			};
 		},
-		computed: {
-			formattedLessons(){
-				return JSON.parse(this.lessons);
-			}
+		mounted(){
+			this.$on('create_lesson', (lesson) => {
+				this.lessons.push(lesson);
+			});
 		},
 		methods: {
 			createNewLesson(){
 				this.$emit('create_new_lesson', this.series_id);
+			},
+			deleteLesson(id, key){
+				if(confirm('Are you sure?')){
+					axios.delete('/admin/' + this.series_id +'/lessons/' + id + '')
+						.then(response => {
+							this.lessons.splice(key, 1);
+						}).catch(error => {
+							console.log(error);
+						});
+				}
+			},
+			editLesson(lesson){
+				this.$emit('edit_lesson', lesson);
 			}
 		}
 	}
