@@ -94,7 +94,7 @@ class CreateSeriesTest extends TestCase
        $this->post('/admin/series', [
        		'title' => $title,
        		'description' => 'test description',
-       		'image' => 'STRING_2INVALID_IMAGE'
+       		'image' => 'STRING_INVALID_IMAGE'
        		
        ])->assertSessionHasErrors('image');
     }
