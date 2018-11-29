@@ -40,6 +40,7 @@ window.handleError = function(error){
 Vue.component('vue-login', require('./components/Login.vue'));
 Vue.component('vue-lessons', require('./components/Lessons.vue'));
 Vue.component('vue-noty', require('./components/Noty.vue'));
+Vue.component('vue-series', require('./components/Series.vue'));
 
 // const files = require.context('./', true, /\.vue$/i)
 

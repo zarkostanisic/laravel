@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateSeriesRequest;
 use App\Series;
+use App\Http\Requests\UpdateSeriesRequest;
 
 class SeriesController extends Controller
 {
@@ -15,7 +16,9 @@ class SeriesController extends Controller
      */
     public function index()
     {
-        
+        $series = Series::all();
+
+        return view('admin.series.index', compact('series'));
     }
 
     /**
@@ -58,9 +61,10 @@ class SeriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Series $series)
     {
-        //
+
+        return view('admin.series.edit', compact('series'));
     }
 
     /**
@@ -70,9 +74,21 @@ class SeriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateSeriesRequest $request, Series $series)
     {
-        //
+        if($request->hasFile('image')){
+            $series->image = 'series/' . $request->uploadSeriesImage()->image_new_name;
+        }
+
+        $series->title = $request->title;
+        $series->slug = str_slug($request->title);
+        $series->description = $request->description;
+        $series->save();
+
+        session()->flash('success', 'series updated');
+
+        return redirect()->route('series.index');
+
     }
 
     /**
@@ -81,8 +97,12 @@ class SeriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Series $series)
     {
-        //
+        $series->delete();
+
+        session()->flash('success', 'series deleted');
+
+        return redirect()->route('series.index');
     }
 }

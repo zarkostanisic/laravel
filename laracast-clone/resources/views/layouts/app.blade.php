@@ -37,6 +37,7 @@
           <ul class="topbar-nav nav">
             <li class="nav-item"><a href="/" class="nav-link">HOME</a></li>
             @auth
+                <li class="nav-item"><a href="{{ route('series.index') }}" class="nav-link">Series</a></li>
                 <li class="nav-item"><a href="" class="nav-link">{{ Auth::user()->name }}</a></li>
                 <li class="nav-item">
                     <a onClick="event.preventDefault();document.getElementById('logout').submit();" class="nav-link">Logout</a>

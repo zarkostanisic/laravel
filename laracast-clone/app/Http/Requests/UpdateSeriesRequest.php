@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Series;
 
-class CreateSeriesRequest extends FormRequest
+class UpdateSeriesRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +23,9 @@ class CreateSeriesRequest extends FormRequest
      */
     public function rules()
     {
-         return [
+        return [
             'title' => 'required',
-            'image' => 'required|image',
+            'image' => 'image',
             'description' => 'required'
         ];
     }
@@ -39,18 +38,5 @@ class CreateSeriesRequest extends FormRequest
         $image->storePubliclyAs('series', $this->image_new_name);
 
         return $this;
-    }
-
-    public function storeSeries(){
-        $series = Series::create([
-            'title' => $this->title,
-            'slug' => str_slug($this->title),
-            'image' => 'series/' . $this->image_new_name,
-            'description' => $this->description
-        ]);
-
-        session()->flash('success', 'series created');
-
-        return redirect()->route('series.show', $series->slug);
     }
 }
