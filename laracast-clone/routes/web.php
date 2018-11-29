@@ -11,9 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/redis', function(){
+	// Redis::set('test_key', 'test_value');
+	// dd(Redis::get('test_key'));
+
+	// Redis::lpush('test_key_list', [1, 2, 3]);
+	// dd(Redis::lrange('test_key_list', 0, -1));
+
+	Redis::sadd('test_key_sadd', [1, 2, 3]);
+	dd(Redis::smembers('test_key_sadd'));
 });
+
+Route::get('/', 'FrontendController@welcome');
 
 Route::post('/login', 'Auth\LoginController@login');
 

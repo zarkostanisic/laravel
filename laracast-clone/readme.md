@@ -12,3 +12,6 @@ php artisan make:mail ConfirmYourEmail --markdown="emails.confirm"
 
 - CREATE REQUEST
  php artisan make:request SeriesRequest
+
+- STORAGE LINK
+php artisan storage:link

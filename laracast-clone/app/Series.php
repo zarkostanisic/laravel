@@ -21,4 +21,8 @@ class Series extends Model
     public function lessons(){
     	return $this->hasMany('App\Lesson');
     }
+
+    public function getImageAttribute($value){
+        return 'storage/' . $value;
+    }
 }
