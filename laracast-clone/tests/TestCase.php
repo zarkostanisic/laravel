@@ -4,6 +4,7 @@ namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Config;
+use Redis;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -14,5 +15,9 @@ abstract class TestCase extends BaseTestCase
        	$this->actingAs($user);
 
        Config::push('site.administrators', $user->email);
+    }
+
+    public function flushRedis(){
+    	Redis::flushall();
     }
 }
