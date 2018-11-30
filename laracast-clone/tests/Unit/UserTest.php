@@ -45,7 +45,7 @@ class UserTest extends TestCase
      */
     public function testUserGetPercentageCompletedForSeries()
     {
-    	$this->flushRedis();
+    	 $this->flushRedis();
 
         $user = factory('App\User')->create();
         $series = factory('App\Series')->create();
@@ -70,6 +70,32 @@ class UserTest extends TestCase
        	$user->completeLesson($lesson2);
 
        	$this->assertEquals($user->percentageCompletedForSeries($lesson->series), 50);
+    }
+
+    /**
+     * @group user-has-started-series
+     *
+     * @return void
+     */
+    public function testHasStartedSeries()
+    {
+      $this->flushRedis();
+
+      $user = factory('App\User')->create();
+      $series = factory('App\Series')->create();
+
+      $lesson = factory('App\Lesson')->create();
+
+      $lesson2 = factory('App\Lesson')->create([
+        'series_id' => $series->id
+      ]);
+
+      $lesson3 = factory('App\Lesson')->create();
+
+      $user->completeLesson($lesson2);
+
+      $this->assertTrue($user->hasStartedSeries($lesson2->series));
+      $this->assertFalse($user->hasStartedSeries($lesson3->series));
     }
 
 

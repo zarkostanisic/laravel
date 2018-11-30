@@ -18,4 +18,8 @@ trait Learning{
     public function getNumberOfCompletedLessonsForSeries($series){
         return Redis::scard('user:' . $this->id . 'series:' . $series->id);
     }
+
+    public function hasStartedSeries($series){
+        return $this->getNumberOfCompletedLessonsForSeries($series) > 0;
+    }
 }
