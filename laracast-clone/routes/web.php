@@ -23,6 +23,9 @@ Route::get('/redis', function(){
 });
 
 Route::get('/', 'FrontendController@welcome');
+Route::get('/series/{series}', 'FrontendController@series')->name('series');
+Route::get('/watch-series/{series}/', 'WatchSeriesController@index')->name('watch-series');
+Route::get('/watch-series/{series}/{lesson}', 'WatchSeriesController@watch')->name('series.watch');
 
 Route::post('/login', 'Auth\LoginController@login');
 

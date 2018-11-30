@@ -12,4 +12,8 @@ class FrontendController extends Controller
 
     	return view('welcome', compact('series'));
     }
+
+    public function series(Series $series){
+    	return view('series', compact('series'));
+    }
 }
