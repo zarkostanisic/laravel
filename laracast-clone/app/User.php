@@ -45,4 +45,15 @@ class User extends Authenticatable
     public function completeLesson($lesson){
         Redis::sadd('user:' . $this->id . 'series:' . $lesson->series_id, [$lesson->id]);
     }
+
+    public function percentageCompletedForSeries($series){
+        $numberOfLessons = $series->lessons()->count();
+        $numberOfCompletedLessons = $this->getNumberOfCompletedLessonsForSeries($series);
+
+        return number_format(($numberOfCompletedLessons / $numberOfLessons) * 100, 0);
+    }
+
+    public function getNumberOfCompletedLessonsForSeries($series){
+        return count(Redis::smembers('user:' . $this->id . 'series:' . $series->id));
+    }
 }
