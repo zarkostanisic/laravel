@@ -9,7 +9,7 @@
       <div class="col-12 col-lg-8 offset-lg-2">
 
         <h1>{{ $series->title }}</h1>
-        <h5>{{$lesson->title }}</h5>
+        <h5>{{ $lesson->title }}</h5>
 
       </div>
     </div>
@@ -25,7 +25,7 @@
 
   <div class="row gap-y">
     <div class="col-12 col-md-12">
-      <p>{{ $series->description }}</p>
+      <vue-player default_lesson="{{ $lesson }}"></vue-player>
     </div>
 </div>
 </div>
