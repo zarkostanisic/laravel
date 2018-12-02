@@ -11,6 +11,7 @@ use Storage;
 
 class UpdateSeriesTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * @group update-series
      *
@@ -74,10 +75,11 @@ class UpdateSeriesTest extends TestCase
        		$image_new_name
        	);
 
+      $image = str_replace('storage/', '', $series->image);
 
     	$this->assertDatabaseHas('series', [
        		'slug' => str_slug($title),
-       		'image' => $series->image
+       		'image' => $image
        	]);
     }
 }

@@ -25,4 +25,8 @@ class Series extends Model
     public function getImageAttribute($value){
         return 'storage/' . $value;
     }
+
+    public function getOrderedLessons(){
+        return $this->lessons()->orderBy('episode_number', 'asc')->get();
+    }
 }
