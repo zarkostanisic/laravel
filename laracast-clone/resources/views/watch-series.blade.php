@@ -40,12 +40,19 @@
       <ul class="list-group">
         @foreach ($series->getOrderedLessons() as $l)
           <li class="list-group-item d-flex justify-content-between">
-            {{ $l->title }}
-            @if ($lesson->id == $l->id)
-              <p>NOW PLAYING!</p>
-            @else
-              <a href="{{ route('series.watch', [$series->slug, $l->id]) }}" class="btn btn-primary">PLAY</a>
-            @endif
+            <p>
+              @if (auth()->user()->hasCompletedLesson($l))
+                <small>COMPLETED </small>
+              @endif
+              {{ $l->title }}
+            </p>
+            <p>
+              @if ($lesson->id == $l->id)
+                NOW PLAYING!
+              @else
+                <a href="{{ route('series.watch', [$series->slug, $l->id]) }}" class="btn btn-primary">PLAY</a>
+              @endif
+            </p>
           </li>
         @endforeach
       </ul>

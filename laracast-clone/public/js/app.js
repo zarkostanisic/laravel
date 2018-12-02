@@ -3887,12 +3887,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__vimeo_player__ = __webpack_require__("./node_modules/@vimeo/player/dist/player.es.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2__ = __webpack_require__("./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_sweetalert2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_sweetalert2__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__("./node_modules/axios/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
 //
 //
 //
 //
 //
 //
+
+
+
 
 
 
@@ -3917,6 +3922,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		displayVideoEndedAlert: function displayVideoEndedAlert() {
 			var _this2 = this;
 
+			this.completeLesson(this.lesson);
+
 			if (this.next_lesson == '') {
 				__WEBPACK_IMPORTED_MODULE_1_sweetalert2___default()('Congrats! You finished series!');
 			} else {
@@ -3924,6 +3931,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 					window.location = _this2.next_lesson;
 				});
 			}
+		},
+		completeLesson: function completeLesson() {
+			__WEBPACK_IMPORTED_MODULE_2_axios___default.a.post('/series/complete-lesson/' + this.lesson.id);
 		}
 	}
 });

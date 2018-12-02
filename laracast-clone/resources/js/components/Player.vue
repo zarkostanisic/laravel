@@ -8,6 +8,9 @@
 	import Player from '@vimeo/player'
 
 	import swal from 'sweetalert2'
+
+	import axios from 'axios'
+
 	export default{
 		props: ['default_lesson', 'next_lesson'],
 		data(){
@@ -23,6 +26,8 @@
 		},
 		methods: {
 			displayVideoEndedAlert(){
+				this.completeLesson(this.lesson);
+
 				if(this.next_lesson == ''){
 					swal('Congrats! You finished series!');
 				}else{
@@ -31,6 +36,9 @@
 						window.location = this.next_lesson;
 					});
 				}
+			},
+			completeLesson(){
+				axios.post('/series/complete-lesson/' + this.lesson.id);
 			}
 		}
 	}
