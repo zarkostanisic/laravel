@@ -6,8 +6,10 @@
 
 <script>
 	import Player from '@vimeo/player'
+
+	import swal from 'sweetalert2'
 	export default{
-		props: ['default_lesson'],
+		props: ['default_lesson', 'next_lesson'],
 		data(){
 			return {
 				lesson: JSON.parse(this.default_lesson)
@@ -15,9 +17,21 @@
 		},
 		mounted(){
 			const player  = new Player('player');
-			player.on('play', function() {
-		        console.log('played the handstick video!');
+			player.on('ended', () => {
+		        this.displayVideoEndedAlert();
 		    });
+		},
+		methods: {
+			displayVideoEndedAlert(){
+				if(this.next_lesson == ''){
+					swal('Congrats! You finished series!');
+				}else{
+					swal('Congrats! You finished lesson!')
+					.then(() => {
+						window.location = this.next_lesson;
+					});
+				}
+			}
 		}
 	}
 </script>

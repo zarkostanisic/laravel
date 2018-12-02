@@ -25,15 +25,15 @@
 
   <div class="row gap-y">
     <div class="col-12 col-md-12 text-center">
-      <vue-player default_lesson="{{ $lesson }}"></vue-player>
+      <vue-player default_lesson="{{ $lesson }}" next_lesson="{{ $next_lesson ? route('series.watch', [$series->slug, $next_lesson->id]) : '' }}"></vue-player>
     </div>
     <div class="col-md-12">
-    @if ($lesson->prevLesson())
-      <a href="{{ route('series.watch', [$series->slug, $lesson->prevLesson()->id]) }}" class="btn btn-info float:left">PREV LESSON</a>
+    @if ($prev_lesson)
+      <a href="{{ route('series.watch', [$series->slug, $prev_lesson->id]) }}" class="btn btn-info float:left">PREV LESSON</a>
     @endif
 
-    @if ($lesson->nextLesson())
-      <a href="{{ route('series.watch', [$series->slug, $lesson->nextLesson()->id]) }}" class="btn btn-info float-right">NEXT LESSON</a>
+    @if ($next_lesson)
+      <a href="{{ route('series.watch', [$series->slug, $next_lesson->id]) }}" class="btn btn-info float-right">NEXT LESSON</a>
     @endif
     </div>
     <div class="col-md-12">

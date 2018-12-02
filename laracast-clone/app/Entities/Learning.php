@@ -31,4 +31,13 @@ trait Learning{
     public function hasStartedSeries($series){
         return $this->getNumberOfCompletedLessonsForSeries($series) > 0;
     }
+
+    public function hasCompletedLesson($lesson) {
+        $completed_lessons = Redis::smembers('user:' . $this->id . 'series:' . $lesson->series->id);;
+
+        return in_array(
+            $lesson->id,
+            $completed_lessons
+        );
+    }
 }

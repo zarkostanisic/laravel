@@ -137,4 +137,35 @@ class UserTest extends TestCase
     }
 
 
+    /**
+     * @group complete-series-unit
+     *
+     * @return void
+     */
+    public function testCompleteSeries()
+    {
+         $this->flushRedis();
+
+        $user = factory('App\User')->create();
+
+
+        $series = factory('App\Series')->create();
+
+        $lesson = factory('App\Lesson')->create([
+          'series_id' => $series->id
+        ]);
+
+        $lesson2 = factory('App\Lesson')->create([
+          'series_id' => $series->id
+        ]);
+
+
+        $user->completeLesson($lesson);
+
+        $this->assertTrue($user->hasCompletedLesson($lesson));
+
+        $this->assertFalse($user->hasCompletedLesson($lesson2));
+    }
+
+
 }
