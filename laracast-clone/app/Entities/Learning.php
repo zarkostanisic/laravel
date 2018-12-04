@@ -59,6 +59,18 @@ trait Learning{
 
         return collect($this->seriesBeingWatchedIds())->map(function($id){
             return Series::find($id);
-        });
+        })->filter();
+    }
+
+    public function getTotalNumberOfCompletedLessons(){
+        $keys = Redis::keys('user:' . $this->id . 'series:*');
+
+        $result = 0;
+
+        foreach($keys as $key){
+           $result += Redis::scard($key);
+        }
+
+        return $result;
     }
 }

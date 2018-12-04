@@ -25,6 +25,7 @@
 
   <div class="row gap-y">
     <div class="col-12 col-md-12">
+      <a href="{{ route('series.index') }}" class="btn btn-primary">BACK</a>
       <vue-lessons default_lessons="{{ $series->lessons }}" series_id="{{ $series->id }}"></vue-lessons>
     </div>
 </div>

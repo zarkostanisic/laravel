@@ -226,5 +226,53 @@ class UserTest extends TestCase
 
     }
 
+    /**
+     * @group completed-lessons-number
+     *
+     * @return void
+     */
+    public function testCompletedLessonsNumber()
+    {
+         $this->flushRedis();
+
+        $user = factory('App\User')->create();
+
+
+        $series = factory('App\Series')->create();
+        $series2 = factory('App\Series')->create();
+        $series3 = factory('App\Series')->create();
+
+        $lesson = factory('App\Lesson')->create([
+          'series_id' => $series->id
+        ]);
+
+        $lesson2 = factory('App\Lesson')->create([
+          'series_id' => $series->id
+        ]);
+
+        $lesson3 = factory('App\Lesson')->create([
+          'series_id' => $series2->id
+        ]);
+
+        $lesson4 = factory('App\Lesson')->create([
+          'series_id' => $series2->id
+        ]);
+
+        $lesson5 = factory('App\Lesson')->create([
+          'series_id' => $series3->id
+        ]);
+
+        $lesson6 = factory('App\Lesson')->create([
+          'series_id' => $series3->id
+        ]);
+
+        $user->completeLesson($lesson);
+        $user->completeLesson($lesson3);
+        $user->completeLesson($lesson6);
+
+        $this->assertEquals($user->getTotalNumberOfCompletedLessons(), 3);
+
+    }
+
 
 }

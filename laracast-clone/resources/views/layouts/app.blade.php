@@ -38,7 +38,7 @@
             <li class="nav-item"><a href="/" class="nav-link">HOME</a></li>
             @auth
                 <li class="nav-item"><a href="{{ route('series.index') }}" class="nav-link">Series</a></li>
-                <li class="nav-item"><a href="" class="nav-link">{{ Auth::user()->name }}</a></li>
+                <li class="nav-item"><a href="{{ route('profile.index', auth()->id()) }}" class="nav-link">{{ Auth::user()->name }}</a></li>
                 <li class="nav-item">
                     <a onClick="event.preventDefault();document.getElementById('logout').submit();" class="nav-link">Logout</a>
                     <form action="/logout" method="post" id="logout">

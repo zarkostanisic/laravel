@@ -32,7 +32,7 @@
     <ul class="list-group">
       @forelse ($series as $s)
       <li class="list-group-item d-flex justify-content-between">
-        <p>{{ $s->title }}</p>
+        <p><a href="{{ route('series.show',  $s->slug) }}">{{ $s->title }}</a></p>
         <div class="d-flex">
           <a href="{{ route('series.edit', $s->slug) }}" class="btn btn-primary">EDIT</a>
           <form action="{{ route('series.destroy', $s->slug) }}" method="post">

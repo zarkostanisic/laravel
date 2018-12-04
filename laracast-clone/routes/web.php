@@ -36,6 +36,7 @@ Route::get('/register/confirm', 'Auth\RegisterController@confirm')->name('regist
 
 Route::post('/logout', 'Auth\LoginController@logout');
 
+Route::get('/profile/{user}', 'ProfileController@index')->name('profile.index');
 // Route::get('/mail', function(){
 // 	return new App\Mail\ConfirmYourEmail();
 // });
