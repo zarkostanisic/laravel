@@ -168,4 +168,63 @@ class UserTest extends TestCase
     }
 
 
+    /**
+     * @group all-series-watched
+     *
+     * @return void
+     */
+    public function testAllSeriesWatched()
+    {
+         $this->flushRedis();
+
+        $user = factory('App\User')->create();
+
+
+        $series = factory('App\Series')->create();
+        $series2 = factory('App\Series')->create();
+        $series3 = factory('App\Series')->create();
+
+        $lesson = factory('App\Lesson')->create([
+          'series_id' => $series->id
+        ]);
+
+        $lesson2 = factory('App\Lesson')->create([
+          'series_id' => $series->id
+        ]);
+
+        $lesson3 = factory('App\Lesson')->create([
+          'series_id' => $series2->id
+        ]);
+
+        $lesson4 = factory('App\Lesson')->create([
+          'series_id' => $series2->id
+        ]);
+
+        $lesson5 = factory('App\Lesson')->create([
+          'series_id' => $series3->id
+        ]);
+
+        $lesson6 = factory('App\Lesson')->create([
+          'series_id' => $series3->id
+        ]);
+
+        $user->completeLesson($lesson);
+        $user->completeLesson($lesson3);
+
+        $startedSeries = $user->seriesBeingWatched();
+
+        $this->assertInstanceOf(\Illuminate\Support\Collection::class, $startedSeries);
+        $this->assertInstanceOf(\App\Series::class, $startedSeries->random());
+
+        $idsOfStartedSeries = $startedSeries->pluck('id')->all();
+
+        $this->assertTrue(in_array($lesson->series->id, $idsOfStartedSeries));
+
+        $this->assertTrue(in_array($lesson3->series->id, $idsOfStartedSeries));
+
+        $this->assertFalse(in_array($lesson6->series->id, $idsOfStartedSeries));
+
+    }
+
+
 }
