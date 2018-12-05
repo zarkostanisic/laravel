@@ -3988,6 +3988,60 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/Stripe.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	data: function data() {
+		return {
+			plan: '',
+			amount: 0,
+			handler: null
+		};
+	},
+	mounted: function mounted() {
+		this.handler = StripeCheckout.configure({
+			key: 'pk_test_r7CgJflkLnwBOcq3LznerLXo',
+			image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+			locale: 'auto',
+			token: function token(_token) {
+				// You can access the token ID with `token.id`.
+				// Get the token ID to your server-side code for use.
+			}
+		});
+	},
+
+	methods: {
+		subscribe: function subscribe(plan) {
+			if (plan == 'monthly') {
+				this.plan = 'monthly';
+				this.amount = 999;
+			} else if (plan == 'yearly') {
+				this.plan = 'yearly';
+				this.amount = 9999;
+			}
+
+			this.handler.open({
+				name: 'Subscription',
+				description: this.plan,
+				amount: this.amount
+			});
+		}
+	}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/children/CreateLesson.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -41609,6 +41663,55 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-200a1ff8\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/Stripe.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-success",
+        on: {
+          click: function($event) {
+            $event.stopPropagation()
+            _vm.subscribe("monthly")
+          }
+        }
+      },
+      [_vm._v("Subscribe to $9.99 Monthly")]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-info",
+        on: {
+          click: function($event) {
+            $event.stopPropagation()
+            _vm.subscribe("yearly")
+          }
+        }
+      },
+      [_vm._v("Subscribe to $99.Yearly")]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-200a1ff8", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4872a849\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/children/CreateLesson.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -53426,6 +53529,7 @@ Vue.component('vue-lessons', __webpack_require__("./resources/js/components/Less
 Vue.component('vue-noty', __webpack_require__("./resources/js/components/Noty.vue"));
 Vue.component('vue-series', __webpack_require__("./resources/js/components/Series.vue"));
 Vue.component('vue-player', __webpack_require__("./resources/js/components/Player.vue"));
+Vue.component('vue-stripe', __webpack_require__("./resources/js/components/Stripe.vue"));
 
 // const files = require.context('./', true, /\.vue$/i)
 
@@ -53740,6 +53844,54 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-5e079922", Component.options)
   } else {
     hotAPI.reload("data-v-5e079922", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Stripe.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/Stripe.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-200a1ff8\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/Stripe.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/Stripe.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-200a1ff8", Component.options)
+  } else {
+    hotAPI.reload("data-v-200a1ff8", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
