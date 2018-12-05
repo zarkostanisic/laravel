@@ -40,9 +40,9 @@ class LessonTest extends TestCase
         $this->assertEquals($lesson->prevLesson()->id, $lesson2->id);
 
         $this->assertEquals($lesson2->nextLesson()->id, $lesson->id);
-        $this->assertNull($lesson2->prevLesson());
+        $this->assertEquals($lesson2->prevLesson()->id, $lesson2->id);
 
-        $this->assertNull($lesson3->nextLesson());
+        $this->assertEquals($lesson3->nextLesson()->id, $lesson3->id);
         $this->assertEquals($lesson3->prevLesson()->id, $lesson->id);
     }
 }

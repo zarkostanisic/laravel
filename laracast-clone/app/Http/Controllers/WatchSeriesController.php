@@ -9,9 +9,17 @@ use App\Lesson;
 class WatchSeriesController extends Controller
 {
     public function index(Series $series){
+        $user = auth()->user();
+
+        if($user->hasStartedSeries($series)){
+            $lesson = $user->getNextLessonToBeWatch($series);
+        }else{
+            $lesson = $series->lessons->first()->id;
+        }
+
     	return redirect()->route('series.watch', [
     		'series' => $series->slug,
-    		'lesson' => $series->lessons->first()->id
+    		'lesson' => $lesson
     	]);
     }
 

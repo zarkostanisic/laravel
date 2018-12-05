@@ -28,11 +28,11 @@
       <vue-player default_lesson="{{ $lesson }}" next_lesson="{{ $next_lesson ? route('series.watch', [$series->slug, $next_lesson->id]) : '' }}"></vue-player>
     </div>
     <div class="col-md-12">
-    @if ($prev_lesson)
+    @if ($prev_lesson->id !== $lesson->id)
       <a href="{{ route('series.watch', [$series->slug, $prev_lesson->id]) }}" class="btn btn-info float:left">PREV LESSON</a>
     @endif
 
-    @if ($next_lesson)
+    @if ($next_lesson->id !== $lesson->id)
       <a href="{{ route('series.watch', [$series->slug, $next_lesson->id]) }}" class="btn btn-info float-right">NEXT LESSON</a>
     @endif
     </div>

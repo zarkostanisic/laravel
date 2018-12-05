@@ -18,8 +18,10 @@ Route::get('/redis', function(){
 	// Redis::lpush('test_key_list', [1, 2, 3]);
 	// dd(Redis::lrange('test_key_list', 0, -1));
 
-	Redis::sadd('test_key_sadd', [1, 2, 3]);
-	dd(Redis::smembers('test_key_sadd'));
+	// Redis::sadd('test_key_sadd', [1, 2, 3]);
+	// dd(Redis::smembers('test_key_sadd'));
+
+	Redis::flushall();
 });
 
 Route::get('/', 'FrontendController@welcome');
