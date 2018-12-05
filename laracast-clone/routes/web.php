@@ -24,10 +24,8 @@ Route::get('/redis', function(){
 
 Route::get('/', 'FrontendController@welcome');
 Route::get('/series/{series}', 'FrontendController@series')->name('series');
-Route::get('/watch-series/{series}/', 'WatchSeriesController@index')->name('watch-series');
-Route::get('/watch-series/{series}/{lesson}', 'WatchSeriesController@watch')->name('series.watch');
-Route::post('/series/complete-lesson/{lesson}', 'WatchSeriesController@complete');
 
+Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\LoginController@login');
 
 Route::get('/register', 'Auth\RegisterController@showRegistrationForm');
@@ -37,6 +35,15 @@ Route::get('/register/confirm', 'Auth\RegisterController@confirm')->name('regist
 Route::post('/logout', 'Auth\LoginController@logout');
 
 Route::get('/profile/{user}', 'ProfileController@index')->name('profile.index');
+
+Route::middleware('auth')->group(function(){
+	Route::get('/watch-series/{series}', 'WatchSeriesController@index')->name('watch-series');
+	Route::get('/watch-series/{series}/{lesson}', 'WatchSeriesController@watch')->name('series.watch');
+	Route::post('/series/complete-lesson/{lesson}', 'WatchSeriesController@complete');
+});
 // Route::get('/mail', function(){
 // 	return new App\Mail\ConfirmYourEmail();
 // });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

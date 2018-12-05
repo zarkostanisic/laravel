@@ -274,5 +274,51 @@ class UserTest extends TestCase
 
     }
 
+    /**
+     * @group get-next-lesson-to-be-watch
+     *
+     * @return void
+     */
+    public function testGetNextLessonToBeWatch()
+    {
+        $this->flushRedis();
+
+        $user = factory('App\User')->create();
+        $series = factory('App\Series')->create();
+
+        $lesson = factory('App\Lesson')->create([
+          'episode_number' => 100,
+          'series_id' => $series->id
+        ]);
+
+        $lesson2 = factory('App\Lesson')->create([
+          'episode_number' => 200,
+          'series_id' => $series->id
+        ]);
+
+        $lesson3 =  factory('App\Lesson')->create([
+          'episode_number' => 300,
+          'series_id' => $series->id
+        ]);
+
+        $lesson4 =  factory('App\Lesson')->create([
+          'episode_number' => 400,
+          'series_id' => $series->id
+        ]);
+
+        $user->completeLesson($lesson);
+        $user->completeLesson($lesson2);
+
+        $nextLesson = $user->getNextLessonToBeWatch($lesson->series);
+
+        $this->assertEquals($lesson3->id, $nextLesson->id);
+
+        $user->completeLesson($lesson3);
+
+        $nextLesson = $user->getNextLessonToBeWatch($lesson->series);
+
+        $this->assertEquals($lesson4->id, $nextLesson->id);
+    }
+
 
 }

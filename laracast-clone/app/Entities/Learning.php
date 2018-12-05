@@ -34,7 +34,7 @@ trait Learning{
     }
 
     public function hasCompletedLesson($lesson) {
-        $completed_lessons = Redis::smembers('user:' . $this->id . 'series:' . $lesson->series->id);;
+        $completed_lessons = Redis::smembers('user:' . $this->id . 'series:' . $lesson->series->id);
 
         return in_array(
             $lesson->id,
@@ -72,5 +72,13 @@ trait Learning{
         }
 
         return $result;
+    }
+
+    public function getNextLessonToBeWatch($series){
+        $completetLessons = Redis::smembers('user:' . $this->id . 'series:' . $series->id);
+
+        $lessonId = end($completetLessons);
+
+        return Lesson::find($lessonId)->nextLesson();
     }
 }

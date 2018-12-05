@@ -36,15 +36,17 @@
         <div class="topbar-right">
           <ul class="topbar-nav nav">
             <li class="nav-item"><a href="/" class="nav-link">HOME</a></li>
-            @auth
-                <li class="nav-item"><a href="{{ route('series.index') }}" class="nav-link">Series</a></li>
-                <li class="nav-item"><a href="{{ route('profile.index', auth()->id()) }}" class="nav-link">{{ Auth::user()->name }}</a></li>
-                <li class="nav-item">
-                    <a onClick="event.preventDefault();document.getElementById('logout').submit();" class="nav-link">Logout</a>
-                    <form action="/logout" method="post" id="logout">
-                        {{ csrf_field() }}
-                    </form>
-                </li>
+             @auth
+                @admin
+                  <li class="nav-item"><a href="{{ route('series.index') }}" class="nav-link">Series</a></li>
+                  <li class="nav-item"><a href="{{ route('profile.index', auth()->id()) }}" class="nav-link">{{ Auth::user()->name }}</a></li>
+                @endadmin
+              <li class="nav-item">
+                  <a onClick="event.preventDefault();document.getElementById('logout').submit();" class="nav-link">Logout</a>
+                  <form action="/logout" method="post" id="logout">
+                      {{ csrf_field() }}
+                  </form>
+              </li>
             @endauth
 
             @guest
