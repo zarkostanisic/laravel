@@ -43,7 +43,7 @@ Vue.component('vue-noty', require('./components/Noty.vue'));
 Vue.component('vue-series', require('./components/Series.vue'));
 Vue.component('vue-player', require('./components/Player.vue'));
 Vue.component('vue-stripe', require('./components/Stripe.vue'));
-
+Vue.component('vue-update-card', require('./components/UpdateCard.vue'));
 // const files = require.context('./', true, /\.vue$/i)
 
 // files.keys().map(key => {

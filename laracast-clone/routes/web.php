@@ -57,3 +57,27 @@ Route::get('/subscribe', function(){
 Route::post('/subscribe', function(){
 	return auth()->user()->newSubscription(request('plan'), request('plan'))->create(request('token'));
 });
+
+Route::post('/subscribe/change', function(){
+	$user = auth()->user();
+	$userPlan = $user->subscriptions->first()->stripe_plan;
+	$plan = request('plan');
+
+	if($userPlan === $plan){
+		return redirect()->back();
+	}
+
+	$user->subscription($userPlan)->swap($plan);
+
+	return redirect()->back();
+
+})->name('subscribe.change');
+
+Route::post('/card-update', function(){
+	$token = request('token');
+	$user = auth()->user();
+
+	$user->updateCard($token);
+
+	return response()->json('ok');
+});

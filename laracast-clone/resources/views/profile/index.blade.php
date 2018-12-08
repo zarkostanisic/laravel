@@ -44,4 +44,48 @@
           @endforelse
         </div>
     </section>
+
+    <section class="section bg-gray">
+        <div class="container">
+          <h1>Subscribe</h1>
+          <h3>Your current plan <span class="badge badge-success">{{ auth()->user()->subscriptions->first()->stripe_plan }}</span></h3>
+          <div class="card mb-30">
+            <div class="row">
+              <div class="col-12 text-center">
+                <form action="{{ route('subscribe.change') }}" method="post">
+                  {{ csrf_field() }}
+                  <div class="form-group">
+                    <select name="plan" id="plan" class="form-control">
+                      <option value="monthly">Monthly</option>
+                      <option value="yearly">Yearly</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary">CHANGE PLAN</button>
+                  </div>
+                </form>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <section class="section bg-gray">
+        <div class="container">
+          <h3>Your current card <span class="badge badge-primary">{{ auth()->user()->card_brand }}:{{ auth()->user()->card_last_four }}</span></h3>
+          <div class="card mb-30">
+            <div class="row">
+              <div class="col-12 text-center">
+                <vue-update-card email="{{ auth()->user()->email }}"></vue-update-card>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+    </section>
 @stop
+
+@section('scripts')
+  <script src="https://checkout.stripe.com/checkout.js"></script>
+@endsection
