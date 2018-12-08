@@ -22,6 +22,13 @@
 	          <textarea class="form-control form-control-lg"rows="4" placeholder="Description" v-model="lesson.description"></textarea>
 	        </div>
 
+	        <div class="form-group">
+	          <label>
+              	<input type="checkbox" v-model="lesson.premium" :checked="lesson.premium">
+              	Premium
+              </label>
+            </div>
+
             <div class="form-group">
             	<button class="btn btn-bold btn-block btn-primary" type="button" @click="updateLesson" v-if="editing">UPDATE</button>
               <button class="btn btn-bold btn-block btn-primary" type="button" @click="createLesson" v-else>CREATE</button>
@@ -42,6 +49,7 @@
 			this.video_id = lesson.video_id || '';
 			this.description = lesson.description || '';
 			this.lesson_id = lesson.id || null;
+			this.premium = lesson.premium * 1 || false
 		}
 	}
 
@@ -79,7 +87,8 @@
 					episode_number: this.lesson.episode_number,
 					video_id: this.lesson.video_id,
 					description: this.lesson.description,
-					series_id: this.series_id
+					series_id: this.series_id,
+					premium: this.lesson.premium
 				}).then(response => {
 					this.$parent.$emit('lesson_created', response.data);
 
@@ -99,6 +108,7 @@
 					episode_number: this.lesson.episode_number,
 					video_id: this.lesson.video_id,
 					description: this.lesson.description,
+					premium: this.lesson.premium
 				}).then(response => {
 					this.$parent.$emit('lesson_updated', response.data);
 

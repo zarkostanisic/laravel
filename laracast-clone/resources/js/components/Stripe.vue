@@ -7,6 +7,8 @@
 
 <script>
 	import axios from 'axios'
+	import swal from 'sweetalert2'
+
 	export default{
 		props: ['email'],
 		data(){
@@ -24,11 +26,16 @@
 			  token(token) {
 			    // You can access the token ID with `token.id`.
 			    // Get the token ID to your server-side code for use.
+			    swal({text: 'Please wait to subscribec!', showConfirmButton: false});
+
 			    axios.post('/subscribe', {
 			    	token: token.id,
 			    	plan: window.plan
 			    }).then(response => {
-			    	console.log(response);
+			    	swal('Congrats! You are subscribed!')
+			    	.then(() => {
+			    		window.location = '';
+			    	});
 			    });
 			  }
 			});
