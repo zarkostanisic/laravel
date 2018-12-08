@@ -3993,6 +3993,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__("./node_modules/axios/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 //
 //
 //
@@ -4001,7 +4003,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+	props: ['email'],
 	data: function data() {
 		return {
 			plan: '',
@@ -4011,12 +4015,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 	mounted: function mounted() {
 		this.handler = StripeCheckout.configure({
-			key: 'pk_test_r7CgJflkLnwBOcq3LznerLXo',
+			key: 'pk_test_PXcDVYstxhkHkYBWjkntsFoD',
 			image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
 			locale: 'auto',
 			token: function token(_token) {
 				// You can access the token ID with `token.id`.
 				// Get the token ID to your server-side code for use.
+				__WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/subscribe', {
+					token: _token.id,
+					plan: window.plan
+				}).then(function (response) {
+					console.log(response);
+				});
 			}
 		});
 	},
@@ -4025,16 +4035,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		subscribe: function subscribe(plan) {
 			if (plan == 'monthly') {
 				this.plan = 'monthly';
+				window.plan = 'monthly';
 				this.amount = 999;
 			} else if (plan == 'yearly') {
 				this.plan = 'yearly';
+				window.plan = 'yearly';
 				this.amount = 9999;
 			}
 
 			this.handler.open({
 				name: 'Subscription',
 				description: this.plan,
-				amount: this.amount
+				amount: this.amount,
+				email: this.email
 			});
 		}
 	}

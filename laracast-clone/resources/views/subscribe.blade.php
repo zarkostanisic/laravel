@@ -20,7 +20,7 @@
 
       <section class="section bg-gray">
         <div class="container">
-          <vue-stripe></vue-stripe>
+          <vue-stripe email="{{ auth()->user()->email }}"></vue-stripe>
         </div>
     </section>
 @stop

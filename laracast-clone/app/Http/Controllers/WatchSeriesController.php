@@ -24,6 +24,13 @@ class WatchSeriesController extends Controller
     }
 
     public function watch(Series $series, Lesson $lesson){
+        if(
+            !auth()->user()->subscribed('yearly') &&
+            !auth()->user()->subscribed('monthly')
+
+        ){
+            return redirect('/subscribe');
+        }
     	$next_lesson = $lesson->nextLesson();
     	$prev_lesson = $lesson->prevLesson();
 

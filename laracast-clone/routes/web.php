@@ -50,6 +50,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/stripe', function(){
+Route::get('/subscribe', function(){
 	return view('subscribe');
+});
+
+Route::post('/subscribe', function(){
+	return auth()->user()->newSubscription(request('plan'), request('plan'))->create(request('token'));
 });
