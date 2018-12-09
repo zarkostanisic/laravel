@@ -19,3 +19,6 @@ php artisan storage:link
 - QUEUE
 php artisan queue:table
 php artisan queue:work
+
+- PRODUCTION
+php artisan vendor:publish
