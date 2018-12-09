@@ -44,8 +44,8 @@
   export default{
     data() {
       return {
-        email: 'zarko.stanisic@live.com',
-        password: 'secret',
+        email: '',
+        password: '',
         remember: true, 
         loading: false,
         errors: []

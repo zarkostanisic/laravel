@@ -15,3 +15,7 @@ php artisan make:mail ConfirmYourEmail --markdown="emails.confirm"
 
 - STORAGE LINK
 php artisan storage:link
+
+- QUEUE
+php artisan queue:table
+php artisan queue:work

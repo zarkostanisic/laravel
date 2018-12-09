@@ -48,7 +48,15 @@
     <section class="section bg-gray">
         <div class="container">
           <h1>Subscribe</h1>
-          <h3>Your current plan <span class="badge badge-success">{{ auth()->user()->subscriptions->first()->stripe_plan }}</span></h3>
+          @php 
+            $subscription = auth()->user()->subscriptions->first();
+          @endphp
+          @if ($subscription)
+          <h3>
+            Your current plan 
+            <span class="badge badge-success">{{ $subscription->stripe_plan }}</span>
+          </h3>
+
           <div class="card mb-30">
             <div class="row">
               <div class="col-12 text-center">
@@ -68,10 +76,7 @@
   
             </div>
           </div>
-        </div>
-    </section>
-
-    <section class="section bg-gray">
+          <section class="section bg-gray">
         <div class="container">
           <h3>Your current card <span class="badge badge-primary">{{ auth()->user()->card_brand }}:{{ auth()->user()->card_last_four }}</span></h3>
           <div class="card mb-30">
@@ -82,6 +87,11 @@
   
             </div>
           </div>
+        </div>
+    </section>
+          @else
+            <a href="/subscribe">Choose a plan</a>
+          @endif
         </div>
     </section>
 @stop

@@ -34,7 +34,7 @@
 			    }).then(response => {
 			    	swal('Congrats! You are subscribed!')
 			    	.then(() => {
-			    		window.location = '';
+			    		window.location = '/';
 			    	});
 			    });
 			  }

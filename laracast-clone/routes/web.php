@@ -36,9 +36,9 @@ Route::get('/register/confirm', 'Auth\RegisterController@confirm')->name('regist
 
 Route::post('/logout', 'Auth\LoginController@logout');
 
-Route::get('/profile/{user}', 'ProfileController@index')->name('profile.index');
-
 Route::middleware('auth')->group(function(){
+
+Route::get('/profile/{user}', 'ProfileController@index')->name('profile.index');
 	Route::get('/watch-series/{series}', 'WatchSeriesController@index')->name('watch-series');
 	Route::get('/watch-series/{series}/{lesson}', 'WatchSeriesController@watch')->name('series.watch');
 	Route::post('/series/complete-lesson/{lesson}', 'WatchSeriesController@complete');
@@ -50,34 +50,38 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/subscribe', function(){
-	return view('subscribe');
-});
+// Can put in controller SubscribeController
+Route::middleware('auth')->group(function(){
+	Route::get('/subscribe', function(){
+		return view('subscribe');
+	});
 
-Route::post('/subscribe', function(){
-	return auth()->user()->newSubscription(request('plan'), request('plan'))->create(request('token'));
-});
+	Route::post('/subscribe', function(){
+		return auth()->user()->newSubscription(request('plan'), request('plan'))->create(request('token'));
+	});
 
-Route::post('/subscribe/change', function(){
-	$user = auth()->user();
-	$userPlan = $user->subscriptions->first()->stripe_plan;
-	$plan = request('plan');
+	Route::post('/subscribe/change', function(){
+		$user = auth()->user();
+		$userPlan = $user->subscriptions->first()->stripe_plan;
+		$plan = request('plan');
 
-	if($userPlan === $plan){
+		if($userPlan === $plan){
+			return redirect()->back();
+		}
+
+		$user->subscription($userPlan)->swap($plan);
+
 		return redirect()->back();
-	}
 
-	$user->subscription($userPlan)->swap($plan);
+	})->name('subscribe.change');
 
-	return redirect()->back();
+	Route::post('/card-update', function(){
+		$token = request('token');
+		$user = auth()->user();
 
-})->name('subscribe.change');
+		$user->updateCard($token);
 
-Route::post('/card-update', function(){
-	$token = request('token');
-	$user = auth()->user();
-
-	$user->updateCard($token);
-
-	return response()->json('ok');
+		return response()->json('ok');
+	});
 });
+// End subscribe controller
