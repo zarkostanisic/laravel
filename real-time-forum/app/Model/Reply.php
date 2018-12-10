@@ -11,6 +11,15 @@ class Reply extends Model
 		'body', 'question_id', 'user_id'
 	];
 
+    protected $with = [
+        'user'
+    ];
+
+    public function getReplyAttribute()
+    {
+        return $this->body;
+    }
+
     public function question(){
     	return $this->belongsTo(Question::class);
     }

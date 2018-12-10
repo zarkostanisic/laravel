@@ -25,7 +25,7 @@ class Question extends Model
         $this->attributes['slug'] = str_slug($value);
     }
 
-    public function getPathAttribute($value)
+    public function getPathAttribute()
     {
         return route('question.show', $this->slug);
     }
