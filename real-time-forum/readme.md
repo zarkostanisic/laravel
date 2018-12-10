@@ -4,3 +4,5 @@ php artisan make:model Model/Question -mfr
 php artisan make:controller ReplyController --api
 - CREATE RESOURCE
 php artisan make:resource QuestionResource
+- JWT
+composer require tymon/jwt-auth
