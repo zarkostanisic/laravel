@@ -3,7 +3,7 @@ class Token{
 		const payload = this.payload(token);
 
 		if(payload){
-			return payload.iss == 'http://real-time-forum.test/api/auth/login' ? true : false;
+			return (payload.iss == 'http://real-time-forum.test/api/auth/login' || payload.iss == 'http://real-time-forum.test/api/auth/signup') ? true : false;
 		}
 
 		return false;

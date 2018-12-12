@@ -14,6 +14,6 @@
 			<app-home></app-home>
 		</v-app>
 	</div>
-	<script src="{{ asset('js/app.js') }}" defer></script>
+	<script src="{{ mix('js/app.js') }}" defer></script>
 </body>
 </html>
