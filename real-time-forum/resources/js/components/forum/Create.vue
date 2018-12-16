@@ -9,11 +9,7 @@
 	      required
 	    ></v-text-field>
 
-	    <v-textarea
-	      v-model="form.body"
-          label="Body"
-          placeholder="Enter text"
-        ></v-textarea>
+	    <markdown-editor v-model="form.body" ref="markdownEditor"></markdown-editor>
 
 	    <v-select
 	      v-model="form.category_id"
@@ -34,17 +30,24 @@
 </template>
 
 <script>
+	// import AppStorage from '../../helpers/AppStorage'
+
 	import axios from 'axios'
+	import markdownEditor from 'vue-simplemde/src/markdown-editor'
+
 	export default{
+		components: {markdownEditor},
 		data(){
 			return {
 				form: {
 					title: null,
 					body: null,
 					category_id: null,
-					user_id: User.id()
+					user_id: User.id(),
+					// token: AppStorage.getToken()
 				},
-				categories: []
+				categories: [],
+				errors: {}
 			}
 		},
 		created(){
@@ -58,12 +61,18 @@
 		},
 		methods: {
 			create(){
-				console.log(this.form);
+				axios.post('/api/question', this.form)
+				.then((response) => {
+					alert('success')
+				}).
+				catch((error) => {
+					this.errors = error.respones.data;
+				});
 			}
 		}
 	}
 </script>
 	
 <style>
-	
+	@import '~simplemde/dist/simplemde.min.css';
 </style>
