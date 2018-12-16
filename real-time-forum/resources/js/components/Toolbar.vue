@@ -7,7 +7,6 @@
     <v-spacer></v-spacer>
 
     <div>
-
       <router-link v-for="item, key in items" :to="item.to" :key="key" v-if="item.show">
         <v-btn flat>
           {{ item.title }}
@@ -28,8 +27,13 @@
           {title: 'Category', to: '/category', show: User.loggedIn()},
           {title: 'Login', to: '/login', show: !User.loggedIn()},
           {title: 'Logout', to: '/logout', show: User.loggedIn()}
-        ]
+        ],
       }
+    },
+    created(){
+      EventBus.$on('logout', () => {
+        User.logout();
+      });
     }
   }
 </script>

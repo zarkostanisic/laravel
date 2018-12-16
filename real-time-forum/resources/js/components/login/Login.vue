@@ -55,8 +55,6 @@
 	  		axios.post('/api/auth/login', this.form)
 	  		.then((response) => {
 	  			User.responseAfterLogin(response);
-
-	  			this.$router.push({name: 'forum'});
 	  		})
 	  		.catch((error) => {
 	  			console.log(error.response.data);

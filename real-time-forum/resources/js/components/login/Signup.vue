@@ -80,8 +80,6 @@
 	  		axios.post('/api/auth/signup', this.form)
 	  		.then((response) => {
 	  			User.responseAfterLogin(response);
-
-	  			this.$router.push({name: 'forum'});
 	  		})
 	  		.catch((error) => {
 	  			this.errors = error.response.data.errors;
