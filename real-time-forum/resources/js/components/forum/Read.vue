@@ -1,14 +1,12 @@
 <template>
-	<v-container>
-		<h1>Question</h1>
-		<p>{{ question.title }}</p>
-	</v-container>
+	<show-question :question="question"></show-question>
 </template>
 
 <script>
 	import axios from 'axios'
+	import ShowQuestion from './ShowQuestion'
 	export default{
-		props: ['slug'],
+		components: {ShowQuestion},
 		data(){
 			return {
 				question: {}
