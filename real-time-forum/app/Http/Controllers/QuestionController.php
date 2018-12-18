@@ -6,6 +6,7 @@ use App\Model\Question;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Resources\QuestionResource;
+use App\Http\Requests\QuestionCreateRequest;
 
 class QuestionController extends Controller
 {
@@ -28,11 +29,11 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuestionCreateRequest $request)
     {
-        Question::create($request->all());
+        $question = auth()->user()->questions()->create($request->all());
 
-        return response('Created', Response::HTTP_CREATED);
+        return response(new QuestionResource($question), Response::HTTP_CREATED);
     }
 
     /**

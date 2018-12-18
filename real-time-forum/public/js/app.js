@@ -1877,6 +1877,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 // import AppStorage from '../../helpers/AppStorage'
 
@@ -1890,9 +1897,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			form: {
 				title: null,
 				body: null,
-				category_id: null,
-				user_id: User.id()
-				// token: AppStorage.getToken()
+				category_id: null
 			},
 			categories: [],
 			errors: {}
@@ -1913,9 +1918,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			var _this2 = this;
 
 			__WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('/api/question', this.form).then(function (response) {
-				alert('success');
+				_this2.$router.push('/question/' + response.data.slug);
 			}).catch(function (error) {
-				_this2.errors = error.respones.data;
+				_this2.errors = error.response.data.errors;
+
+				console.log(_this2.errors);
 			});
 		}
 	}
@@ -2026,7 +2033,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	components: { ShowQuestion: __WEBPACK_IMPORTED_MODULE_1__ShowQuestion___default.a },
 	data: function data() {
 		return {
-			question: {}
+			question: null
 		};
 	},
 	created: function created() {
@@ -2047,6 +2054,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__("./node_modules/axios/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2066,8 +2084,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: ['question']
+	props: ['question'],
+	data: function data() {
+		return {
+			own: User.own(this.question.user_id)
+		};
+	},
+
+	computed: {
+		body: function body() {
+			return md.parse(this.question.body);
+		}
+	},
+	methods: {
+		destroy: function destroy() {
+			var _this = this;
+
+			__WEBPACK_IMPORTED_MODULE_0_axios___default.a.delete('/api/question/' + this.question.slug).then(function (response) {
+				_this.$router.push('/forum');
+			}).catch(function (error) {
+				console.log(error.response.data);
+			});
+		}
+	}
 });
 
 /***/ }),
@@ -20310,7 +20352,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -56027,6 +56069,12 @@ var render = function() {
             }
           }),
           _vm._v(" "),
+          _vm.errors.title
+            ? _c("span", { staticClass: "red--text" }, [
+                _vm._v(_vm._s(_vm.errors.title[0]))
+              ])
+            : _vm._e(),
+          _vm._v(" "),
           _c("markdown-editor", {
             ref: "markdownEditor",
             model: {
@@ -56037,6 +56085,12 @@ var render = function() {
               expression: "form.body"
             }
           }),
+          _vm._v(" "),
+          _vm.errors.body
+            ? _c("span", { staticClass: "red--text" }, [
+                _vm._v(_vm._s(_vm.errors.body[0]))
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _c("v-select", {
             attrs: {
@@ -56053,6 +56107,14 @@ var render = function() {
               expression: "form.category_id"
             }
           }),
+          _vm._v(" "),
+          _vm.errors.category_id
+            ? _c("span", { staticClass: "red--text" }, [
+                _vm._v(_vm._s(_vm.errors.category_id[0]))
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("v-spacer"),
           _vm._v(" "),
           _c("v-btn", { attrs: { color: "green", type: "submit" } }, [
             _vm._v("\n\t    \tCreate\n\t    ")
@@ -56134,7 +56196,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("show-question", { attrs: { question: _vm.question } })
+  return _vm.question
+    ? _c("show-question", { attrs: { question: _vm.question } })
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -56188,9 +56252,40 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("v-card-text", {
-            domProps: { innerHTML: _vm._s(_vm.question.body) }
-          })
+          _c("v-card-text", { domProps: { innerHTML: _vm._s(_vm.body) } }),
+          _vm._v(" "),
+          _vm.own
+            ? _c(
+                "v-card-actions",
+                [
+                  _c(
+                    "v-btn",
+                    { attrs: { icon: "", small: "" } },
+                    [
+                      _c("v-icon", { attrs: { color: "orange" } }, [
+                        _vm._v("edit")
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { icon: "", small: "" },
+                      on: { click: _vm.destroy }
+                    },
+                    [
+                      _c("v-icon", { attrs: { color: "red" } }, [
+                        _vm._v("delete")
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            : _vm._e()
         ],
         1
       )
@@ -93498,7 +93593,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuetify__ = __webpack_require__("./node_modules/vuetify/dist/vuetify.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuetify___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vuetify__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_User__ = __webpack_require__("./resources/js/helpers/User.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__router_router_js__ = __webpack_require__("./resources/js/router/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_marked__ = __webpack_require__("./node_modules/marked/lib/marked.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_marked___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_marked__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__router_router_js__ = __webpack_require__("./resources/js/router/router.js");
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -93519,6 +93616,9 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuet
 window.User = __WEBPACK_IMPORTED_MODULE_2__helpers_User__["a" /* default */];
 
 window.EventBus = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a();
+
+
+window.md = __WEBPACK_IMPORTED_MODULE_3_marked___default.a;
 
 /**
  * The following block of code may be used to automatically register your
@@ -93543,7 +93643,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('app-home', __webpack_requ
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
   el: '#app',
-  router: __WEBPACK_IMPORTED_MODULE_3__router_router_js__["a" /* default */]
+  router: __WEBPACK_IMPORTED_MODULE_4__router_router_js__["a" /* default */]
 });
 
 /***/ }),
@@ -94349,6 +94449,11 @@ var User = function () {
 
 				return payload.sub;
 			}
+		}
+	}, {
+		key: 'own',
+		value: function own(id) {
+			return this.id() == id;
 		}
 	}]);
 

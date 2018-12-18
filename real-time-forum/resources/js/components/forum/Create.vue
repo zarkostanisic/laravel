@@ -9,7 +9,11 @@
 	      required
 	    ></v-text-field>
 
+	    <span class="red--text" v-if="errors.title">{{ errors.title[0] }}</span>
+
 	    <markdown-editor v-model="form.body" ref="markdownEditor"></markdown-editor>
+
+	    <span class="red--text" v-if="errors.body">{{ errors.body[0] }}</span>
 
 	    <v-select
 	      v-model="form.category_id"
@@ -19,6 +23,9 @@
           item-value="id"
         ></v-select>
 
+        <span class="red--text" v-if="errors.category_id">{{ errors.category_id[0] }}</span>
+
+        <v-spacer></v-spacer>
 	    <v-btn
 	    	color="green"
 	    	type="submit"
@@ -42,9 +49,7 @@
 				form: {
 					title: null,
 					body: null,
-					category_id: null,
-					user_id: User.id(),
-					// token: AppStorage.getToken()
+					category_id: null
 				},
 				categories: [],
 				errors: {}
@@ -63,10 +68,12 @@
 			create(){
 				axios.post('/api/question', this.form)
 				.then((response) => {
-					alert('success')
+					this.$router.push('/question/' + response.data.slug);
 				}).
 				catch((error) => {
-					this.errors = error.respones.data;
+					this.errors = error.response.data.errors;
+
+					console.log(this.errors);
 				});
 			}
 		}
