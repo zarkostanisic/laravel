@@ -5,7 +5,7 @@
 				<question v-for="question in questions" :question="question" :key="question.path"></question>
 			</v-flex>
 			<v-flex xs4>
-				<h1>Sidebar</h1>
+				<app-sidebar></app-sidebar>
 			</v-flex>
 		</v-layout>
 	</v-container>
@@ -13,10 +13,11 @@
 
 <script>
 	import Question from './Question'
+	import AppSidebar from './AppSidebar'
 	import axios from 'axios'
 
 	export default{
-		components: {Question},
+		components: {Question, AppSidebar},
 		data(){
 			return {
 				questions: {}
