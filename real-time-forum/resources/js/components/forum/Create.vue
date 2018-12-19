@@ -72,8 +72,6 @@
 				}).
 				catch((error) => {
 					this.errors = error.response.data.errors;
-
-					console.log(this.errors);
 				});
 			}
 		}

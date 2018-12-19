@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Resources\QuestionResource;
 use App\Http\Requests\QuestionCreateRequest;
+use App\Http\Requests\QuestionEditRequest;
 
 class QuestionController extends Controller
 {
@@ -54,11 +55,11 @@ class QuestionController extends Controller
      * @param  \App\Model\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(QuestionEditRequest $request, Question $question)
     {
         $question->update($request->all());
 
-        return response('Updated', Response::HTTP_ACCEPTED);
+        return response(new QuestionResource($question), Response::HTTP_ACCEPTED);
     }
 
     /**
