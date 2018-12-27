@@ -1,6 +1,6 @@
 <template>
 	<v-container>
-		<v-form @submit.prevent="create">
+		<v-form @submit.prevent="submit">
 		    <v-text-field
 		      v-model="form.name"
 		      label="Name"
@@ -10,7 +10,14 @@
 		    <span class="red--text" v-if="errors.name">{{ errors.name[0] }}</span>
 		   	<v-spacer></v-spacer>
 
-			<v-btn
+			<v-btn v-if="editSlug"
+		    	color="green"
+		    	type="submit"
+		    >
+		    	Update
+		    </v-btn>
+
+		    <v-btn v-else
 		    	color="green"
 		    	type="submit"
 		    >
@@ -29,7 +36,7 @@
 				<div  v-for="category, key in categories" :key="key">
 					<v-list-tile>
 						<v-list-tile-action>
-							<v-btn icon small @click="edit">
+							<v-btn icon small @click="edit(key)">
 								<v-icon color="orange">edit</v-icon>
 							</v-btn>
 						</v-list-tile-action>
@@ -57,10 +64,14 @@
 					name: null
 				},
 				errors: {},
-				categories: []
+				categories: [],
+				editSlug: null
 			}
 		},
 		methods: {
+			submit(){
+				this.editSlug ? this.update() : this.create();
+			},
 			create(){
 				axios.post('/api/category', this.form)
 				.then(response => {
@@ -71,8 +82,20 @@
 					this.errors = error.response.data.errors;
 				});
 			},
-			edit(){
-
+			update(){
+				axios.patch('/api/category/' + this.editSlug, this.form)
+				.then(response => {
+					this.form.name = null;
+					this.categories.unshift(response.data);
+				})
+				.catch(error => {
+					this.errors = error.response.data.errors;
+				});
+			},
+			edit(key){
+				this.form.name = this.categories[key].name;
+				this.editSlug = this.categories[key].slug;
+				this.categories.splice(key, 1);
 			},
 			destroy(slug, key){
 				axios.delete('/api/category/' + slug)
@@ -85,6 +108,10 @@
 			}
 		},
 		created(){
+			if(!User.admin()){
+				this.$router.push('/forum');
+			}
+			
 			axios.get('/api/category')
 			.then((response) => {
 				this.categories = response.data.data;

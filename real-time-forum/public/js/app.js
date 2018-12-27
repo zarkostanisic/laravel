@@ -1893,6 +1893,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -1901,11 +1908,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				name: null
 			},
 			errors: {},
-			categories: []
+			categories: [],
+			editSlug: null
 		};
 	},
 
 	methods: {
+		submit: function submit() {
+			this.editSlug ? this.update() : this.create();
+		},
 		create: function create() {
 			var _this = this;
 
@@ -1916,22 +1927,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				_this.errors = error.response.data.errors;
 			});
 		},
-		edit: function edit() {},
-		destroy: function destroy(slug, key) {
+		update: function update() {
 			var _this2 = this;
 
+			axios.patch('/api/category/' + this.editSlug, this.form).then(function (response) {
+				_this2.form.name = null;
+				_this2.categories.unshift(response.data);
+			}).catch(function (error) {
+				_this2.errors = error.response.data.errors;
+			});
+		},
+		edit: function edit(key) {
+			this.form.name = this.categories[key].name;
+			this.editSlug = this.categories[key].slug;
+			this.categories.splice(key, 1);
+		},
+		destroy: function destroy(slug, key) {
+			var _this3 = this;
+
 			axios.delete('/api/category/' + slug).then(function () {
-				_this2.categories.splice(key, 1);
+				_this3.categories.splice(key, 1);
 			}).catch(function (error) {
 				console.log(error.respones.data);
 			});
 		}
 	},
 	created: function created() {
-		var _this3 = this;
+		var _this4 = this;
+
+		if (!User.admin()) {
+			this.$router.push('/forum');
+		}
 
 		axios.get('/api/category').then(function (response) {
-			_this3.categories = response.data.data;
+			_this4.categories = response.data.data;
 		}).catch(function (error) {
 			console.log(error.respones.data);
 		});
@@ -20513,7 +20542,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -56139,7 +56168,7 @@ var render = function() {
           on: {
             submit: function($event) {
               $event.preventDefault()
-              return _vm.create($event)
+              return _vm.submit($event)
             }
           }
         },
@@ -56163,9 +56192,13 @@ var render = function() {
           _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),
-          _c("v-btn", { attrs: { color: "green", type: "submit" } }, [
-            _vm._v("\n\t    \tCreate\n\t    ")
-          ])
+          _vm.editSlug
+            ? _c("v-btn", { attrs: { color: "green", type: "submit" } }, [
+                _vm._v("\n\t    \tUpdate\n\t    ")
+              ])
+            : _c("v-btn", { attrs: { color: "green", type: "submit" } }, [
+                _vm._v("\n\t    \tCreate\n\t    ")
+              ])
         ],
         1
       ),
@@ -56199,7 +56232,11 @@ var render = function() {
                             "v-btn",
                             {
                               attrs: { icon: "", small: "" },
-                              on: { click: _vm.edit }
+                              on: {
+                                click: function($event) {
+                                  _vm.edit(key)
+                                }
+                              }
                             },
                             [
                               _c("v-icon", { attrs: { color: "orange" } }, [
@@ -95337,6 +95374,11 @@ var User = function () {
 		key: 'own',
 		value: function own(id) {
 			return this.id() == id;
+		}
+	}, {
+		key: 'admin',
+		value: function admin() {
+			return this.id() == 1;
 		}
 	}]);
 
