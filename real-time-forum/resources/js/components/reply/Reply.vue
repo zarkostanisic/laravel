@@ -4,6 +4,10 @@
 		  <v-card-title>
 		  	<div class="headline">{{ reply.user }}</div>
 		    <div class="ml-2"> said {{ reply.created_at }}</div>
+
+		    <v-spacer></v-spacer>
+
+		    <like :like_count="reply.like_count"></like>
 		  </v-card-title>
 
 		  <v-divider></v-divider>
@@ -31,9 +35,11 @@
 
 <script>
 	import EditReply from './EditReply'
+	import Like from '../likes/Like'
+
 	export default{
 		props: ['reply', 'index'],
-		components: {EditReply},
+		components: {EditReply, Like},
 		data(){
 			return {
 				editing: false
@@ -54,15 +60,18 @@
 
 			edit(){
 				this.editing = true;
+			}, 
+			cancel(){
+				this.editing = false;
 			}
 		},
 		created(){
 			EventBus.$on('replyUpdated', () => {
-				this.editing = false;
+				this.cancel();
 			});
 
 			EventBus.$on('cancelEditing', () => {
-				this.editing = false;
+				this.cancel();
 			});
 		}
 	}

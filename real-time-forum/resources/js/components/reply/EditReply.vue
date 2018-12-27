@@ -6,7 +6,7 @@
 		<h1>Edit reply</h1>
 		<v-form @submit.prevent="update">
 
-	    <markdown-editor v-model="reply.reply" ref="markdownEditor"></markdown-editor>
+	    <markdown-editor v-model="form.body" ref="markdownEditor"></markdown-editor>
 
 	    <span class="red--text" v-if="errors.body">{{ errors.body[0] }}</span>
 
@@ -41,12 +41,22 @@
 		components: {markdownEditor},
 		data(){
 			return {
+				form: {
+					body: this.reply.reply
+				},
 				errors: {}
 			}
 		},
 		methods: {
 			update(){
-				EventBus.$emit('replyUpdated');
+				axios.patch('/api/question/' + this.reply.question_slug + '/reply/' + this.reply.id, this.form)
+				.then(response => {
+					this.reply.reply = this.form.body;
+					EventBus.$emit('replyUpdated');
+				})
+				.catch(error => {
+
+				});
 			},
 
 			cancel(){
