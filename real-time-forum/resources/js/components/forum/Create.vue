@@ -37,7 +37,6 @@
 </template>
 
 <script>
-	// import AppStorage from '../../helpers/AppStorage'
 
 	import axios from 'axios'
 	import markdownEditor from 'vue-simplemde/src/markdown-editor'
