@@ -5,7 +5,7 @@
 			<show-question :question="question"></show-question>
 
 			<v-container>
-				<replies :replies="question.replies"></replies>
+				<replies :question="question"></replies>
 
 				<create-reply :slug="question.slug"></create-reply>
 			</v-container>
