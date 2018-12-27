@@ -12,7 +12,7 @@ class Question extends Model
 	];
 
 	protected $with = [
-		/*'category',*/ 'user'
+		/*'category',*/ 'user', 'replies'
 	];
 
 	public function getRouteKeyName(){

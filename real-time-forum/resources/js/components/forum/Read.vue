@@ -3,6 +3,8 @@
 		<edit-question v-if="editing" :question="question"></edit-question>
 		<div v-else>
 			<show-question :question="question"></show-question>
+
+			<replies :replies="question.replies"></replies>
 		</div>
 	</div>
 </template>
@@ -11,8 +13,9 @@
 	import axios from 'axios'
 	import ShowQuestion from './ShowQuestion'
 	import EditQuestion from './EditQuestion'
+	import Replies from '../reply/Replies'
 	export default{
-		components: {ShowQuestion, EditQuestion},
+		components: {ShowQuestion, EditQuestion, Replies},
 		data(){
 			return {
 				question: null,
