@@ -2435,14 +2435,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	props: ['like_count'],
+	props: ['reply'],
 	data: function data() {
 		return {
-			liked: false,
-			count: this.like_count
+			liked: this.reply.liked,
+			count: this.reply.likes_count
 		};
 	},
 
+	computed: {
+		color: function color() {
+			return this.liked ? 'red' : 'red lighten-4';
+		}
+	},
 	methods: {
 		likeIt: function likeIt() {
 			if (User.loggedIn()) {
@@ -2452,10 +2457,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			}
 		},
 		increment: function increment() {
-			this.count++;
+			var _this = this;
+
+			axios.post('/api/like/' + this.reply.id).then(function (response) {
+				_this.count++;
+			});
 		},
 		decrement: function decrement() {
-			this.count--;
+			var _this2 = this;
+
+			axios.delete('/api/like/' + this.reply.id).then(function (response) {
+				_this2.count--;
+			});
 		}
 	}
 });
@@ -20843,7 +20856,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -56518,7 +56531,7 @@ var render = function() {
         "v-btn",
         { attrs: { icon: "" }, on: { click: _vm.likeIt } },
         [
-          _c("v-icon", { attrs: { color: "red" } }, [_vm._v("favorite")]),
+          _c("v-icon", { attrs: { color: _vm.color } }, [_vm._v("favorite")]),
           _vm._v(" " + _vm._s(_vm.count) + "\n\t")
         ],
         1
@@ -57351,7 +57364,7 @@ var render = function() {
               _vm._v(" "),
               _c("v-spacer"),
               _vm._v(" "),
-              _c("like", { attrs: { like_count: _vm.reply.like_count } })
+              _c("like", { attrs: { reply: _vm.reply } })
             ],
             1
           ),

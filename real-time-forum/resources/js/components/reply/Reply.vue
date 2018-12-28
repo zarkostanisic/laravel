@@ -7,7 +7,7 @@
 
 		    <v-spacer></v-spacer>
 
-		    <like :like_count="reply.like_count"></like>
+		    <like :reply="reply"></like>
 		  </v-card-title>
 
 		  <v-divider></v-divider>

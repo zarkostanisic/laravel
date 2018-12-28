@@ -1,18 +1,23 @@
 <template>
 	<div>
 		<v-btn icon @click="likeIt">
-			<v-icon color="red">favorite</v-icon> {{ count }}
+			<v-icon :color="color">favorite</v-icon> {{ count }}
 		</v-btn>
 	</div>
 </template>
 
 <script>
 	export default{
-		props: ['like_count'],
+		props: ['reply'],
 		data(){
 			return {
-				liked: false,
-				count: this.like_count
+				liked: this.reply.liked,
+				count: this.reply.likes_count
+			}
+		},
+		computed: {
+			color(){
+				return this.liked ? 'red' : 'red lighten-4';
 			}
 		},
 		methods: {
@@ -25,11 +30,17 @@
 			},
 
 			increment(){
-				this.count++;
+				axios.post('/api/like/' + this.reply.id)
+				.then(response => {
+					this.count++;
+				});
 			},
 
 			decrement(){
-				this.count--;
+				axios.delete('/api/like/' + this.reply.id)
+				.then(response => {
+					this.count--;
+				});
 			}
 		}
 	}
