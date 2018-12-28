@@ -9,3 +9,7 @@ composer require tymon/jwt-auth
 - NOTIFICATIONS
 php artisan notifications:table
 php artisan migrate
+- PUSHER
+composer require pusher/pusher-php-server "~3.0"
+- GENERATE EVENT
+php artisan event:generate

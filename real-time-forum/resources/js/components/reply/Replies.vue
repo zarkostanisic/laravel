@@ -36,6 +36,11 @@
 					});
 				});
 
+				Echo.private('App.User.' + User.id())
+			    .notification((notification) => {
+			        console.log(notification.type);
+			    });
+
 			}
 		}
 	}
