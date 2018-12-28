@@ -6,3 +6,6 @@ php artisan make:controller ReplyController --api
 php artisan make:resource QuestionResource
 - JWT
 composer require tymon/jwt-auth
+- NOTIFICATIONS
+php artisan notifications:table
+php artisan migrate

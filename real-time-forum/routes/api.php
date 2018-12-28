@@ -17,6 +17,11 @@ Route::group([
 Route::apiResource('/category', 'CategoryController');
 Route::apiResource('/question', 'QuestionController');
 Route::apiResource('/question/{question}/reply', 'ReplyController');
+
 Route::post('/like/{reply}', 'LikeController@like');
 Route::delete('/like/{reply}', 'LikeController@unlike');
+
+Route::post('/notifications', 'NotificationController@notifications');
+
+Route::post('/markAsRead', 'NotificationController@markAsRead');
 

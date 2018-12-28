@@ -30,6 +30,11 @@ class Question extends Model
         return route('question.show', $this->slug);
     }
 
+     public function getShortPathAttribute()
+    {
+        return '/question/' . $this->slug;
+    }
+
 	public function user(){
     	return $this->belongsTo(User::class);
     }
