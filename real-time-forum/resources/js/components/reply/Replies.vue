@@ -38,7 +38,16 @@
 
 				Echo.private('App.User.' + User.id())
 			    .notification((notification) => {
-			        console.log(notification.type);
+			        this.content.unshift(notification.reply);
+			    });
+
+			    Echo.channel('deleteReplyChannel')
+			    .listen('DeleteReplyEvent', (e) => {
+			        for(let i = 0; i < this.content.length; i++){
+			        	if(e.id === this.content[i].id){
+			        		this.content.splice(i, 1);
+			        	}
+			        }
 			    });
 
 			}

@@ -49,6 +49,12 @@
 		created(){
 			if(User.loggedIn()){
 				this.getNotifications();
+
+				Echo.private('App.User.' + User.id())
+			    .notification((notification) => {
+			        this.unRead.push(notification);
+			        this.unReadCount++;
+			    });
 			}
 		},
 		methods: {

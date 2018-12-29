@@ -1852,30 +1852,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		}
 	},
 	created: function created() {
+		var _this = this;
+
 		if (User.loggedIn()) {
 			this.getNotifications();
+
+			Echo.private('App.User.' + User.id()).notification(function (notification) {
+				_this.unRead.push(notification);
+				_this.unReadCount++;
+			});
 		}
 	},
 
 	methods: {
 		getNotifications: function getNotifications() {
-			var _this = this;
+			var _this2 = this;
 
 			axios.post('/api/notifications').then(function (response) {
-				_this.read = response.data.read;
-				_this.unRead = response.data.unRead;
-				_this.unReadCount = _this.unRead.length;
-				_this.readCount = _this.read.length;
+				_this2.read = response.data.read;
+				_this2.unRead = response.data.unRead;
+				_this2.unReadCount = _this2.unRead.length;
+				_this2.readCount = _this2.read.length;
 			});
 		},
 		readNotification: function readNotification(notification) {
-			var _this2 = this;
+			var _this3 = this;
 
 			axios.post('/api/markAsRead', { id: notification.id }).then(function (response) {
-				_this2.unRead.splice(notification, 1);
-				_this2.read.push(notification);
-				_this2.unReadCount--;
-				_this2.readCount++;
+				_this3.unRead.splice(notification, 1);
+				_this3.read.push(notification);
+				_this3.unReadCount--;
+				_this3.readCount++;
 			});
 		}
 	}
@@ -2948,7 +2955,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			});
 
 			Echo.private('App.User.' + User.id()).notification(function (notification) {
-				console.log(notification.type);
+				_this.content.unshift(notification.reply);
+			});
+
+			Echo.channel('deleteReplyChannel').listen('DeleteReplyEvent', function (e) {
+				for (var i = 0; i < _this.content.length; i++) {
+					if (e.id === _this.content[i].id) {
+						_this.content.splice(i, 1);
+					}
+				}
 			});
 		}
 	}
@@ -20963,7 +20978,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -21083,7 +21098,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -105723,7 +105738,12 @@ window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo__["a" /* default */](
   broadcaster: 'pusher',
   key: '0c42376cd63a2739726b',
   cluster: 'eu',
-  encrypted: true
+  encrypted: true,
+  auth: {
+    headers: {
+      Authorization: JwtToken
+    }
+  }
 });
 
 /***/ }),
