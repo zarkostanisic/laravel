@@ -7,6 +7,10 @@ use App\Http\Resources\NotificationResource;
 
 class NotificationController extends Controller
 {
+	public function __construct(){
+        $this->middleware('jwt');
+    }
+
     public function notifications(){
     	return [
 			'read' => NotificationResource::collection(auth()->user()->readNotifications),

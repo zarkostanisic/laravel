@@ -17,6 +17,9 @@ Vue.use(Vuetify)
 import User from './helpers/User'
 window.User = User;
 
+import Exception from './helpers/Exception'
+window.Exception = Exception;
+
 window.EventBus = new Vue();
 
 import md from 'marked'

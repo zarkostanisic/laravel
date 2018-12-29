@@ -1873,6 +1873,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				_this2.unRead = response.data.unRead;
 				_this2.unReadCount = _this2.unRead.length;
 				_this2.readCount = _this2.read.length;
+			}).catch(function (error) {
+				Exception.handle(error);
 			});
 		},
 		readNotification: function readNotification(notification) {
@@ -20978,7 +20980,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -105620,9 +105622,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuetify__ = __webpack_require__("./node_modules/vuetify/dist/vuetify.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuetify___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vuetify__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helpers_User__ = __webpack_require__("./resources/js/helpers/User.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_marked__ = __webpack_require__("./node_modules/marked/lib/marked.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_marked___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_marked__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__router_router_js__ = __webpack_require__("./resources/js/router/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__helpers_Exception__ = __webpack_require__("./resources/js/helpers/Exception.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_marked__ = __webpack_require__("./node_modules/marked/lib/marked.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_marked___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_marked__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__router_router_js__ = __webpack_require__("./resources/js/router/router.js");
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -105642,10 +105645,13 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuet
 
 window.User = __WEBPACK_IMPORTED_MODULE_2__helpers_User__["a" /* default */];
 
+
+window.Exception = __WEBPACK_IMPORTED_MODULE_3__helpers_Exception__["a" /* default */];
+
 window.EventBus = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a();
 
 
-window.md = __WEBPACK_IMPORTED_MODULE_3_marked___default.a;
+window.md = __WEBPACK_IMPORTED_MODULE_4_marked___default.a;
 
 /**
  * The following block of code may be used to automatically register your
@@ -105670,7 +105676,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('app-home', __webpack_requ
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
   el: '#app',
-  router: __WEBPACK_IMPORTED_MODULE_4__router_router_js__["a" /* default */]
+  router: __WEBPACK_IMPORTED_MODULE_5__router_router_js__["a" /* default */]
 });
 
 /***/ }),
@@ -106842,6 +106848,43 @@ var AppStorage = function () {
 
 /***/ }),
 
+/***/ "./resources/js/helpers/Exception.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__User__ = __webpack_require__("./resources/js/helpers/User.js");
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+var Exception = function () {
+	function Exception() {
+		_classCallCheck(this, Exception);
+	}
+
+	_createClass(Exception, [{
+		key: 'handle',
+		value: function handle(error) {
+			this.isExpired(error.response.data.error);
+		}
+	}, {
+		key: 'isExpired',
+		value: function isExpired(error) {
+			if (error == 'Token is invalid') {
+				__WEBPACK_IMPORTED_MODULE_0__User__["a" /* default */].logout();
+			}
+		}
+	}]);
+
+	return Exception;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (new Exception());
+
+/***/ }),
+
 /***/ "./resources/js/helpers/Token.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -106876,7 +106919,20 @@ var Token = function () {
 	}, {
 		key: 'decode',
 		value: function decode(payload) {
-			return JSON.parse(atob(payload));
+			if (this.isBase64(payload)) {
+				return JSON.parse(atob(payload));
+			}
+
+			return false;
+		}
+	}, {
+		key: 'isBase64',
+		value: function isBase64(str) {
+			try {
+				return btoa(atob(str)).replace('=', '') == str;
+			} catch (error) {
+				return false;
+			}
 		}
 	}]);
 

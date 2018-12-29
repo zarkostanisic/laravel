@@ -65,6 +65,9 @@
 					this.unRead = response.data.unRead;
 					this.unReadCount = this.unRead.length;
 					this.readCount = this.read.length;
+				})
+				.catch(error => {
+					Exception.handle(error);
 				});
 			},
 			readNotification(notification){
