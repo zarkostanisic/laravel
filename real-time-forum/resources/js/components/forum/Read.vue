@@ -7,7 +7,10 @@
 			<v-container>
 				<replies :question="question"></replies>
 
-				<create-reply :slug="question.slug"></create-reply>
+				<create-reply :slug="question.slug" v-if="loggedIn"></create-reply>
+				<div v-else class="mt-2">
+					<router-link to="/login">Please login to reply.</router-link>
+				</div>
 			</v-container>
 		</div>
 	</div>
@@ -25,6 +28,11 @@
 			return {
 				question: null,
 				editing: false
+			}
+		},
+		computed: {
+			loggedIn(){
+				return User.loggedIn();
 			}
 		},
 		created(){	

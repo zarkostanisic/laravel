@@ -2407,6 +2407,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -2420,6 +2423,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			question: null,
 			editing: false
 		};
+	},
+
+	computed: {
+		loggedIn: function loggedIn() {
+			return User.loggedIn();
+		}
 	},
 	created: function created() {
 
@@ -21220,7 +21229,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -67851,7 +67860,20 @@ var render = function() {
                     [
                       _c("replies", { attrs: { question: _vm.question } }),
                       _vm._v(" "),
-                      _c("create-reply", { attrs: { slug: _vm.question.slug } })
+                      _vm.loggedIn
+                        ? _c("create-reply", {
+                            attrs: { slug: _vm.question.slug }
+                          })
+                        : _c(
+                            "div",
+                            { staticClass: "mt-2" },
+                            [
+                              _c("router-link", { attrs: { to: "/login" } }, [
+                                _vm._v("Please login to reply.")
+                              ])
+                            ],
+                            1
+                          )
                     ],
                     1
                   )
@@ -106977,7 +106999,7 @@ var User = function () {
 			var storedToken = __WEBPACK_IMPORTED_MODULE_1__AppStorage__["a" /* default */].getToken();
 
 			if (storedToken) {
-				return __WEBPACK_IMPORTED_MODULE_0__Token__["a" /* default */].isValid(storedToken) ? true : false;
+				return __WEBPACK_IMPORTED_MODULE_0__Token__["a" /* default */].isValid(storedToken) ? true : this.logout();
 			}
 
 			return false;
