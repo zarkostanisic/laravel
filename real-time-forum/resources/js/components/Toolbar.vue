@@ -1,8 +1,9 @@
 <template>
-  <v-toolbar>
-    <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
+  <v-toolbar color="indigo" dark>
 
-    <v-toolbar-title>SPF</v-toolbar-title>
+    <v-toolbar-title>
+      <router-link class="white--text" to="/">SPF</router-link>
+    </v-toolbar-title>
 
     <v-spacer></v-spacer>
 
