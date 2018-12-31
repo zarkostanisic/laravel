@@ -1,5 +1,11 @@
 <template>
 	<v-container>
+		<v-alert v-if="errors.name"
+		  :value="true"
+	      type="error"
+	    >
+	      {{ errors.name[0] }}
+	    </v-alert>
 		<v-form @submit.prevent="submit">
 		    <v-text-field
 		      v-model="form.name"
@@ -7,7 +13,6 @@
 		      required
 		    ></v-text-field>
 
-		    <span class="red--text" v-if="errors.name">{{ errors.name[0] }}</span>
 		   	<v-spacer></v-spacer>
 
 			<v-btn v-if="editSlug"
@@ -20,6 +25,7 @@
 		    <v-btn v-else
 		    	color="green"
 		    	type="submit"
+		    	
 		    >
 		    	Create
 		    </v-btn>

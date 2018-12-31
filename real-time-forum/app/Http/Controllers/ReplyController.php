@@ -9,6 +9,8 @@ use App\Http\Resources\ReplyResource;
 use App\Model\Question;
 use App\Notifications\NewReplyNotification;
 use App\Events\DeleteReplyEvent;
+use App\Http\Requests\ReplyCreateRequest;
+use App\Http\Requests\ReplyEditRequest;
 
 
 class ReplyController extends Controller
@@ -32,7 +34,7 @@ class ReplyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Question $question, Request $request)
+    public function store(Question $question, ReplyCreateRequest $request)
     {
         $reply = $question->replies()->create($request->all());
 
@@ -63,7 +65,7 @@ class ReplyController extends Controller
      * @param  \App\Model\Reply  $reply
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question, Reply $reply)
+    public function update(ReplyEditRequest $request, Question $question, Reply $reply)
     {
         $reply->update($request->all());
 

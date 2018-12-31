@@ -2029,6 +2029,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -2186,6 +2192,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -2203,6 +2210,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			categories: [],
 			errors: {}
 		};
+	},
+
+	computed: {
+		disable: function disable() {
+			return !this.form.title || !this.form.body || !this.form.category_id;
+		}
 	},
 	created: function created() {
 		var _this = this;
@@ -2277,6 +2290,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -2293,6 +2307,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				body: null
 			}
 		};
+	},
+
+	computed: {
+		disable: function disable() {
+			return !this.form.title || !this.form.body;
+		}
 	},
 	mounted: function mounted() {
 		this.form.title = this.question.title;
@@ -2864,6 +2884,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -2879,6 +2900,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 	},
 
+	computed: {
+		disable: function disable() {
+			return !this.form.body;
+		}
+	},
 	methods: {
 		create: function create() {
 			var _this = this;
@@ -2886,7 +2912,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			axios.post('/api/question/' + this.slug + '/reply', this.form).then(function (response) {
 				_this.form.body = '';
 				EventBus.$emit('replyCreated', response.data.reply);
-			}).catch(function (error) {});
+			}).catch(function (error) {
+				_this.errors = error.response.data.errors;
+			});
 		}
 	}
 });
@@ -2900,6 +2928,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_simplemde_src_markdown_editor__ = __webpack_require__("./node_modules/vue-simplemde/src/markdown-editor.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_simplemde_src_markdown_editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_simplemde_src_markdown_editor__);
+//
+//
 //
 //
 //
@@ -2950,6 +2980,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 		};
 	},
 
+	computed: {
+		disable: function disable() {
+			return !this.form.body;
+		}
+	},
 	methods: {
 		update: function update() {
 			var _this = this;
@@ -2957,7 +2992,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			axios.patch('/api/question/' + this.reply.question_slug + '/reply/' + this.reply.id, this.form).then(function (response) {
 				_this.reply.reply = _this.form.body;
 				EventBus.$emit('replyUpdated');
-			}).catch(function (error) {});
+			}).catch(function (error) {
+				_this.errors = error.response.data.errors;
+			});
 		},
 		cancel: function cancel() {
 			EventBus.$emit('cancelEditing');
@@ -21112,7 +21149,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -21172,7 +21209,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -67030,9 +67067,13 @@ var render = function() {
           _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),
-          _c("v-btn", { attrs: { color: "green", type: "submit" } }, [
-            _vm._v("\n\t    \tCreate\n\t    ")
-          ])
+          _c(
+            "v-btn",
+            {
+              attrs: { color: "green", type: "submit", disabled: _vm.disable }
+            },
+            [_vm._v("\n\t    \tCreate\n\t    ")]
+          )
         ],
         1
       ),
@@ -67087,6 +67128,12 @@ var render = function() {
   return _c(
     "v-container",
     [
+      _vm.errors.name
+        ? _c("v-alert", { attrs: { value: true, type: "error" } }, [
+            _vm._v("\n      " + _vm._s(_vm.errors.name[0]) + "\n    ")
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _c(
         "v-form",
         {
@@ -67108,12 +67155,6 @@ var render = function() {
               expression: "form.name"
             }
           }),
-          _vm._v(" "),
-          _vm.errors.name
-            ? _c("span", { staticClass: "red--text" }, [
-                _vm._v(_vm._s(_vm.errors.name[0]))
-              ])
-            : _vm._e(),
           _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),
@@ -67415,9 +67456,17 @@ var render = function() {
               _c(
                 "v-card-actions",
                 [
-                  _c("v-btn", { attrs: { color: "green", type: "submit" } }, [
-                    _vm._v("\n\t\t\t    \tUpdate\n\t\t\t    ")
-                  ]),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: {
+                        color: "green",
+                        type: "submit",
+                        disabled: _vm.disable
+                      }
+                    },
+                    [_vm._v("\n\t\t\t    \tUpdate\n\t\t\t    ")]
+                  ),
                   _vm._v(" "),
                   _c(
                     "v-btn",
@@ -67730,9 +67779,13 @@ var render = function() {
           _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),
-          _c("v-btn", { attrs: { color: "green", type: "submit" } }, [
-            _vm._v("\n\t    \tCreate\n\t    ")
-          ])
+          _c(
+            "v-btn",
+            {
+              attrs: { color: "green", type: "submit", disabled: _vm.disable }
+            },
+            [_vm._v("\n\t    \tCreate\n\t    ")]
+          )
         ],
         1
       )
@@ -68045,7 +68098,14 @@ var render = function() {
                 [
                   _c(
                     "v-btn",
-                    { attrs: { icon: "", small: "", type: "submit" } },
+                    {
+                      attrs: {
+                        icon: "",
+                        small: "",
+                        type: "submit",
+                        disabled: _vm.disable
+                      }
+                    },
                     [
                       _c("v-icon", { attrs: { color: "teal" } }, [
                         _vm._v("save")
@@ -107090,7 +107150,7 @@ var Exception = function () {
 	}, {
 		key: 'isExpired',
 		value: function isExpired(error) {
-			if (error == 'Token is invalid') {
+			if (error == 'Token is invalid' || error == 'Token is expired') {
 				__WEBPACK_IMPORTED_MODULE_0__User__["a" /* default */].logout();
 			}
 		}

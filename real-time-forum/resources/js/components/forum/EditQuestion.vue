@@ -22,6 +22,7 @@
 	        <v-card-actions>
 			    <v-btn icon small
 			    	type="submit"
+			    	:disabled="disable"
 			    >
 			    	<v-icon color="teal">save</v-icon>
 			    </v-btn>
@@ -52,6 +53,11 @@
 					title: null,
 					body: null,
 				}
+			}
+		},
+		computed: {
+			disable(){
+				return !this.form.title||!this.form.body;
 			}
 		},
 		mounted(){

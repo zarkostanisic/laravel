@@ -14,6 +14,7 @@
 	    <v-btn
 	    	color="green"
 	    	type="submit"
+	    	:disabled="disable"
 	    >
 	    	Create
 	    </v-btn>
@@ -38,6 +39,11 @@
 				errors: {}
 			}
 		},
+		computed: {
+			disable(){
+				return !this.form.body;
+			}
+		},
 		methods: {
 			create(){
 				axios.post('/api/question/' + this.slug + '/reply', this.form)
@@ -46,7 +52,7 @@
 					EventBus.$emit('replyCreated', response.data.reply);
 				})
 				.catch(error => {
-
+					this.errors = error.response.data.errors;
 				});
 			}
 		}

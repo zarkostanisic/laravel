@@ -17,6 +17,8 @@
 		  		<v-btn
 			    	color="green"
 			    	type="submit"
+			    	:disabled="disable"
+
 			    >
 			    	Update
 			    </v-btn>
@@ -47,6 +49,11 @@
 				errors: {}
 			}
 		},
+		computed: {
+			disable(){
+				return !this.form.body;
+			}
+		},
 		methods: {
 			update(){
 				axios.patch('/api/question/' + this.reply.question_slug + '/reply/' + this.reply.id, this.form)
@@ -55,7 +62,7 @@
 					EventBus.$emit('replyUpdated');
 				})
 				.catch(error => {
-
+					this.errors = error.response.data.errors;
 				});
 			},
 

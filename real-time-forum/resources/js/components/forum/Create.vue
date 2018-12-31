@@ -29,6 +29,7 @@
 	    <v-btn
 	    	color="green"
 	    	type="submit"
+	    	:disabled="disable"
 	    >
 	    	Create
 	    </v-btn>
@@ -52,6 +53,11 @@
 				},
 				categories: [],
 				errors: {}
+			}
+		},
+		computed: {
+			disable(){
+				return !this.form.title||!this.form.body||!this.form.category_id;
 			}
 		},
 		created(){
