@@ -1834,7 +1834,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -1842,7 +1841,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			read: [],
 			unRead: [],
 			unReadCount: 0,
-			readCount: 0
+			readCount: 0,
+			sound: 'http://soundbible.com/mp3/glass_ping-Go445-1207030150.mp3'
 		};
 	},
 
@@ -1860,6 +1860,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			Echo.private('App.User.' + User.id()).notification(function (notification) {
 				_this.unRead.push(notification);
 				_this.unReadCount++;
+
+				_this.playSound();
 			});
 		}
 	},
@@ -1886,6 +1888,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				_this3.unReadCount--;
 				_this3.readCount++;
 			});
+		},
+		playSound: function playSound() {
+			var audio = new Audio(this.sound);
+			audio.play();
 		}
 	}
 });
@@ -21074,7 +21080,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 

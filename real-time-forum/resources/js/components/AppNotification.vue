@@ -1,5 +1,4 @@
 <template>
-
 	<div class="text-xs-center">
     <v-menu offset-y>
       <v-btn icon
@@ -38,7 +37,8 @@
 				read: [],
 				unRead: [],
 				unReadCount: 0,
-				readCount: 0
+				readCount: 0,
+				sound: 'http://soundbible.com/mp3/glass_ping-Go445-1207030150.mp3',
 			}
 		},
 		computed: {
@@ -54,6 +54,8 @@
 			    .notification((notification) => {
 			        this.unRead.push(notification);
 			        this.unReadCount++;
+
+			        this.playSound();
 			    });
 			}
 		},
@@ -78,6 +80,10 @@
 					this.unReadCount--;
 					this.readCount++;
 				});
+			},
+			playSound(){
+				let audio = new Audio(this.sound);
+				audio.play();
 			}
 		}
 	}
