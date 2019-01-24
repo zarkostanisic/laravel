@@ -18,7 +18,7 @@ class ProductController extends Controller
     {
         $products = Product::all();
 
-        return new ProductCollection($products);
+        return ProductCollection::collection($products);
     }
 
     /**
